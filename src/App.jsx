@@ -16,6 +16,8 @@ import {
 import ContextStore from "./context/store.jsx";
 import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
 
+// css
+import "./App.css";
 function App() {
   return (
     <ContextStore>

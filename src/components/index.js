@@ -11,6 +11,7 @@ import Category from "./productByCategory/Category";
 import Wishlist from "./wishlist/WishList";
 import ProductCard from "./productsList/ProductCard";
 import Order from "./orders/Order";
+import Loader from "./loader/Loader";
 export {
   Header,
   Cart,
@@ -25,4 +26,5 @@ export {
   Wishlist,
   ProductCard,
   Order,
+  Loader,
 };

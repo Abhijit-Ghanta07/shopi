@@ -7,18 +7,14 @@ const ProtectedRoute = ({ children }) => {
     user: [userState],
   } = useContext(StoreContext);
 
-  return Object.keys(userState).length > 0 ? <Navigate to={"/"} /> : children;
+  return userState.currentUser ? <Navigate to={"/"} /> : children;
 };
 
 const UserRoute = ({ children }) => {
   const {
     user: [userState],
   } = useContext(StoreContext);
-  return Object.keys(userState).length > 0 ? (
-    children
-  ) : (
-    <Navigate to={"/auth"} />
-  );
+  return userState.currentUser ? children : <Navigate to={"/auth"} />;
 };
 
 export { ProtectedRoute, UserRoute };

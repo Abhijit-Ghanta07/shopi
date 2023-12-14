@@ -24,23 +24,22 @@ import { auth } from "../../../utils/firebase";
 // styles
 import Styles from "./header.module.scss";
 import Banner from "../banner/Banner";
+import avatar from "../../../assets/svg/avatar.svg";
 function Header() {
   const {
     cart: [cartState],
     user: [userState, userDispatch],
     wishlist: [wishState],
   } = useContext(StoreContext);
-
+  const [user, setUser] = useState({});
   async function logout(params) {
     console.log("click");
     const res = await signOut(auth);
     userDispatch({ type: "removeuser" });
   }
-
   useEffect(() => {
-    console.log(userState);
-  }, [userState]);
-  console.log(userState);
+    setUser(userState.user);
+  }, [userState.currentUser]);
   return (
     <>
       <Container
@@ -87,28 +86,33 @@ function Header() {
 
             <Col>
               <div className="d-flex gap-4 justify-content-end">
-                {Object.keys(userState).length > 0 && (
+                {userState.currentUser && (
                   <Link to={"/order"} className={Styles.link}>
                     <IoBagCheckOutline className={Styles.header__user_icons} />
                     My orders
                   </Link>
                 )}
 
-                {Object.keys(userState).length > 0 ? (
+                {userState.currentUser ? (
                   <>
                     <Link className="d-flex gap-2 align-items-center text-decoration-none text-black">
                       <img
-                        src={userState.photoURL}
+                        src={user.photoURL}
                         alt="catagories img"
                         className={Styles.rounded__img}
                         onClick={logout}
                       />
-                      <p className="m-0">{userState.displayName}</p>
+                      <p className="m-0">{user.displayName}</p>
                     </Link>
                   </>
                 ) : (
                   <Link to={"/auth"}>
-                    <FaUserCircle style={{ fontSize: "1.4rem" }} />
+                    <img
+                      src={avatar}
+                      alt="catagories img"
+                      className={Styles.rounded__img}
+                      onClick={logout}
+                    />
                   </Link>
                 )}
                 <Link to={"wishlist"} className="position-relative">
@@ -133,7 +137,6 @@ function Header() {
           </Row>
         </Container>
       </Container>
-      <Banner />
     </>
   );
 }

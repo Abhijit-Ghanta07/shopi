@@ -6,9 +6,14 @@ import wishlistReducer from "./wishList.js";
 
 const initialProduct = [];
 const initialCart = [];
-const initialUser = JSON.parse(localStorage.getItem("user")) || {};
+const initialUser = {
+  user: {},
+  loading: false,
+  loadFinish: false,
+  currentUser: false,
+};
 const initialWishlist = [];
-
+// JSON.parse(localStorage.getItem("user"))
 // initialize the context
 export const StoreContext = createContext(null);
 
