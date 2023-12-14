@@ -1,0 +1,16 @@
+.link {
+  text-decoration: none;
+  color: #454545;
+  font-weight: 400;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cata__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
