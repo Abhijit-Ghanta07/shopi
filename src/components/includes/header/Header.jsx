@@ -27,7 +27,7 @@ import Banner from "../banner/Banner";
 import avatar from "../../../assets/svg/avatar.svg";
 function Header() {
   const {
-    cart: [cartState],
+    cart: [cartState, cartDispatch],
     user: [userState, userDispatch],
     wishlist: [wishState],
   } = useContext(StoreContext);
@@ -36,6 +36,7 @@ function Header() {
     console.log("click");
     const res = await signOut(auth);
     userDispatch({ type: "removeuser" });
+    cartDispatch({ type: "cartReset" });
   }
   useEffect(() => {
     setUser(userState.user);

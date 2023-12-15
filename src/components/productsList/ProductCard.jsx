@@ -20,10 +20,11 @@ function ProductShow({ product }) {
     product: [productState],
     cart: [cartState, dispatch],
     wishlist: [wishState, wishDispatch],
+    user: [userState],
   } = useContext(StoreContext);
 
   function handleAddClick() {
-    dispatch({ type: "addToCart", payload: this });
+    dispatch({ type: "addToCart", payload: this, userId: userState.userId });
   }
   function handleRemoveClick() {
     dispatch({ type: "deleteFromCart", payload: this });

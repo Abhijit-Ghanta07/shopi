@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import {
   Button,
   Card,
@@ -23,19 +23,27 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
+import { getInitialCartItems } from "../../utils/fireStore";
 
 const Login = () => {
+  // navigate func
   const navigate = useNavigate();
+  // useform func
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // global states or context
   const {
-    user: [userState, dispatch],
-    toast: [toastState, toastDispatch],
+    user: [, dispatch],
+    toast: [, toastDispatch],
+    cart: [, cartDispatch],
   } = useContext(StoreContext);
 
+  // local states
+  const [hide, setHide] = useState(true);
+  // handle form submit
   async function formSubmit(data) {
     try {
       dispatch({ type: "setloading" });
@@ -47,6 +55,8 @@ const Login = () => {
       if (res.user) {
         // dispatch({ type: "setuser", payload: user?.providerData[0] });
         toastDispatch({ type: "open", payload: "Login Successfull" });
+        const result = await getInitialCartItems(res.user.uid);
+        mapCartItems(result);
         setUser(res.user);
       }
     } catch (err) {
@@ -55,13 +65,25 @@ const Login = () => {
       dispatch({ type: "loadfinish" });
     }
   }
-  const [hide, setHide] = useState(true);
+
+  function mapCartItems(products) {
+    products.forEach((item) => {
+      cartDispatch({ type: "addToCart", payload: item?.productId });
+    });
+  }
+
+  // update user profile with name image
   function setUser(user) {
     if (user) {
-      dispatch({ type: "setuser", payload: user?.providerData[0] });
+      dispatch({
+        type: "setuser",
+        payload: user?.providerData[0],
+        userId: user?.uid,
+      });
       navigate("/");
     }
   }
+  // google authentication
   const googleAuth = async () => {
     try {
       dispatch({ type: "setloading" });
@@ -69,10 +91,15 @@ const Login = () => {
       const user = result.user;
       if (user) {
         toastDispatch({ type: "open", payload: "Login Successfull" });
-        dispatch({ type: "setuser", payload: user?.providerData[0] });
+        dispatch({
+          type: "setuser",
+          payload: user?.providerData[0],
+          userId: user?.uid,
+        });
         navigate("/");
       }
     } catch (err) {
+      console.log(err);
     } finally {
       dispatch({ type: "loadfinish" });
     }

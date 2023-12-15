@@ -13,7 +13,6 @@ const Getdata = () => {
 
     async function fetchProduct() {
       let products = await fetchData("products", abortController.signal);
-      console.log(products);
       dispatch({ type: "setproduct", payload: products });
     }
     fetchProduct();

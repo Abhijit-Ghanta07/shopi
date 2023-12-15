@@ -1,23 +1,26 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import CartReducer from "./Cart.js";
 import userReducer from "./User.js";
 import ProductReducer from "./Product.js";
 import wishlistReducer from "./wishList.js";
 import ToastReducer from "./Toast.js";
+import { getInitialCartItems } from "../utils/fireStore.jsx";
 
 const initialProduct = [];
-const initialCart = [];
 const initialUser = {
+  userId: "",
   user: {},
   loading: false,
   loadFinish: false,
   currentUser: false,
 };
+const initialCart = [];
 const initialWishlist = [];
 const initialToast = {
   message: "",
   show: false,
 };
+
 // JSON.parse(localStorage.getItem("user"))
 // initialize the context
 export const StoreContext = createContext(null);
@@ -35,6 +38,7 @@ function ContextStore({ children }) {
     initialWishlist
   );
   const [toastState, toastDispatch] = useReducer(ToastReducer, initialToast);
+
   let value = {
     product: [productState, productDispatch],
     cart: [cartState, cartDispatch],

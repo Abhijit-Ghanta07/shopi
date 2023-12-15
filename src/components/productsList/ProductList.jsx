@@ -11,7 +11,6 @@ function ProductList() {
   const allProducts = useMemo(() => {
     return ProductState;
   }, [ProductState]);
-  console.log("productlist called");
   return (
     <>
       <Container fluid="xl" className="mt-3">
