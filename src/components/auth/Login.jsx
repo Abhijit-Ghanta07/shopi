@@ -14,8 +14,8 @@ import {
   FormText,
   Row,
 } from "react-bootstrap";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/store";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -23,7 +23,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
-import Loader from "../loader/Loader";
+
 const Login = () => {
   const navigate = useNavigate();
   const {
@@ -33,6 +33,7 @@ const Login = () => {
   } = useForm();
   const {
     user: [userState, dispatch],
+    toast: [toastState, toastDispatch],
   } = useContext(StoreContext);
 
   async function formSubmit(data) {
@@ -45,9 +46,11 @@ const Login = () => {
       );
       if (res.user) {
         // dispatch({ type: "setuser", payload: user?.providerData[0] });
+        toastDispatch({ type: "open", payload: "Login Successfull" });
         setUser(res.user);
       }
     } catch (err) {
+      console.log(err);
     } finally {
       dispatch({ type: "loadfinish" });
     }
@@ -59,6 +62,21 @@ const Login = () => {
       navigate("/");
     }
   }
+  const googleAuth = async () => {
+    try {
+      dispatch({ type: "setloading" });
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      if (user) {
+        toastDispatch({ type: "open", payload: "Login Successfull" });
+        dispatch({ type: "setuser", payload: user?.providerData[0] });
+        navigate("/");
+      }
+    } catch (err) {
+    } finally {
+      dispatch({ type: "loadfinish" });
+    }
+  };
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
@@ -153,7 +171,10 @@ const Login = () => {
                           <FaFacebookF />
                           FaceBook
                         </Link>
-                        <Link className="icon-link btn btn-outline-danger">
+                        <Link
+                          className="icon-link btn btn-outline-danger"
+                          onClick={googleAuth}
+                        >
                           <FaGoogle />
                           Google
                         </Link>

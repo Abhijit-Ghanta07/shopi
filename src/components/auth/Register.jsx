@@ -14,8 +14,13 @@ import {
   Row,
 } from "react-bootstrap";
 
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../utils/firebase";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
+import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/store";
 import { useForm } from "react-hook-form";
@@ -29,6 +34,7 @@ const Register = () => {
   const navigate = useNavigate();
   const {
     user: [userState, dispatch],
+    toast: [toastState, toastDispatch],
   } = useContext(StoreContext);
   const {
     register,
@@ -45,6 +51,7 @@ const Register = () => {
         data.password
       );
       if (res) {
+        toastDispatch({ type: "open", payload: "Login Successfull" });
         updateUser(res.user, data.name);
       }
     } catch (error) {
@@ -66,7 +73,24 @@ const Register = () => {
     console.log("auth click facebookAuth");
   };
   const googleAuth = async () => {
-    console.log("auth click googleAuth");
+    try {
+      dispatch({ type: "setloading" });
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      if (user) {
+        toastDispatch({ type: "open", payload: "Login Successfull" });
+        dispatch({ type: "setuser", payload: user?.providerData[0] });
+        navigate("/");
+      }
+    } catch (err) {
+    } finally {
+      dispatch({ type: "loadfinish" });
+    }
+
+    // This gives you a Google Access Token.
+    //   const credential = GoogleAuthProvider.credentialFromResult(result);
+    //   const token = credential.accessToken;
+    //   console.log(user, credential);
   };
   return (
     <>

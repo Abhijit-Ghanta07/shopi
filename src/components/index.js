@@ -12,6 +12,8 @@ import Wishlist from "./wishlist/WishList";
 import ProductCard from "./productsList/ProductCard";
 import Order from "./orders/Order";
 import Loader from "./loader/Loader";
+import { ToastModal } from "./loader/Loader";
+
 export {
   Header,
   Cart,
@@ -27,4 +29,5 @@ export {
   ProductCard,
   Order,
   Loader,
+  ToastModal,
 };

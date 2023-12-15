@@ -3,6 +3,7 @@ import CartReducer from "./Cart.js";
 import userReducer from "./User.js";
 import ProductReducer from "./Product.js";
 import wishlistReducer from "./wishList.js";
+import ToastReducer from "./Toast.js";
 
 const initialProduct = [];
 const initialCart = [];
@@ -13,6 +14,10 @@ const initialUser = {
   currentUser: false,
 };
 const initialWishlist = [];
+const initialToast = {
+  message: "",
+  show: false,
+};
 // JSON.parse(localStorage.getItem("user"))
 // initialize the context
 export const StoreContext = createContext(null);
@@ -29,11 +34,13 @@ function ContextStore({ children }) {
     wishlistReducer,
     initialWishlist
   );
+  const [toastState, toastDispatch] = useReducer(ToastReducer, initialToast);
   let value = {
     product: [productState, productDispatch],
     cart: [cartState, cartDispatch],
     user: [userState, userDisapatch],
     wishlist: [wishlistState, wishDispatch],
+    toast: [toastState, toastDispatch],
   };
 
   return (

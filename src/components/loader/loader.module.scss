@@ -10,3 +10,14 @@
   display: grid;
   place-items: center;
 }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  font-weight: 400;
+}
+.toast__body {
+  background-color: #61fc68 !important;
+  overflow: hidden;
+}

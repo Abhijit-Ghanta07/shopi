@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
   authDomain: "location-app-389103.firebaseapp.com",
@@ -14,4 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+export const DB = getFirestore(app);
