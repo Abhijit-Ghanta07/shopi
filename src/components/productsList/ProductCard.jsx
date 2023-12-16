@@ -17,14 +17,18 @@ import { IoMdHeart } from "react-icons/io";
 import Styles from "./productlist.module.scss";
 function ProductShow({ product }) {
   const {
-    product: [productState],
     cart: [cartState, dispatch],
     wishlist: [wishState, wishDispatch],
     user: [userState],
   } = useContext(StoreContext);
 
   function handleAddClick() {
-    dispatch({ type: "addToCart", payload: this, userId: userState.userId });
+    dispatch({
+      type: "addToCart",
+      productId: this,
+      userId: userState.userId,
+      quntity: 1,
+    });
   }
   function handleRemoveClick() {
     dispatch({ type: "deleteFromCart", payload: this });
@@ -72,7 +76,9 @@ function ProductShow({ product }) {
           </Badge>
 
           <div className="d-flex ">
-            {cartState.includes(product.id) ? (
+            {cartState.filter((cartItem) =>
+              cartItem?.productId == product.id ? true : false
+            ) ? (
               <Button
                 variant="danger"
                 className="w-100"

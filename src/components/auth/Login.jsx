@@ -23,7 +23,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
-import { getInitialCartItems } from "../../utils/fireStore";
+import { getCartItems } from "../../utils/fireStore";
 
 const Login = () => {
   // navigate func
@@ -55,11 +55,12 @@ const Login = () => {
       if (res.user) {
         // dispatch({ type: "setuser", payload: user?.providerData[0] });
         toastDispatch({ type: "open", payload: "Login Successfull" });
-        const result = await getInitialCartItems(res.user.uid);
+        const result = await getCartItems(res.user.uid);
         mapCartItems(result);
         setUser(res.user);
       }
     } catch (err) {
+      toastDispatch({ type: "open", payload: "Something went wrong" });
       console.log(err);
     } finally {
       dispatch({ type: "loadfinish" });
@@ -68,7 +69,7 @@ const Login = () => {
 
   function mapCartItems(products) {
     products.forEach((item) => {
-      cartDispatch({ type: "addToCart", payload: item?.productId });
+      cartDispatch({ type: "mapCart", payload: item });
     });
   }
 
@@ -91,14 +92,16 @@ const Login = () => {
       const user = result.user;
       if (user) {
         toastDispatch({ type: "open", payload: "Login Successfull" });
-        dispatch({
-          type: "setuser",
-          payload: user?.providerData[0],
-          userId: user?.uid,
-        });
-        navigate("/");
+        // dispatch({
+        //   type: "setuser",
+        //   payload: user?.providerData[0],
+        //   userId: user?.uid,
+        // });
+        // navigate("/");
+        setUser(user);
       }
     } catch (err) {
+      toastDispatch({ type: "open", payload: "Something went wrong" });
       console.log(err);
     } finally {
       dispatch({ type: "loadfinish" });

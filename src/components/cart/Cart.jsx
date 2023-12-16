@@ -10,8 +10,8 @@ const Cart = () => {
   } = useContext(StoreContext);
 
   let fillteredItem = useMemo(() => {
-    return productState.filter((item, i) => {
-      return cartState.includes(item?.id);
+    return productState.filter((product, i) => {
+      return cartState.filter((cart) => cart.productId == product.id);
     });
   }, [cartState]);
 

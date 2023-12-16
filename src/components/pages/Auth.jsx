@@ -14,6 +14,7 @@ const Auth = () => {
       <Header />
       <Outlet />
       <Loader loading={userstate.loading} />
+      <ToastModal />
     </>
   );
 };

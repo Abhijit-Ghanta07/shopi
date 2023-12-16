@@ -4,7 +4,6 @@ import userReducer from "./User.js";
 import ProductReducer from "./Product.js";
 import wishlistReducer from "./wishList.js";
 import ToastReducer from "./Toast.js";
-import { getInitialCartItems } from "../utils/fireStore.jsx";
 
 const initialProduct = [];
 const initialUser = {
@@ -14,7 +13,10 @@ const initialUser = {
   loadFinish: false,
   currentUser: false,
 };
-const initialCart = [];
+const initialCart = {
+  productsID: [],
+  firestoreProducts: [],
+};
 const initialWishlist = [];
 const initialToast = {
   message: "",

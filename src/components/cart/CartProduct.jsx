@@ -12,7 +12,7 @@ import { FaStar } from "react-icons/fa6";
 import { StoreContext } from "../../context/store";
 import { FaDollarSign } from "react-icons/fa6";
 import Styles from "./cart.module.scss";
-import { deleteFromFireStore } from "../../utils/fireStore";
+
 const CartProduct = ({ product }) => {
   const {
     cart: [, dispatch],
@@ -21,7 +21,7 @@ const CartProduct = ({ product }) => {
 
   function handleRemoveClick() {
     dispatch({ type: "deleteFromCart", payload: this });
-    deleteFromFireStore(this, userState.userId);
+    // deleteFromFireStore(this, userState.userId);
   }
   return (
     <>
