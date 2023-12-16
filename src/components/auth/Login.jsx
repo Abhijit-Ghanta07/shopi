@@ -18,7 +18,6 @@ import {
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/store";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
@@ -26,8 +25,9 @@ import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
 import { getCartItems } from "../../utils/fireStore";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../context/auth";
+import { addUser, loadfinish, setloading } from "../../context/auth";
 import { mapCart } from "../../context/cart";
+import { open } from "../../context/Toast";
 
 const Login = () => {
   // navigate func
@@ -45,6 +45,7 @@ const Login = () => {
   // handle form submit
   async function formSubmit(data) {
     try {
+      dispatch(setloading());
       const res = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -57,6 +58,8 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      dispatch(loadfinish());
     }
   }
 
@@ -78,12 +81,14 @@ const Login = () => {
       dispatch(
         addUser({ user: logUser?.providerData[0], userId: logUser.uid })
       );
+      dispatch(open("Login Successfull"));
       navigate("/");
     }
   }
   // google authentication
   const googleAuth = async () => {
     try {
+      dispatch(setloading());
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
@@ -93,6 +98,8 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      dispatch(loadfinish());
     }
   };
   return (

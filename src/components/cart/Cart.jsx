@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import { StoreContext } from "../../context/store";
 import CartProduct from "./CartProduct";
 import { useSelector } from "react-redux";
 

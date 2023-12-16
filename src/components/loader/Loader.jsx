@@ -3,6 +3,8 @@ import { Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
 import Styles from "./loader.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { close } from "../../context/Toast";
 const Loader = ({ loading }) => {
   return (
     <>
@@ -18,25 +20,18 @@ const Loader = ({ loading }) => {
 };
 
 export const ToastModal = () => {
+  const { show, message } = useSelector((store) => store.toast);
+  const dispatch = useDispatch();
   function closeToast(params) {
-    // dispatch({ type: "close" });
+    dispatch(close());
   }
   // const [show, setShow] = useState(toastState.show);
 
-  // useEffect(() => {
-  //   setShow(toastState.show);
-  // }, [toastState]);
-  // console.log(show);
   return (
     <>
       {createPortal(
         <div className={Styles.toast}>
-          <Toast
-            // show={toastState.show}
-            delay={3000}
-            autohide
-            onClose={closeToast}
-          >
+          <Toast show={show} delay={3000} autohide onClose={closeToast}>
             <ToastHeader className="justify-content-end">
               {/* <img
                   src="holder.js/20x20?text=%20"
@@ -44,10 +39,7 @@ export const ToastModal = () => {
                   alt="close"
                 /> */}
             </ToastHeader>
-            <ToastBody className={Styles.toast__body}>
-              {/* {toastState.message} */}
-              this is toast
-            </ToastBody>
+            <ToastBody className={Styles.toast__body}>{message}</ToastBody>
           </Toast>
         </div>,
         document.getElementById("toast")

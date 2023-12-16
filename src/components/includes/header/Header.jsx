@@ -26,20 +26,21 @@ import avatar from "../../../assets/svg/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { cartReset } from "../../../context/Cart";
 import { removeuser } from "../../../context/auth";
+import { open } from "../../../context/Toast";
 function Header() {
   const dispatch = useDispatch();
-  const { user } = useSelector((store) => store.auth);
+  const { user, userId } = useSelector((store) => store.auth);
   const { productsID } = useSelector((store) => store.cart);
-  console.log(user);
   async function logout(params) {
     console.log("click");
     const res = await signOut(auth);
     dispatch(removeuser());
     dispatch(cartReset());
+    dispatch(open("Youre Are Logged Out"));
   }
-  useEffect(() => {
-    console.log("changed");
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("changed");
+  // }, [user]);
   return (
     <>
       <Container
@@ -86,14 +87,14 @@ function Header() {
 
             <Col>
               <div className="d-flex gap-4 justify-content-end">
-                {user && (
+                {userId && (
                   <Link to={"/order"} className={Styles.link}>
                     <IoBagCheckOutline className={Styles.header__user_icons} />
                     My orders
                   </Link>
                 )}
 
-                {user ? (
+                {userId ? (
                   <>
                     <Link className="d-flex gap-2 align-items-center text-decoration-none text-black">
                       <img
