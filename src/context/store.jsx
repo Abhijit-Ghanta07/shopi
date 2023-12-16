@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import CartReducer from "./Cart.js";
-import userReducer from "./User.js";
+import CartReducer from "./cart.js";
+import userReducer from "./auth.js";
 import ProductReducer from "./Product.js";
 import wishlistReducer from "./wishList.js";
 import ToastReducer from "./Toast.js";
@@ -55,4 +55,3 @@ function ContextStore({ children }) {
     </>
   );
 }
-export default ContextStore;

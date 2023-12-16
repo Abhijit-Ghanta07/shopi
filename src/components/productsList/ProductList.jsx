@@ -1,16 +1,22 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Col, Container, FormControl, Row } from "react-bootstrap";
-import { StoreContext } from "../../context/store";
 import ProductCard from "./ProductCard";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import Styles from "./productlist.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProductData } from "../../context/Product";
 function ProductList() {
-  const {
-    product: [ProductState],
-  } = useContext(StoreContext);
-  const allProducts = useMemo(() => {
-    return ProductState;
-  }, [ProductState]);
+  const dispatch = useDispatch();
+  const { productData } = useSelector((store) => store.product);
+
+  // const allProducts = useMemo(() => {
+  //   return ProductState;
+  // }, [ProductState]);
+  useEffect(() => {
+    if (productData == null) {
+      dispatch(fetchProductData());
+    }
+  }, [productData]);
   return (
     <>
       <Container fluid="xl" className="mt-3">
@@ -42,8 +48,8 @@ function ProductList() {
         </Row>
         <Row>
           <Col className="d-flex flex-wrap gap-3 justify-content-center">
-            {allProducts &&
-              allProducts.map((item) => (
+            {productData &&
+              productData.map((item) => (
                 <ProductCard product={item} key={item.id} />
               ))}
           </Col>

@@ -1,46 +1,50 @@
-import { addCartItem } from "../utils/fireStore.js";
+import { createSlice } from "@reduxjs/toolkit";
 
-function CartReducer(state, action) {
-  const { productId, quntity, userId, fireId } = action;
-  switch (action.type) {
-    case "addToCart":
-      return addCartItem(productId, userId, quntity).then((id) => {
-        return {
-          productsID: [...state.productID, productId],
-          firestoreProducts: [
-            ...state.firestoreProducts,
-            { productId, quntity, fireId: id },
-          ],
-        };
-      });
-
-    case "mapCart":
-      return {
-        productsID: [...state.productID, productId],
-        firestoreProducts: [
-          ...state.firestoreProducts,
-          { productId, quntity, fireId },
-        ],
-      };
-    case "deleteFromCart":
-      let fillterItems = state.productID.filter(
-        (item) => item !== action.productId
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: {
+    productsID: [],
+    firestoreProducts: [],
+  },
+  reducers: {
+    addProduct: (state, action) => {
+      state.productsID = [action.payload.productId, ...state.productsID];
+      state.firestoreProducts = [
+        {
+          productId: action.payload.productId,
+          quantity: action.payload.quantity,
+          fireId: action.payload.fireId,
+        },
+        ...state.firestoreProducts,
+      ];
+    },
+    mapCart: (state, action) => {
+      state.productsID = [action.payload.productId, ...state.productsID];
+      state.firestoreProducts = [
+        {
+          productId: action.payload.productId,
+          quantity: action.payload.quantity,
+          fireId: action.payload.fireId,
+        },
+        ...state.firestoreProducts,
+      ];
+    },
+    deleteProduct: (state, action) => {
+      state.productsID = state.productsID.filter(
+        (item) => item !== action.payload
       );
-      return { productsID: fillterItems, ...state };
-
-    case "deleteFromFire":
-      let { fireId } = action;
-      let fillterProducts = state.firestoreProducts.filter(
-        (item) => item.fireId !== fireId
+    },
+    deleteFromFire: (state, action) => {
+      state.firestoreProducts = state.firestoreProducts.filter(
+        (item) => item.fireId !== action.payload
       );
-      return { ...state, firestoreProducts: fillterProducts };
+    },
+    cartReset: (state) => {
+      return { productsID: [], firestoreProducts: [] };
+    },
+  },
+});
 
-    case "cartReset":
-      return [];
-
-    default:
-      return state;
-  }
-}
-
-export default CartReducer;
+export const { addProduct, mapCart, deleteProduct, deleteFromFire, cartReset } =
+  cartSlice.actions;
+export default cartSlice.reducer;

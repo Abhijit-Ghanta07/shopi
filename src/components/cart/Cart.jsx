@@ -2,18 +2,14 @@ import React, { useContext, useMemo } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { StoreContext } from "../../context/store";
 import CartProduct from "./CartProduct";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const {
-    product: [productState],
-    cart: [cartState],
-  } = useContext(StoreContext);
-
+  const { productData } = useSelector((store) => store.product);
+  const { productsID } = useSelector((store) => store.cart);
   let fillteredItem = useMemo(() => {
-    return productState.filter((product, i) => {
-      return cartState.filter((cart) => cart.productId == product.id);
-    });
-  }, [cartState]);
+    return productData.filter((product, i) => productsID?.includes(product.id));
+  }, [productsID]);
 
   return (
     <>

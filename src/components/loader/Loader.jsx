@@ -3,7 +3,6 @@ import { Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
 import Styles from "./loader.module.scss";
-import { StoreContext } from "../../context/store";
 const Loader = ({ loading }) => {
   return (
     <>
@@ -19,11 +18,8 @@ const Loader = ({ loading }) => {
 };
 
 export const ToastModal = () => {
-  const {
-    toast: [toastState, dispatch],
-  } = useContext(StoreContext);
   function closeToast(params) {
-    dispatch({ type: "close" });
+    // dispatch({ type: "close" });
   }
   // const [show, setShow] = useState(toastState.show);
 
@@ -36,7 +32,7 @@ export const ToastModal = () => {
       {createPortal(
         <div className={Styles.toast}>
           <Toast
-            show={toastState.show}
+            // show={toastState.show}
             delay={3000}
             autohide
             onClose={closeToast}
@@ -49,7 +45,8 @@ export const ToastModal = () => {
                 /> */}
             </ToastHeader>
             <ToastBody className={Styles.toast__body}>
-              {toastState.message}
+              {/* {toastState.message} */}
+              this is toast
             </ToastBody>
           </Toast>
         </div>,

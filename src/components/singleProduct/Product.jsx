@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StoreContext } from "../../context/store";
 import {
   Button,
   Card,
@@ -15,23 +14,19 @@ import {
 import { FaStar } from "react-icons/fa";
 function fillterdItem() {
   const { id } = useParams();
-  const {
-    product: [productState],
-    cart: [cartState, dispatch],
-  } = useContext(StoreContext);
 
-  let fillterdItem = useMemo(() => {
-    return productState.find((item) => {
-      return item.id == id;
-    });
-  }, [id]);
+  // let fillterdItem = useMemo(() => {
+  //   return productState.find((item) => {
+  //     return item.id == id;
+  //   });
+  // }, [id]);
 
-  function handleAddClick() {
-    dispatch({ type: "addToCart", payload: this });
-  }
-  function handleRemoveClick() {
-    dispatch({ type: "deleteFromCart", payload: this });
-  }
+  // function handleAddClick() {
+  //   dispatch({ type: "addToCart", payload: this });
+  // }
+  // function handleRemoveClick() {
+  //   dispatch({ type: "deleteFromCart", payload: this });
+  // }
   console.log("single product called");
   return (
     <>

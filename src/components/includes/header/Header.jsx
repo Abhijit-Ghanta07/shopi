@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useResolvedPath } from "react-router-dom";
 import {
   Badge,
   Col,
@@ -16,8 +16,6 @@ import {
   Row,
 } from "react-bootstrap";
 import { IoBagCheckOutline } from "react-icons/io5";
-import { StoreContext } from "../../../context/store";
-import fetchData from "../../../api/api";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 
@@ -25,22 +23,23 @@ import { auth } from "../../../utils/firebase";
 import Styles from "./header.module.scss";
 import Banner from "../banner/Banner";
 import avatar from "../../../assets/svg/avatar.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { cartReset } from "../../../context/Cart";
+import { removeuser } from "../../../context/auth";
 function Header() {
-  const {
-    cart: [cartState, cartDispatch],
-    user: [userState, userDispatch],
-    wishlist: [wishState],
-  } = useContext(StoreContext);
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
+  const { productsID } = useSelector((store) => store.cart);
+  console.log(user);
   async function logout(params) {
     console.log("click");
     const res = await signOut(auth);
-    userDispatch({ type: "removeuser" });
-    cartDispatch({ type: "cartReset" });
+    dispatch(removeuser());
+    dispatch(cartReset());
   }
   useEffect(() => {
-    setUser(userState.user);
-  }, [userState.currentUser]);
+    console.log("changed");
+  }, [user]);
   return (
     <>
       <Container
@@ -87,14 +86,14 @@ function Header() {
 
             <Col>
               <div className="d-flex gap-4 justify-content-end">
-                {userState.currentUser && (
+                {user && (
                   <Link to={"/order"} className={Styles.link}>
                     <IoBagCheckOutline className={Styles.header__user_icons} />
                     My orders
                   </Link>
                 )}
 
-                {userState.currentUser ? (
+                {user ? (
                   <>
                     <Link className="d-flex gap-2 align-items-center text-decoration-none text-black">
                       <img
@@ -112,14 +111,13 @@ function Header() {
                       src={avatar}
                       alt="catagories img"
                       className={Styles.rounded__img}
-                      onClick={logout}
                     />
                   </Link>
                 )}
                 <Link to={"wishlist"} className="position-relative">
                   <FaRegHeart className={Styles.header__user_icons} />
                   <Badge bg="danger" pill className={Styles.header__badge}>
-                    {wishState?.length}
+                    {/* {wishState?.length} */}0
                   </Badge>
                 </Link>
 
@@ -130,7 +128,7 @@ function Header() {
                   <IoCartOutline className={Styles.header__user_icons} />
                   <span className="fw-medium">Cart</span>
                   <Badge bg="danger" pill className={Styles.header__badge}>
-                    {cartState?.length}
+                    {productsID.length}
                   </Badge>
                 </Link>
               </div>

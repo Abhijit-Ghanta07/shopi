@@ -6,6 +6,7 @@ import {
   CardTitle,
   Col,
   Container,
+  DropdownDivider,
   Form,
   FormCheck,
   FormControl,
@@ -24,6 +25,9 @@ import { FaGoogle } from "react-icons/fa";
 import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
 import { getCartItems } from "../../utils/fireStore";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../context/auth";
+import { mapCart } from "../../context/cart";
 
 const Login = () => {
   // navigate func
@@ -35,76 +39,60 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   // global states or context
-  const {
-    user: [, dispatch],
-    toast: [, toastDispatch],
-    cart: [, cartDispatch],
-  } = useContext(StoreContext);
-
+  const dispatch = useDispatch();
   // local states
   const [hide, setHide] = useState(true);
   // handle form submit
   async function formSubmit(data) {
     try {
-      dispatch({ type: "setloading" });
       const res = await signInWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
       if (res.user) {
-        // dispatch({ type: "setuser", payload: user?.providerData[0] });
-        toastDispatch({ type: "open", payload: "Login Successfull" });
-        const result = await getCartItems(res.user.uid);
-        mapCartItems(result);
+        const userCart = await getCartItems(res.user.uid);
+        mapCartItems(userCart);
         setUser(res.user);
       }
     } catch (err) {
-      toastDispatch({ type: "open", payload: "Something went wrong" });
       console.log(err);
-    } finally {
-      dispatch({ type: "loadfinish" });
     }
   }
 
   function mapCartItems(products) {
     products.forEach((item) => {
-      cartDispatch({ type: "mapCart", payload: item });
+      dispatch(
+        mapCart({
+          productId: item.productId,
+          quantity: item.quantity,
+          fireId: item.fireId,
+        })
+      );
     });
   }
 
   // update user profile with name image
-  function setUser(user) {
-    if (user) {
-      dispatch({
-        type: "setuser",
-        payload: user?.providerData[0],
-        userId: user?.uid,
-      });
+  function setUser(logUser) {
+    if (logUser) {
+      dispatch(
+        addUser({ user: logUser?.providerData[0], userId: logUser.uid })
+      );
       navigate("/");
     }
   }
   // google authentication
   const googleAuth = async () => {
     try {
-      dispatch({ type: "setloading" });
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
-        toastDispatch({ type: "open", payload: "Login Successfull" });
-        // dispatch({
-        //   type: "setuser",
-        //   payload: user?.providerData[0],
-        //   userId: user?.uid,
-        // });
-        // navigate("/");
+        const userCart = await getCartItems(user.uid);
+        mapCartItems(userCart);
         setUser(user);
       }
     } catch (err) {
-      toastDispatch({ type: "open", payload: "Something went wrong" });
       console.log(err);
-    } finally {
-      dispatch({ type: "loadfinish" });
     }
   };
   return (
@@ -193,9 +181,9 @@ const Login = () => {
                           Login
                         </Button>
                       </Form>
-                      <CardText className="text-center mt-1">
-                        <hr className="mb-2" />
-                      </CardText>
+
+                      <DropdownDivider />
+
                       <div className="d-flex justify-content-center gap-3">
                         <Link className="icon-link btn btn-outline-primary">
                           <FaFacebookF />

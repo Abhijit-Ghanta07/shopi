@@ -15,14 +15,12 @@ import {
 } from "react-bootstrap";
 
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { StoreContext } from "../../context/store";
 import { useForm } from "react-hook-form";
 import { FaAward, FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
@@ -31,32 +29,29 @@ import { FaGoogle } from "react-icons/fa";
 // css
 import Styles from "./auth.module.scss";
 const Register = () => {
+  // navigate router
   const navigate = useNavigate();
-  const {
-    user: [userState, dispatch],
-    toast: [toastState, toastDispatch],
-  } = useContext(StoreContext);
+  // userform hooks
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // loacal state
   const [hide, setHide] = useState(true);
+  // form submission
   async function formSubmit(data) {
     try {
-      dispatch({ type: "setloading" });
       const res = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
       if (res) {
-        toastDispatch({ type: "open", payload: "Login Successfull" });
         updateUser(res.user, data.name);
       }
     } catch (error) {
-    } finally {
-      dispatch({ type: "loadfinish" });
+      console.log(error);
     }
   }
   function updateUser(user, name) {
@@ -65,8 +60,8 @@ const Register = () => {
       photoURL:
         "https://images.pexels.com/photos/18825491/pexels-photo-18825491/free-photo-of-man-in-a-costume-of-a-hindu-deity-sitting-on-the-floor.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     }).then(() => {
-      dispatch({ type: "setuser", payload: auth.currentUser?.providerData[0] });
-      navigate("/");
+      // dispatch({ type: "setuser", payload: auth.currentUser?.providerData[0] });
+      // navigate("/");
     });
   }
   const facebookAuth = async () => {
@@ -74,11 +69,9 @@ const Register = () => {
   };
   const googleAuth = async () => {
     try {
-      dispatch({ type: "setloading" });
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
-        toastDispatch({ type: "open", payload: "Login Successfull" });
         dispatch({ type: "setuser", payload: user?.providerData[0] });
         navigate("/");
       }

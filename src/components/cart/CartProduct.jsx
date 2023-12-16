@@ -9,19 +9,28 @@ import {
   CardTitle,
 } from "react-bootstrap";
 import { FaStar } from "react-icons/fa6";
-import { StoreContext } from "../../context/store";
 import { FaDollarSign } from "react-icons/fa6";
 import Styles from "./cart.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCartItems } from "../../utils/fireStore";
+import { deleteFromFire, deleteProduct } from "../../context/cart";
 
 const CartProduct = ({ product }) => {
-  const {
-    cart: [, dispatch],
-    user: [userState],
-  } = useContext(StoreContext);
+  const dispatch = useDispatch();
+  const { firestoreProducts } = useSelector((store) => store.cart);
 
   function handleRemoveClick() {
-    dispatch({ type: "deleteFromCart", payload: this });
-    // deleteFromFireStore(this, userState.userId);
+    const fireId = findId(this);
+    if (fireId) {
+      deleteCartItems(fireId).then(() => {
+        dispatch(deleteProduct(this));
+        dispatch(deleteFromFire(fireId));
+      });
+    }
+  }
+  function findId(productId) {
+    let product = firestoreProducts.find((item) => item.productId == productId);
+    return product.fireId;
   }
   return (
     <>

@@ -1,20 +1,15 @@
 import React, { useContext } from "react";
-import { StoreContext } from "../context/store";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const {
-    user: [userState],
-  } = useContext(StoreContext);
-
-  return userState.currentUser ? <Navigate to={"/"} /> : children;
+  const { userId } = useSelector((store) => store.auth);
+  return userId ? <Navigate to={"/"} /> : children;
 };
 
 const UserRoute = ({ children }) => {
-  const {
-    user: [userState],
-  } = useContext(StoreContext);
-  return userState.currentUser ? children : <Navigate to={"/auth"} />;
+  const { userId } = useSelector((store) => store.auth);
+  return userId ? children : <Navigate to={"/auth"} />;
 };
 
 export { ProtectedRoute, UserRoute };

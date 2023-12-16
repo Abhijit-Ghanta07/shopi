@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Badge,
   Button,
@@ -9,35 +9,54 @@ import {
   CardText,
 } from "react-bootstrap";
 import { FaDollarSign } from "react-icons/fa6";
-import { StoreContext } from "../../context/store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 // css
 import Styles from "./productlist.module.scss";
+import { addCartItem, deleteCartItems } from "../../utils/fireStore";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, deleteFromFire, deleteProduct } from "../../context/cart";
 function ProductShow({ product }) {
-  const {
-    cart: [cartState, dispatch],
-    wishlist: [wishState, wishDispatch],
-    user: [userState],
-  } = useContext(StoreContext);
-
-  function handleAddClick() {
-    dispatch({
-      type: "addToCart",
-      productId: this,
-      userId: userState.userId,
-      quntity: 1,
-    });
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { productsID, firestoreProducts } = useSelector((store) => store.cart);
+  const { userId } = useSelector((store) => store.auth);
+  async function handleAddClick() {
+    if (!userId) {
+      return navigate("/auth");
+    }
+    try {
+      const id = await addCartItem(this, userId);
+      if (id) {
+        dispatch(addProduct({ productId: this, quantity: 1, fireId: id }));
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
   function handleRemoveClick() {
-    dispatch({ type: "deleteFromCart", payload: this });
+    const fireId = findId(this);
+    if (fireId) {
+      deleteCartItems(fireId).then(() => {
+        dispatch(deleteProduct(this));
+        dispatch(deleteFromFire(fireId));
+      });
+    }
   }
+  function findId(productId) {
+    let product = firestoreProducts.find((item) => item.productId == productId);
+    return product.fireId;
+  }
+
+  // const memoCart = useMemo(() => {
+  //   return cartState;
+  // }, [cartState]);
 
   return (
     <>
       <Card className={Styles.product__card}>
-        {wishState.includes(product?.id) ? (
+        {/* {wishState.includes(product?.id) ? (
           <IoMdHeart
             className={Styles.img__icon}
             onClick={(e) => {
@@ -53,7 +72,7 @@ function ProductShow({ product }) {
               wishDispatch({ type: "add", payload: product.id });
             }}
           />
-        )}
+        )} */}
 
         <Link to={`product/${product.id}`} className={Styles.card__link}>
           <CardImg src={product?.images[0]} className={Styles.card__img} />
@@ -76,9 +95,7 @@ function ProductShow({ product }) {
           </Badge>
 
           <div className="d-flex ">
-            {cartState.filter((cartItem) =>
-              cartItem?.productId == product.id ? true : false
-            ) ? (
+            {productsID.includes(product.id) ? (
               <Button
                 variant="danger"
                 className="w-100"

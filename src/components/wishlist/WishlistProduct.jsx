@@ -8,16 +8,11 @@ import {
   CardText,
   CardTitle,
 } from "react-bootstrap";
-import { StoreContext } from "../../context/store";
 import Styles from "./wishlist.module.scss";
 const WishlistProduct = ({ product }) => {
-  const {
-    wishlist: [, dispatch],
-  } = useContext(StoreContext);
-
-  function handleRemoveClick() {
-    dispatch({ type: "remove", payload: this });
-  }
+  // function handleRemoveClick() {
+  //   dispatch({ type: "remove", payload: this });
+  // }
   return (
     <>
       <Card className={Styles.product__card}>

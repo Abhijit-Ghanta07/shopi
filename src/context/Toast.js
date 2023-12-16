@@ -1,13 +1,23 @@
-function ToastReducer(state, action) {
-  switch (action.type) {
-    case "open":
-      return { show: true, message: action.payload };
-    case "close":
-      return { ...state, show: false };
+import { createSlice } from "@reduxjs/toolkit";
 
-    default:
-      return state;
-  }
-}
+const initialState = {
+  show: false,
+  message: "",
+};
 
-export default ToastReducer;
+const toastSlice = createSlice({
+  name: "toast",
+  initialState,
+  reducers: {
+    open: (state, action) => {
+      state.show = true;
+      state.message = action.payload;
+    },
+    close: (state) => {
+      state.show = false;
+    },
+  },
+});
+
+export const { open, close } = toastSlice.actions;
+export default toastSlice.reducer;

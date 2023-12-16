@@ -12,52 +12,48 @@ import {
   Wishlist,
   Order,
 } from "./components/index.js";
-
-import ContextStore from "./context/store.jsx";
 import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
 
 // css
 import "./App.css";
 function App() {
   return (
-    <ContextStore>
-      <>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route index element={<ProductList />} />
-              <Route path="product/:id" element={<Product />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="wishlist" element={<Wishlist />} />
-              <Route path="*" element={<Error />} />
-              <Route path="category/:id" element={<Category />} />
-            </Route>
-            <Route
-              path="/order"
-              element={
-                <UserRoute>
-                  <Order />
-                </UserRoute>
-              }
-            />
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<ProductList />} />
+            <Route path="product/:id" element={<Product />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="*" element={<Error />} />
+            <Route path="category/:id" element={<Category />} />
+          </Route>
+          <Route
+            path="/order"
+            element={
+              <UserRoute>
+                <Order />
+              </UserRoute>
+            }
+          />
 
-            <Route
-              path="/auth"
-              element={
-                <ProtectedRoute>
-                  <Auth />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Login />} />
-              <Route path="register" element={<Register />} />
-            </Route>
+          <Route
+            path="/auth"
+            element={
+              <ProtectedRoute>
+                <Auth />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
 
-            <Route path="/not" element={<Error />} />
-          </Routes>
-        </Router>
-      </>
-    </ContextStore>
+          <Route path="/not" element={<Error />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 

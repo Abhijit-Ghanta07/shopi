@@ -1,16 +1,22 @@
-function wishlistReducer(state, action) {
-  switch (action.type) {
-    case "add":
-      return [...state, action.payload];
+import { createSlice } from "@reduxjs/toolkit";
 
-    case "remove":
-      let index = state.indexOf(action.payload);
+const initialState = [];
 
-      return [...state.toSpliced(index, 1)];
+const wishlistSlice = createSlice({
+  name: "wishlist",
+  initialState,
+  reducers: {
+    add: (state, action) => {
+      state.push(action.payload);
+    },
+    remove: (state, action) => {
+      const index = state.indexOf(action.payload);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-}
-
-export default wishlistReducer;
+export const { add, remove } = wishlistSlice.actions;
+export default wishlistSlice.reducer;
