@@ -4,7 +4,6 @@ import {
   Card,
   CardBody,
   CardImg,
-  CardSubtitle,
   CardText,
   CardTitle,
 } from "react-bootstrap";

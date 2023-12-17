@@ -89,6 +89,12 @@ const Register = () => {
     <>
       <Container fluid className={Styles.bg__gradient}>
         <Container className="h-100">
+          <Link
+            to={"/"}
+            className={`${Styles.back__btn} btn btn-info my-2 mt-md-2 mb-md-0`}
+          >
+            Go Back To Home
+          </Link>
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>

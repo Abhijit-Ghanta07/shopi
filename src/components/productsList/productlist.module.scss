@@ -5,7 +5,7 @@
 }
 
 .product__card {
-  max-width: 15rem;
+  min-width: 15rem !important;
   transition: 0.2s ease;
 }
 .product__card:hover {

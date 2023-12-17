@@ -9,7 +9,6 @@ import {
   ProductList,
   Product,
   Category,
-  Wishlist,
   Order,
 } from "./components/index.js";
 import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
@@ -25,7 +24,7 @@ function App() {
             <Route index element={<ProductList />} />
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
-            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="wishlist" element={<Cart />} />
             <Route path="*" element={<Error />} />
             <Route path="category/:id" element={<Category />} />
           </Route>

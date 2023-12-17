@@ -105,12 +105,18 @@ const Login = () => {
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
-        <Container className="h-100">
+        <Container className="h-100 position-relative">
+          <Link
+            to={"/"}
+            className={`${Styles.back__btn} btn btn-info my-2 mt-md-2 mb-md-0`}
+          >
+            Go Back To Home
+          </Link>
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>
                 <Row>
-                  <Col className="p-4">
+                  <Col className="px-4 py-3">
                     <Card className="p-3 border-0 shadow">
                       <CardTitle>Login</CardTitle>
                       <CardText>
@@ -189,7 +195,7 @@ const Login = () => {
                         </Button>
                       </Form>
 
-                      <DropdownDivider />
+                      <DropdownDivider className="my-3" />
 
                       <div className="d-flex justify-content-center gap-3">
                         <Link className="icon-link btn btn-outline-primary">

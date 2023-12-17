@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 
-import WishlistProduct from "./WishlistProduct";
+import { WishlistProduct } from "../cartIndex";
 
 const WishList = () => {
   // let fillteredItem = useMemo(() => {

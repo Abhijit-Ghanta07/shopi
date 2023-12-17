@@ -7,6 +7,7 @@ import { ProductCard } from "../index.js";
 const Category = () => {
   const { id } = useParams();
   const [products, setProduct] = useState([]);
+  // fetch categories
   useEffect(() => {
     let abortController = new AbortController();
     async function fetchProduct() {

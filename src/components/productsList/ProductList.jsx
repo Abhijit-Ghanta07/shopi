@@ -12,15 +12,14 @@ function ProductList() {
   // const allProducts = useMemo(() => {
   //   return ProductState;
   // }, [ProductState]);
+
   useEffect(() => {
-    if (productData == null) {
-      dispatch(fetchProductData());
-    }
-  }, [productData]);
+    dispatch(fetchProductData());
+  }, []);
   return (
     <>
-      <Container fluid="xl" className="mt-3">
-        <Row className="py-3">
+      <Container fluid="xl" className="mt-5">
+        {/* <Row className="py-3">
           <Col className="d-flex justify-content-between">
             <div className="d-flex">
               <label htmlFor="" className="d-flex gap-1 align-items-center">
@@ -28,9 +27,9 @@ function ProductList() {
                   Search For Product:
                 </span>
                 <FormControl />
-                {/* <span>
+               <span>
                   <RxMagnifyingGlass className={Styles.icon} />
-                </span> */}
+                </span> 
               </label>
             </div>
             <select
@@ -45,9 +44,9 @@ function ProductList() {
               <option value="">Price</option>
             </select>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
-          <Col className="d-flex flex-wrap gap-3 justify-content-center">
+          <Col className="d-flex flex-wrap gap-3 justify-content-around">
             {productData &&
               productData.map((item) => (
                 <ProductCard product={item} key={item.id} />

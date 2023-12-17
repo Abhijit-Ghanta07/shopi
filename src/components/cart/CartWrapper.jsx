@@ -1,9 +1,10 @@
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
-import CartProduct from "./CartProduct";
+import { CartProduct, WishList } from "./cartIndex";
+
 import { useSelector } from "react-redux";
 
-const Cart = () => {
+const CartWrapper = () => {
   const { productData } = useSelector((store) => store.product);
   const { productsID } = useSelector((store) => store.cart);
   let fillteredItem = useMemo(() => {
@@ -12,18 +13,16 @@ const Cart = () => {
 
   return (
     <>
-      <Container fluid="xl" className="mt-4">
-        <Row className="gap-3">
+      <Container fluid="xl" classNameName="mt-4">
+        <Row classNameName="gap-3">
           <Col>
-            <Stack direction="vertical" className="gap-3">
-              {fillteredItem.length > 0 ? (
+            <Stack direction="vertical" classNameName="gap-3">
+              {fillteredItem.length > 0 &&
                 fillteredItem.map((item) => (
                   <CartProduct key={item?.id} product={item} />
-                ))
-              ) : (
-                <p>Cart Is Empty</p>
-              )}
+                ))}
             </Stack>
+            <WishList />
           </Col>
           <Col></Col>
         </Row>
@@ -32,4 +31,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartWrapper;

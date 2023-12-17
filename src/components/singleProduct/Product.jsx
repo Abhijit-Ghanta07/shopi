@@ -12,21 +12,39 @@ import {
   Row,
 } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, deleteFromFire, deleteProduct } from "../../context/cart";
+import { deleteCartItems } from "../../utils/fireStore";
 function fillterdItem() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const { productData } = useSelector((store) => store.product);
+  const { productsID, firestoreProducts } = useSelector((store) => store.cart);
 
-  // let fillterdItem = useMemo(() => {
-  //   return productState.find((item) => {
-  //     return item.id == id;
-  //   });
-  // }, [id]);
+  let fillterdItem = useMemo(() => {
+    return productData.find((item) => {
+      return item.id == id;
+    });
+  }, [id]);
 
-  // function handleAddClick() {
-  //   dispatch({ type: "addToCart", payload: this });
-  // }
-  // function handleRemoveClick() {
-  //   dispatch({ type: "deleteFromCart", payload: this });
-  // }
+  function handleAddClick() {
+    // dispatch({ type: "addToCart", payload: this });
+    dispatch(addProduct(this));
+  }
+
+  function handleRemoveClick() {
+    const fireId = findId(this);
+    if (fireId) {
+      deleteCartItems(fireId).then(() => {
+        dispatch(deleteProduct(this));
+        dispatch(deleteFromFire(fireId));
+      });
+    }
+  }
+  function findId(productId) {
+    let product = firestoreProducts.find((item) => item.productId == productId);
+    return product.fireId;
+  }
   console.log("single product called");
   return (
     <>
@@ -35,19 +53,24 @@ function fillterdItem() {
           <Col>
             {fillterdItem && (
               <Card>
-                <CardImg src={fillterdItem.image} className="card-img" />
+                <CardImg src={fillterdItem?.images[0]} className="card-img" />
                 <CardBody>
                   <CardSubtitle>{fillterdItem.title}</CardSubtitle>
                   <CardText>{fillterdItem.description}</CardText>
-                  <CardText className="text-success">
+                  {/* <CardText className="text-success">
                     {fillterdItem?.rating?.rate}
                     <FaStar />
                     By
                     {fillterdItem?.rating?.count}
-                  </CardText>
+                  </CardText> */}
                   <CardText>${fillterdItem?.price}</CardText>
+                  <CardText>
+                    <Badge className="my-2" pill bg="secondary">
+                      {fillterdItem?.category?.name}
+                    </Badge>
+                  </CardText>
                   <div className="d-flex gap-3">
-                    {cart.includes(fillterdItem.id) ? (
+                    {productsID.includes(fillterdItem.id) ? (
                       <Button
                         variant="danger"
                         onClick={handleRemoveClick.bind(fillterdItem.id)}
