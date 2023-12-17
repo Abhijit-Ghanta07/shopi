@@ -1,3 +1,9 @@
+@mixin deskTop {
+  @media only screen and (min-width: 680px) {
+    @content;
+  }
+}
+
 .card__img {
   width: 100%;
   height: 200px;
@@ -5,8 +11,11 @@
 }
 
 .product__card {
-  min-width: 15rem !important;
+  min-width: 10rem !important;
   transition: 0.2s ease;
+  @include deskTop() {
+    width: 15rem !important;
+  }
 }
 .product__card:hover {
   transform: translateY(-2px);

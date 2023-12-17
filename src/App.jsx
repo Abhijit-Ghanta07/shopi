@@ -10,6 +10,7 @@ import {
   Product,
   Category,
   Order,
+  GetData,
 } from "./components/index.js";
 import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/not" element={<Error />} />
         </Routes>
       </Router>
+      <GetData />
     </>
   );
 }

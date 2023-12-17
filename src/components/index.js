@@ -14,6 +14,7 @@ import ProductCard from "./productsList/ProductCard";
 import Order from "./orders/Order";
 import Loader from "./loader/Loader";
 import { ToastModal } from "./loader/Loader";
+import GetData from "../data/Getdata";
 
 export {
   Header,
@@ -32,4 +33,5 @@ export {
   Order,
   Loader,
   ToastModal,
+  GetData,
 };

@@ -49,13 +49,10 @@ function Header() {
         style={{ background: "#fff" }}
       >
         <Container fluid="xl">
-          <Row className="py-2 align-items-center">
-            <Col className="d-flex flex-column">
-              <Link
-                to={"/"}
-                className="text-decoration-none fs-5 text-black fw-medium"
-              >
-                Shopi
+          <Row className="py-2 align-items-center gap-2">
+            <Col className="d-flex flex-column text-center text-md-start">
+              <Link to={"/"} className="text-decoration-none display-6 fw-bold">
+                SHOPI
               </Link>
               <p className="small text-secondary m-0 ">
                 All Your Needs Are Here.
@@ -90,7 +87,7 @@ function Header() {
                 {userId && (
                   <Link to={"/order"} className={Styles.link}>
                     <IoBagCheckOutline className={Styles.header__user_icons} />
-                    My orders
+                    My Orders
                   </Link>
                 )}
 

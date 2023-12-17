@@ -1,7 +1,8 @@
-.card__img {
-  width: 100%;
-  height: 250px;
+.product__img {
+  max-width: 100%;
+  width: 80px;
   object-fit: cover;
+  mix-blend-mode: multiply;
 }
 
 .product__card {

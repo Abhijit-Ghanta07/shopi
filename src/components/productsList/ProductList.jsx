@@ -6,16 +6,8 @@ import Styles from "./productlist.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProductData } from "../../context/Product";
 function ProductList() {
-  const dispatch = useDispatch();
   const { productData } = useSelector((store) => store.product);
 
-  // const allProducts = useMemo(() => {
-  //   return ProductState;
-  // }, [ProductState]);
-
-  useEffect(() => {
-    dispatch(fetchProductData());
-  }, []);
   return (
     <>
       <Container fluid="xl" className="mt-5">
@@ -46,7 +38,7 @@ function ProductList() {
           </Col>
         </Row> */}
         <Row>
-          <Col className="d-flex flex-wrap gap-3 justify-content-around">
+          <Col className="d-flex flex-wrap gap-2 justify-content-center">
             {productData &&
               productData.map((item) => (
                 <ProductCard product={item} key={item.id} />

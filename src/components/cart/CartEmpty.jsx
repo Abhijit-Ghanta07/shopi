@@ -12,7 +12,7 @@ const CartEmpty = () => {
           <Col md="12">
             <div className={Styles.card}>
               <div className={Styles.card__header}>
-                <h5>Cart</h5>
+                <h5>Shopping Cart</h5>
               </div>
               <div className={Styles.card__body}>
                 <Col sm="12" className="empty-cart-cls text-center">
