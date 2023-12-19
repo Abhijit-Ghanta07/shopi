@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import fetchData from "../../api/api";
 import {
   Card,
   CardBody,
@@ -14,7 +13,7 @@ import {
 } from "react-bootstrap";
 import { ProductCard } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
-import useFetchData from "../../api/api";
+import useFetchData from "../../api/Api";
 
 const Category = () => {
   const { id } = useParams();

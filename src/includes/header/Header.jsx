@@ -19,18 +19,18 @@ import {
 } from "react-bootstrap";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../utils/firebase";
+import { auth } from "../../utils/firebase";
 import { IoIosLogOut } from "react-icons/io";
 import { MdOutlineAccountBox } from "react-icons/md";
 
 // styles
 import Styles from "./header.module.scss";
 import Banner from "../banner/Banner";
-import avatar from "../../../assets/svg/avatar.svg";
+import avatar from "../../assets/svg/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { removeuser } from "../../../context/auth";
-import { open } from "../../../context/Toast";
-import { cartReset } from "../../../context/cart";
+import { removeuser } from "../../redux/auth";
+import { ToastOpen } from "../../redux/Toast";
+import { cartReset } from "../../redux/cart";
 function Header() {
   const dispatch = useDispatch();
   const { user, userId } = useSelector((store) => store.auth);
@@ -41,7 +41,7 @@ function Header() {
     const res = await signOut(auth);
     dispatch(removeuser());
     dispatch(cartReset());
-    dispatch(open("Youre Are Logged Out"));
+    dispatch(ToastOpen("Youre Are Logged Out"));
   }
   // useEffect(() => {
   //   console.log("changed");
@@ -113,27 +113,21 @@ function Header() {
                         </>
                       }
                     >
-                      <Dropdown.Item href="#">
-                        <Link className={Styles.dropdown__link}>
-                          <MdOutlineAccountBox />
-                          Account
-                        </Link>
-                      </Dropdown.Item>
+                      <Link className={Styles.dropdown__link}>
+                        <MdOutlineAccountBox />
+                        Account
+                      </Link>
+
                       <DropdownDivider />
-                      <Dropdown.Item href="#">
-                        <Link className={Styles.dropdown__link}>
-                          Change Password
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#">
-                        <Link
-                          className={Styles.dropdown__link}
-                          onClick={logout}
-                        >
-                          <IoIosLogOut />
-                          Logout
-                        </Link>
-                      </Dropdown.Item>
+
+                      <Link className={Styles.dropdown__link}>
+                        Change Password
+                      </Link>
+
+                      <Link className={Styles.dropdown__link} onClick={logout}>
+                        <IoIosLogOut />
+                        Logout
+                      </Link>
                     </DropdownButton>
                   </>
                 ) : (

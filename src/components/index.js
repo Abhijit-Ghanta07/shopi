@@ -8,7 +8,6 @@ import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
 import MyOrder from "./orders/MyOrder";
 import { ToastModal, Loader } from "./loader/Loader";
-import GetData from "../data/Getdata";
 import Account from "./account/Account";
 
 export {
@@ -24,6 +23,5 @@ export {
   MyOrder,
   Loader,
   ToastModal,
-  GetData,
   Account,
 };

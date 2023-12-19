@@ -1,7 +1,7 @@
-import Account from "./Account";
-import Auth from "./Auth";
-import Cart from "./Cart";
-import Home from "./Home";
-import Order from "./Order";
+import AccountPage from "./Account";
+import AuthPage from "./Auth";
+import CartPage from "./Cart";
+import HomePage from "./Home";
+import OrderPage from "./Order";
 
-export { Account, Auth, Cart, Home, Order };
+export { AccountPage, AuthPage, CartPage, HomePage, OrderPage };

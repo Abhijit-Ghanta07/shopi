@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser, setloading } from "../../context/auth";
-import { open } from "../../context/Toast";
+import { addUser, setloading } from "../../redux/auth";
+import { ToastOpen } from "../../redux/Toast";
 import { auth } from "../../utils/firebase";
 import { updateProfile } from "firebase/auth";
 
@@ -12,10 +12,10 @@ const useSetUser = () => {
   function setUser(user, message) {
     if (user) {
       dispatch(addUser({ user: user?.providerData[0], userId: user.uid }));
-      dispatch(open(message));
+      dispatch(ToastOpen(message));
       setNewUser(true);
     } else {
-      dispatch(open("sorry Something went Wrong"));
+      dispatch(ToastOpen("sorry Something went Wrong"));
     }
   }
 

@@ -9,15 +9,15 @@ const toastSlice = createSlice({
   name: "toast",
   initialState,
   reducers: {
-    open: (state, action) => {
+    ToastOpen: (state, action) => {
       state.show = true;
       state.message = action.payload;
     },
-    close: (state) => {
+    ToastClose: (state) => {
       state.show = false;
     },
   },
 });
 
-export const { open, close } = toastSlice.actions;
+export const { ToastOpen, ToastClose } = toastSlice.actions;
 export default toastSlice.reducer;

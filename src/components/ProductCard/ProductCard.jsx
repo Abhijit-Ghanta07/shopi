@@ -14,9 +14,9 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, deleteItem } from "../../context/cart";
-import useFindProduct from "../hooks/FindProduct";
-import { addWishlist, removeWishlist } from "../../context/wishList";
+import { addItem, deleteItem } from "../../redux/cart";
+import useFindProduct from "../../hooks/FindProduct";
+import { addWishlist, removeWishlist } from "../../redux/wishList";
 
 // css
 import Styles from "./productCard.module.scss";
@@ -24,10 +24,11 @@ function ProductCard({ product }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [fireId, findId] = useFindProduct();
-  const { productsID, firestoreProducts } = useSelector((store) => store.cart);
+  const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
   const wishlist = useSelector((store) => store.wishlist);
 
+  // handle addto cart click
   function handleAddClick() {
     if (!userId) {
       return navigate("/auth");
@@ -38,7 +39,7 @@ function ProductCard({ product }) {
       console.log(err);
     }
   }
-
+  // handle remove click
   function handleRemoveClick() {
     const ID = findId(this);
     if (ID) {

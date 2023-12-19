@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { ProductCard } from "../index.js";
 import { RxMagnifyingGlass } from "react-icons/rx";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 // scss
 import Styles from "./productlist.module.scss";

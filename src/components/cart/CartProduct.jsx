@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
 import { FaStar } from "react-icons/fa6";
 import { FaDollarSign } from "react-icons/fa6";
-import Styles from "./cart.module.scss";
+
 import { useDispatch, useSelector } from "react-redux";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
-import useFindProduct from "../hooks/FindProduct";
-import { deleteItem } from "../../context/cart";
+import useFindProduct from "../../hooks/FindProduct";
+import { deleteItem } from "../../redux/cart";
 
+// scss
+import Styles from "./cart.module.scss";
 const CartProduct = ({ product }) => {
   const dispatch = useDispatch();
   const [fireId, findId] = useFindProduct();

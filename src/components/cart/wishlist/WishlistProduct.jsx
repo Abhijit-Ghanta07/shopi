@@ -7,9 +7,13 @@ import {
   CardText,
   CardTitle,
 } from "react-bootstrap";
-import Styles from "./wishlist.module.scss";
+
 import { useDispatch } from "react-redux";
-import { addWishlist } from "../../../context/wishList";
+import { addWishlist } from "../../../redux/wishList";
+
+// scss
+import Styles from "./wishlist.module.scss";
+
 const WishlistProduct = ({ product }) => {
   const dispatch = useDispatch();
   function handleRemoveClick() {

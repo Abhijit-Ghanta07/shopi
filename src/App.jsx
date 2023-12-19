@@ -1,53 +1,65 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
-  Cart,
-  Auth,
-  Home,
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import {
   Error,
   Login,
   Register,
   ProductList,
-  Product,
+  SingleProduct,
   Category,
-  GetData,
-  OrderPage,
   Account,
-  AccountPage,
   MyOrder,
 } from "./components/index.js";
-import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
-
+import {
+  HomePage,
+  AuthPage,
+  CartPage,
+  OrderPage,
+  AccountPage,
+} from "./pages/pages.js";
+import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
+import GetData from "./data/Getdata.jsx";
 // css
 import "./App.css";
+import { useEffect } from "react";
 function App() {
+  // const { pathname } = useLocation();
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [pathname]);
+
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<HomePage />}>
             <Route index element={<ProductList />} />
-            <Route path="product/:id" element={<Product />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="wishlist" element={<Cart />} />
+            <Route path="product/:id" element={<SingleProduct />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="wishlist" element={<CartPage />} />
             <Route path="category/:id" element={<Category />} />
             <Route path="*" element={<Error />} />
           </Route>
           <Route
             path="/account"
             element={
-              <UserRoute>
-                <Account />
-              </UserRoute>
+              <GuestProtected>
+                <AccountPage />
+              </GuestProtected>
             }
           >
-            <Route index element={<AccountPage />} />
+            <Route index element={<Account />} />
           </Route>
           <Route
             path="/order"
             element={
-              <UserRoute>
+              <GuestProtected>
                 <OrderPage />
-              </UserRoute>
+              </GuestProtected>
             }
           >
             <Route index element={<MyOrder />} />
@@ -56,9 +68,9 @@ function App() {
           <Route
             path="/auth"
             element={
-              <ProtectedRoute>
-                <Auth />
-              </ProtectedRoute>
+              <UserProtected>
+                <AuthPage />
+              </UserProtected>
             }
           >
             <Route index element={<Login />} />

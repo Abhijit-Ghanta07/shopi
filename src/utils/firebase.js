@@ -5,13 +5,12 @@ import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
-  authDomain: "location-app-389103.firebaseapp.com",
-  databaseURL:
-    "https://location-app-389103-default-rtdb.asia-southeast1.firebasedatabase.app",
+  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_DOMAIN,
+  databaseURL: import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE,
   projectId: "location-app-389103",
   storageBucket: "location-app-389103.appspot.com",
   messagingSenderId: "919096105011",
-  appId: "1:919096105011:web:3f00ca8e4c0bed21f7ab46",
+  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APPID,
 };
 
 // Initialize Firebase

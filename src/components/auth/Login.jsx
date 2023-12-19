@@ -22,8 +22,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { loadfinish, setloading } from "../../context/auth";
-import { mapItem } from "../../context/cart";
+import { loadfinish, setloading } from "../../redux/auth";
+import { mapItem } from "../../redux/cart";
 import { useSetUser } from "./authUtils";
 import { IoArrowBack } from "react-icons/io5";
 // scss

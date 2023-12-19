@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { close } from "../../context/Toast";
+import { ToastClose } from "../../redux/Toast";
 
 // scss
 import Styles from "./loader.module.scss";
@@ -25,7 +25,7 @@ export const ToastModal = () => {
   const { show, message } = useSelector((store) => store.toast);
   const dispatch = useDispatch();
   function closeToast(params) {
-    dispatch(close());
+    dispatch(ToastClose());
   }
   // const [show, setShow] = useState(toastState.show);
 

@@ -4,8 +4,8 @@ import { Col, Container, Row } from "react-bootstrap";
 // css
 import Styles from "./banner.module.scss";
 import { Link } from "react-router-dom";
-import fetchData from "../../../api/api";
-import { fakeProduct } from "../../../constants/constants";
+import { fetchData } from "../../api/Api";
+import { fakeProduct } from "../../constants/constants";
 const Banner = () => {
   const [loading, setLoading] = useState(false);
   const [catagories, setCatagories] = useState([]);

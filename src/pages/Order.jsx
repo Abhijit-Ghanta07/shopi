@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "../includes/includes";
+import { Header } from "../includes/includes.js";
 import { Outlet } from "react-router-dom";
-import { Footer } from "../layouts/layout";
+import { Footer } from "../includes/includes.js";
 
 const Order = () => {
   return (

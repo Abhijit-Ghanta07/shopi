@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../api/api";
+import { fetchData } from "../api/Api";
 
 // Async thunk to fetch product data
 export const fetchProductData = createAsyncThunk(
   "product/fetchProductData",
   async () => {
     // Perform asynchronous operation to fetch product data (replace with your logic)
-    const response = await fetchData("products");
-    return response;
+    try {
+      const response = await fetchData("products");
+      return response;
+    } catch (err) {
+      return err.message;
+    }
   }
 );
 

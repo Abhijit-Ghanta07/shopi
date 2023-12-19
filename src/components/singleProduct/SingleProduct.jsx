@@ -15,35 +15,37 @@ import {
 } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, deleteItem } from "../../context/cart";
+import { addItem, deleteItem } from "../../redux/cart";
 import { IoArrowBack } from "react-icons/io5";
 import { BsCurrencyDollar } from "react-icons/bs";
+import useFindProduct from "../../hooks/FindProduct";
+
+// scss
 import Styles from "./product.module.scss";
-import useFindProduct from "../hooks/FindProduct";
 function SingleProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [fireId, findId] = useFindProduct();
   const { productData } = useSelector((store) => store.product);
-  const { productsID, firestoreProducts } = useSelector((store) => store.cart);
+  const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
-
+  // local States
   const [imgState, setImgState] = useState(0);
-
+  // filltered items
   let fillterdItem = useMemo(() => {
     return productData.find((item) => {
       return item.id == id;
     });
   }, [id]);
-
+  // handle add to cart click
   function handleAddClick() {
     if (!userId) {
       return navigate("/auth");
     }
     dispatch(addItem({ productId: this, userId: userId }));
   }
-
+  // handle remove from cart click
   function handleRemoveClick() {
     const ID = findId(this);
     if (ID) {
