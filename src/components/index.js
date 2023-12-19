@@ -1,37 +1,29 @@
-import CartWrapper from "./cart/CartWrapper";
-import CartEmpty from "./cart/CartEmpty";
-import Header from "./includes/header/Header";
-import Auth from "./pages/Auth";
-import Cart from "./pages/Cart";
-import Home from "./pages/Home";
+import { CartEmpty, CartWrapper } from "./cart/cartIndex";
 import Error from "./error/Error";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ProductList from "./productsList/ProductList";
-import Product from "./singleProduct/Product";
+import SingleProduct from "./singleProduct/SingleProduct";
 import Category from "./productByCategory/Category";
-import ProductCard from "./productsList/ProductCard";
-import Order from "./orders/Order";
-import Loader from "./loader/Loader";
-import { ToastModal } from "./loader/Loader";
+import ProductCard from "./ProductCard/ProductCard";
+import MyOrder from "./orders/MyOrder";
+import { ToastModal, Loader } from "./loader/Loader";
 import GetData from "../data/Getdata";
+import Account from "./account/Account";
 
 export {
-  Header,
   CartWrapper,
   CartEmpty,
-  Cart,
-  Auth,
-  Home,
   Error,
   Login,
   Register,
   ProductList,
-  Product,
+  SingleProduct,
   Category,
   ProductCard,
-  Order,
+  MyOrder,
   Loader,
   ToastModal,
   GetData,
+  Account,
 };

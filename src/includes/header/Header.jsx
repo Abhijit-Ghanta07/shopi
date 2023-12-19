@@ -9,6 +9,8 @@ import {
   Col,
   Container,
   Dropdown,
+  DropdownButton,
+  DropdownDivider,
   DropdownHeader,
   DropdownMenu,
   DropdownToggle,
@@ -18,19 +20,22 @@ import {
 import { IoBagCheckOutline } from "react-icons/io5";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
+import { IoIosLogOut } from "react-icons/io";
+import { MdOutlineAccountBox } from "react-icons/md";
 
 // styles
 import Styles from "./header.module.scss";
 import Banner from "../banner/Banner";
 import avatar from "../../../assets/svg/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { cartReset } from "../../../context/Cart";
 import { removeuser } from "../../../context/auth";
 import { open } from "../../../context/Toast";
+import { cartReset } from "../../../context/cart";
 function Header() {
   const dispatch = useDispatch();
   const { user, userId } = useSelector((store) => store.auth);
   const { productsID } = useSelector((store) => store.cart);
+  const wishlist = useSelector((store) => store.wishlist);
   async function logout(params) {
     console.log("click");
     const res = await signOut(auth);
@@ -93,29 +98,61 @@ function Header() {
 
                 {userId ? (
                   <>
-                    <Link className="d-flex gap-2 align-items-center text-decoration-none text-black">
-                      <img
-                        src={user.photoURL}
-                        alt="catagories img"
-                        className={Styles.rounded__img}
-                        onClick={logout}
-                      />
-                      <p className="m-0">{user.displayName}</p>
-                    </Link>
+                    <DropdownButton
+                      id="dropdown-basic-button "
+                      className={Styles.dropdown}
+                      title={
+                        <>
+                          <img
+                            src={user.photoURL}
+                            alt="catagories img"
+                            className={Styles.rounded__img}
+                          />
+
+                          <p className="m-0">{user.displayName}</p>
+                        </>
+                      }
+                    >
+                      <Dropdown.Item href="#">
+                        <Link className={Styles.dropdown__link}>
+                          <MdOutlineAccountBox />
+                          Account
+                        </Link>
+                      </Dropdown.Item>
+                      <DropdownDivider />
+                      <Dropdown.Item href="#">
+                        <Link className={Styles.dropdown__link}>
+                          Change Password
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#">
+                        <Link
+                          className={Styles.dropdown__link}
+                          onClick={logout}
+                        >
+                          <IoIosLogOut />
+                          Logout
+                        </Link>
+                      </Dropdown.Item>
+                    </DropdownButton>
                   </>
                 ) : (
-                  <Link to={"/auth"}>
+                  <Link
+                    to={"/auth"}
+                    className="text-decoration-none text-black"
+                  >
                     <img
                       src={avatar}
                       alt="catagories img"
                       className={Styles.rounded__img}
                     />
+                    Login
                   </Link>
                 )}
-                <Link to={"wishlist"} className="position-relative">
+                <Link to={"/cart"} className="position-relative">
                   <FaRegHeart className={Styles.header__user_icons} />
                   <Badge bg="danger" pill className={Styles.header__badge}>
-                    {/* {wishState?.length} */}0
+                    {wishlist.length}
                   </Badge>
                 </Link>
 

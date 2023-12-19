@@ -1,49 +1,29 @@
-import React, { useContext, useState } from "react";
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  CardImg,
-  CardSubtitle,
-  CardText,
-  CardTitle,
-  Col,
-  Container,
-  Row,
-  Stack,
-} from "react-bootstrap";
+import React, { useState } from "react";
+import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
 import { FaStar } from "react-icons/fa6";
 import { FaDollarSign } from "react-icons/fa6";
 import Styles from "./cart.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItems } from "../../utils/fireStore";
-import { deleteFromFire, deleteProduct } from "../../context/cart";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa6";
+import useFindProduct from "../hooks/FindProduct";
+import { deleteItem } from "../../context/cart";
 
 const CartProduct = ({ product }) => {
   const dispatch = useDispatch();
-  const { firestoreProducts } = useSelector((store) => store.cart);
-
+  const [fireId, findId] = useFindProduct();
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   function handleRemoveClick() {
-    const fireId = findId(this);
-    if (fireId) {
-      deleteCartItems(fireId).then(() => {
-        dispatch(deleteProduct(this));
-        dispatch(deleteFromFire(fireId));
-      });
+    const ID = findId(this);
+    if (ID) {
+      dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
-  function findId(productId) {
-    let product = firestoreProducts.find((item) => item.productId == productId);
-    return product.fireId;
-  }
+
   return (
     <>
       <Container fluid>

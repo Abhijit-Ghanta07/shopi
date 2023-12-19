@@ -1,26 +1,19 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProductData } from "../context/Product";
-
+import { mapItem } from "../context/cart";
+// headless component for data inital datafeching
 const Getdata = () => {
   const dispatch = useDispatch();
+  const { userId } = useSelector((store) => store.auth);
   useEffect(() => {
     dispatch(fetchProductData());
   }, []);
-  // useEffect(() => {
-  //   // declare abortcontrolller
-  //   let abortController = new AbortController();
-
-  //   async function fetchProduct() {
-  //     let products = await fetchData("products", abortController.signal);
-  //     // dispatch({ type: "setproduct", payload: products });
-  //   }
-  //   return () => {
-  //     // abort the datafetching
-  //     abortController.abort();
-  //   };
-  // }, []);
-
+  useEffect(() => {
+    if (userId !== "") {
+      dispatch(mapItem(userId));
+    }
+  }, [userId]);
   return <></>;
 };
 

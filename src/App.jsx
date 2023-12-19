@@ -9,8 +9,11 @@ import {
   ProductList,
   Product,
   Category,
-  Order,
   GetData,
+  OrderPage,
+  Account,
+  AccountPage,
+  MyOrder,
 } from "./components/index.js";
 import { ProtectedRoute, UserRoute } from "./utils/ProtectedRoute";
 
@@ -26,17 +29,29 @@ function App() {
             <Route path="product/:id" element={<Product />} />
             <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Cart />} />
-            <Route path="*" element={<Error />} />
             <Route path="category/:id" element={<Category />} />
+            <Route path="*" element={<Error />} />
+          </Route>
+          <Route
+            path="/account"
+            element={
+              <UserRoute>
+                <Account />
+              </UserRoute>
+            }
+          >
+            <Route index element={<AccountPage />} />
           </Route>
           <Route
             path="/order"
             element={
               <UserRoute>
-                <Order />
+                <OrderPage />
               </UserRoute>
             }
-          />
+          >
+            <Route index element={<MyOrder />} />
+          </Route>
 
           <Route
             path="/auth"

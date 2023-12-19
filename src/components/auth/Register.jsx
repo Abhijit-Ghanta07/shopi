@@ -7,18 +7,14 @@ import {
   Col,
   Container,
   Form,
+  FormCheck,
   FormControl,
   FormGroup,
   FormLabel,
-  FormText,
   Row,
 } from "react-bootstrap";
 
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -28,9 +24,14 @@ import { FaGoogle } from "react-icons/fa";
 
 // css
 import Styles from "./auth.module.scss";
+import { useSetUser, useUpdateUser } from "./authUtils";
+import { IoArrowBack } from "react-icons/io5";
 const Register = () => {
   // navigate router
+
   const navigate = useNavigate();
+  const [, updateUser] = useUpdateUser();
+  const [, setUserState] = useSetUser();
   // userform hooks
   const {
     register,
@@ -39,6 +40,7 @@ const Register = () => {
   } = useForm();
   // loacal state
   const [hide, setHide] = useState(true);
+  const [checked, setCheck] = useState(false);
   // form submission
   async function formSubmit(data) {
     try {
@@ -49,52 +51,20 @@ const Register = () => {
       );
       if (res) {
         updateUser(res.user, data.name);
+        // updateUser(res.user, data.name);
       }
     } catch (error) {
       console.log(error);
     }
   }
-  function updateUser(user, name) {
-    updateProfile(user, {
-      displayName: name,
-      photoURL:
-        "https://images.pexels.com/photos/18825491/pexels-photo-18825491/free-photo-of-man-in-a-costume-of-a-hindu-deity-sitting-on-the-floor.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    }).then(() => {
-      // dispatch({ type: "setuser", payload: auth.currentUser?.providerData[0] });
-      // navigate("/");
-    });
-  }
-  const facebookAuth = async () => {
-    console.log("auth click facebookAuth");
-  };
-  const googleAuth = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      if (user) {
-        dispatch({ type: "setuser", payload: user?.providerData[0] });
-        navigate("/");
-      }
-    } catch (err) {
-    } finally {
-      dispatch({ type: "loadfinish" });
-    }
 
-    // This gives you a Google Access Token.
-    //   const credential = GoogleAuthProvider.credentialFromResult(result);
-    //   const token = credential.accessToken;
-    //   console.log(user, credential);
-  };
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
+        <Link to={"/"} className={`${Styles.back__btn} btn `}>
+          <IoArrowBack /> Go Back
+        </Link>
         <Container className="h-100">
-          <Link
-            to={"/"}
-            className={`${Styles.back__btn} btn btn-info my-2 mt-md-2 mb-md-0`}
-          >
-            Go Back To Home
-          </Link>
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>
@@ -107,7 +77,7 @@ const Register = () => {
                         <Link to={"/auth"} className=" py-3">
                           Login
                         </Link>
-                        <div className="d-flex justify-content-center gap-3 mt-2">
+                        {/* <div className="d-flex justify-content-center gap-3 mt-2">
                           <Link
                             className="icon-link btn btn-outline-primary"
                             onClick={facebookAuth}
@@ -122,7 +92,7 @@ const Register = () => {
                             <FaGoogle />
                             Google
                           </Link>
-                        </div>
+                        </div> */}
                       </CardText>
                       <Form onSubmit={handleSubmit(formSubmit)}>
                         <FormGroup>
@@ -203,10 +173,16 @@ const Register = () => {
                             )}
                           </p>
                         </FormGroup>
-                        {/* <FormGroup className="d-flex gap-2">
-                          <FormCheck />
-                          <FormLabel>Remember Me</FormLabel>
-                        </FormGroup> */}
+                        <FormGroup className="d-flex gap-2">
+                          <FormCheck
+                            id="check"
+                            checked={checked}
+                            onChange={() => {
+                              setCheck(!checked);
+                            }}
+                          />
+                          <FormLabel htmlFor="check">Stay Login</FormLabel>
+                        </FormGroup>
 
                         <Button
                           variant="primary"
@@ -216,9 +192,6 @@ const Register = () => {
                           Register
                         </Button>
                       </Form>
-                      <CardText className="text-center mt-1">
-                        <hr className="mb-2" />
-                      </CardText>
                     </Card>
                   </Col>
                   <Col md className="py-4">

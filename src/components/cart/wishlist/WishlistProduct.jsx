@@ -8,22 +8,19 @@ import {
   CardTitle,
 } from "react-bootstrap";
 import Styles from "./wishlist.module.scss";
+import { useDispatch } from "react-redux";
+import { addWishlist } from "../../../context/wishList";
 const WishlistProduct = ({ product }) => {
-  // function handleRemoveClick() {
-  //   dispatch({ type: "remove", payload: this });
-  // }
+  const dispatch = useDispatch();
+  function handleRemoveClick() {
+    dispatch(addWishlist(this));
+  }
   return (
     <>
       <Card className={Styles.product__card}>
         <CardImg src={product?.images[0]} className="card-img" />
         <CardBody>
           <CardTitle>{product.title}</CardTitle>
-          {/* <CardText className="text-success">
-            {product?.rating?.rate}
-            <FaStar />
-            By
-            {product?.rating?.count}
-          </CardText> */}
           <CardText>Price:${product.price}</CardText>
           <CardText className="small text-secondary">
             {product.description}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+// scss
 import Styles from "./cart.module.scss";
 import { Card, Col, Container, Row } from "react-bootstrap";
 

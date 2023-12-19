@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Col, Container, FormControl, Row } from "react-bootstrap";
-import ProductCard from "./ProductCard";
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import { ProductCard } from "../index.js";
 import { RxMagnifyingGlass } from "react-icons/rx";
-import Styles from "./productlist.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProductData } from "../../context/Product";
+
+// scss
+import Styles from "./productlist.module.scss";
 function ProductList() {
   const { productData } = useSelector((store) => store.product);
 

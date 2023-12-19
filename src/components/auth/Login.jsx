@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -12,26 +12,27 @@ import {
   FormControl,
   FormGroup,
   FormLabel,
-  FormText,
   Row,
 } from "react-bootstrap";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { FaRegEyeSlash } from "react-icons/fa";
+import { FaLeaf, FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
-import Styles from "./auth.module.scss";
 import { useForm } from "react-hook-form";
-import { getCartItems } from "../../utils/fireStore";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser, loadfinish, setloading } from "../../context/auth";
-import { mapCart } from "../../context/cart";
-import { open } from "../../context/Toast";
-
+import { useDispatch } from "react-redux";
+import { loadfinish, setloading } from "../../context/auth";
+import { mapItem } from "../../context/cart";
+import { useSetUser } from "./authUtils";
+import { IoArrowBack } from "react-icons/io5";
+// scss
+import Styles from "./auth.module.scss";
 const Login = () => {
   // navigate func
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [, setUserState] = useSetUser();
   // useform func
   const {
     register,
@@ -39,9 +40,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   // global states or context
-  const dispatch = useDispatch();
+
   // local states
   const [hide, setHide] = useState(true);
+  const [checked, setcheck] = useState(false);
   // handle form submit
   async function formSubmit(data) {
     try {
@@ -52,9 +54,9 @@ const Login = () => {
         data.password
       );
       if (res.user) {
-        const userCart = await getCartItems(res.user.uid);
-        mapCartItems(userCart);
-        setUser(res.user);
+        dispatch(mapItem(res.user?.uid));
+        setUserState(res.user, "Login successfull");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -63,28 +65,8 @@ const Login = () => {
     }
   }
 
-  function mapCartItems(products) {
-    products.forEach((item) => {
-      dispatch(
-        mapCart({
-          productId: item.productId,
-          quantity: item.quantity,
-          fireId: item.fireId,
-        })
-      );
-    });
-  }
-
   // update user profile with name image
-  function setUser(logUser) {
-    if (logUser) {
-      dispatch(
-        addUser({ user: logUser?.providerData[0], userId: logUser.uid })
-      );
-      dispatch(open("Login Successfull"));
-      navigate("/");
-    }
-  }
+
   // google authentication
   const googleAuth = async () => {
     try {
@@ -92,9 +74,12 @@ const Login = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
-        const userCart = await getCartItems(user.uid);
-        mapCartItems(userCart);
-        setUser(user);
+        // const userCart = await getCartItems(user.uid);
+        // mapCartItems(userCart);
+        // setUser(user);
+        dispatch(mapItem(user?.uid));
+        setUserState(user, "Login successfull");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -105,13 +90,10 @@ const Login = () => {
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
+        <Link to={"/"} className={`${Styles.back__btn} btn `}>
+          <IoArrowBack /> Go Back
+        </Link>
         <Container className="h-100 position-relative">
-          <Link
-            to={"/"}
-            className={`${Styles.back__btn} btn btn-info my-2 mt-md-2 mb-md-0`}
-          >
-            Go Back To Home
-          </Link>
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>
@@ -182,8 +164,14 @@ const Login = () => {
                           </p>
                         </FormGroup>
                         <FormGroup className="d-flex gap-2">
-                          <FormCheck />
-                          <FormLabel>Remember Me</FormLabel>
+                          <FormCheck
+                            id="check"
+                            checked={checked}
+                            onChange={() => {
+                              setcheck(!checked);
+                            }}
+                          />
+                          <FormLabel htmlFor="check">Remember Me</FormLabel>
                         </FormGroup>
 
                         <Button

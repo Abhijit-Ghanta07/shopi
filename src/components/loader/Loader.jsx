@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
-import Styles from "./loader.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { close } from "../../context/Toast";
-const Loader = ({ loading }) => {
+
+// scss
+import Styles from "./loader.module.scss";
+export const Loader = ({ loading }) => {
   return (
     <>
       {loading &&
@@ -47,5 +49,3 @@ export const ToastModal = () => {
     </>
   );
 };
-
-export default Loader;

@@ -10,14 +10,14 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { DB } from "./firebase";
-const addCartItem = async (productId, userId, quntity = 1) => {
+const addCartItem = async (productId, userId, quantity = 1) => {
   // add cart item to firestore
   const DocRef = collection(DB, "cart");
   try {
     const newDoc = await addDoc(DocRef, {
       productId,
       userId,
-      quntity,
+      quantity,
       timestamp: serverTimestamp(),
     });
     return newDoc.id;
@@ -51,12 +51,12 @@ const deleteCartItems = async (docID) => {
     }
   }
 };
-const updateCartItems = async (docID, quntity) => {
+const updateCartItems = async (docID, quantity) => {
   const docRef = doc(DB, "cart", docID);
   if (docRef) {
     try {
       const newDoc = await updateDoc(docRef, {
-        quntity,
+        quantity,
         timestamp: serverTimestamp(),
       });
     } catch (err) {

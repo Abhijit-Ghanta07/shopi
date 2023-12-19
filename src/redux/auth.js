@@ -6,13 +6,13 @@ const authSlice = createSlice({
     loading: false,
     loadFinish: false,
     currentUser: false,
-    user: {},
-    userId: "",
+    user: JSON.parse(localStorage.getItem("user")) || {},
+    userId: localStorage.getItem("userid") || "",
   },
   reducers: {
     addUser: (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("userid", action.userId);
+      localStorage.setItem("userid", action.payload.userId);
       state.loading = false;
       state.loadFinish = true;
       state.currentUser = true;

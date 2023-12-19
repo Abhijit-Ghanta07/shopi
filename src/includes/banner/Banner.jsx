@@ -30,7 +30,7 @@ const Banner = () => {
       <Container fluid="xl" className="card mt-3">
         <Row className="py-3">
           <Col>
-            <div className="d-flex justify-content-around">
+            <div className="d-flex justify-content-around flex-wrap">
               {loading ? (
                 <p>Loading....</p>
               ) : (
