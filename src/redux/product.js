@@ -10,7 +10,7 @@ export const fetchProductData = createAsyncThunk(
       const response = await fetchData("products");
       return response;
     } catch (err) {
-      return err.message;
+      return err;
     }
   }
 );
