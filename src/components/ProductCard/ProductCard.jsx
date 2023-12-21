@@ -15,6 +15,7 @@ import { IoMdHeart } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "../../redux/cart";
+import { ToastOpen } from "../../redux/Toast";
 import useFindProduct from "../../hooks/FindProduct";
 import { addWishlist, removeWishlist } from "../../redux/wishList";
 
@@ -35,8 +36,10 @@ function ProductCard({ product }) {
     }
     try {
       dispatch(addItem({ productId: this, userId: userId }));
+      dispatch(ToastOpen("Product Added To Cart"));
     } catch (err) {
       console.log(err);
+      dispatch(ToastOpen("Something went Wrong"));
     }
   }
   // handle remove click
@@ -44,6 +47,7 @@ function ProductCard({ product }) {
     const ID = findId(this);
     if (ID) {
       dispatch(deleteItem({ productId: this, fireId: ID }));
+      dispatch(ToastOpen("Product Remove From Cart"));
     }
   }
 
@@ -68,7 +72,7 @@ function ProductCard({ product }) {
           />
         )}
 
-        <Link to={`product/${product.id}`} className={Styles.card__link}>
+        <Link to={`/product/${product.id}`} className={Styles.card__link}>
           <CardImg src={product?.images[0]} className={Styles.card__img} />
         </Link>
 

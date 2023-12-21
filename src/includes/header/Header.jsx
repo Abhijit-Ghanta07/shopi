@@ -43,9 +43,7 @@ function Header() {
     dispatch(cartReset());
     dispatch(ToastOpen("Youre Are Logged Out"));
   }
-  // useEffect(() => {
-  //   console.log("changed");
-  // }, [user]);
+
   return (
     <>
       <Container

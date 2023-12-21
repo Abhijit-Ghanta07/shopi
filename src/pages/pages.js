@@ -3,5 +3,6 @@ import AuthPage from "./Auth";
 import CartPage from "./Cart";
 import HomePage from "./Home";
 import OrderPage from "./Order";
+import ProductPage from "./ProductPage";
 
-export { AccountPage, AuthPage, CartPage, HomePage, OrderPage };
+export { AccountPage, AuthPage, CartPage, HomePage, OrderPage, ProductPage };

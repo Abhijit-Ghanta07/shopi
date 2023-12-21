@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -8,11 +9,11 @@ import {
   Error,
   Login,
   Register,
-  ProductList,
   SingleProduct,
   Category,
   Account,
   MyOrder,
+  Loader,
 } from "./components/index.js";
 import {
   HomePage,
@@ -20,30 +21,30 @@ import {
   CartPage,
   OrderPage,
   AccountPage,
+  ProductPage,
 } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import GetData from "./data/Getdata.jsx";
+const ProductList = lazy(() =>
+  import("./components/productsList/ProductList.jsx")
+);
 // css
 import "./App.css";
-import { useEffect } from "react";
 function App() {
-  // const { pathname } = useLocation();
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [pathname]);
-
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />}>
             <Route index element={<ProductList />} />
-            <Route path="product/:id" element={<SingleProduct />} />
-            <Route path="cart" element={<CartPage />} />
-            <Route path="wishlist" element={<CartPage />} />
             <Route path="category/:id" element={<Category />} />
             <Route path="*" element={<Error />} />
           </Route>
+          <Route path="/product" element={<ProductPage />}>
+            <Route path=":id" element={<SingleProduct />} />
+          </Route>
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/wishlist" element={<CartPage />} />
           <Route
             path="/account"
             element={

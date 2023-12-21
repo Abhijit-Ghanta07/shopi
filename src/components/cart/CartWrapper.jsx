@@ -11,7 +11,7 @@ import {
   Row,
   Stack,
 } from "react-bootstrap";
-import { CartProduct, WishList } from "./cartIndex";
+import { CartEmpty, CartProduct, WishList } from "./cartIndex";
 import { IoArrowBack } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -30,6 +30,9 @@ const CartWrapper = () => {
       return total + currentItem.price;
     }, 0);
   };
+  if (!fillteredItem.length) {
+    return <CartEmpty />;
+  }
 
   return (
     <>

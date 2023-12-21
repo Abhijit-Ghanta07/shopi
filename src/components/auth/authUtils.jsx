@@ -7,7 +7,7 @@ import { updateProfile } from "firebase/auth";
 
 const useSetUser = () => {
   const dispatch = useDispatch();
-  const [newUser, setNewUser] = useState(false);
+  const [UserState, setNewUser] = useState(false);
 
   function setUser(user, message) {
     if (user) {
@@ -16,28 +16,35 @@ const useSetUser = () => {
       setNewUser(true);
     } else {
       dispatch(ToastOpen("sorry Something went Wrong"));
+      dispatch(ToastOpen("Try Again After Sometimes"));
+      setNewUser(false);
     }
   }
 
-  return [newUser, setUser];
+  return [UserState, setUser];
 };
 const useUpdateUser = () => {
   const [loading, setLoading] = useState(false);
   const [userState, setUserState] = useSetUser();
-  async function updateUser(user, name) {
-    setLoading(true);
-    const res = await updateProfile(user, {
-      displayName: name,
-      photoURL:
-        "https://images.pexels.com/photos/18825491/pexels-photo-18825491/free-photo-of-man-in-a-costume-of-a-hindu-deity-sitting-on-the-floor.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    });
-    if (res) {
+  const [error, setError] = useState(false);
+  async function updateUser(user, first, last) {
+    let name = `${first} ${last}`;
+    try {
+      setLoading(true);
+      const res = await updateProfile(user, {
+        displayName: name,
+        photoURL:
+          "https://images.pexels.com/photos/19479502/pexels-photo-19479502/free-photo-of-model-in-a-leather-jacket-and-jeans-crossing-the-street.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      });
+
       setUserState(auth.currentUser, "your are register successfully");
       setLoading(false);
+    } catch (err) {
+      setError(true);
     }
   }
 
-  return [loading, updateUser];
+  return [loading, error, updateUser];
 };
 
 export { useSetUser, useUpdateUser };

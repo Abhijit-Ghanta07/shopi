@@ -18,20 +18,21 @@ import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FaAward, FaRegEyeSlash } from "react-icons/fa";
-import { FaFacebookF } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { Loader } from "../index.js";
 // css
 import Styles from "./auth.module.scss";
 import { useSetUser, useUpdateUser } from "./authUtils";
 import { IoArrowBack } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { loadfinish, setloading } from "../../redux/auth";
+import { ToastOpen } from "../../redux/Toast";
 const Register = () => {
   // navigate router
-
   const navigate = useNavigate();
-  const [, updateUser] = useUpdateUser();
-  const [, setUserState] = useSetUser();
+  const dispatch = useDispatch();
+  // custom Hooks
+  const [loading, err, updateUser] = useUpdateUser();
   // userform hooks
   const {
     register,
@@ -44,24 +45,28 @@ const Register = () => {
   // form submission
   async function formSubmit(data) {
     try {
+      dispatch(setloading());
       const res = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
       if (res) {
-        updateUser(res.user, data.name);
-        // updateUser(res.user, data.name);
+        await updateUser(res.user, data.first_name, data.last_name);
+        navigate("/");
       }
     } catch (error) {
+      dispatch(ToastOpen("Something wrong! Try after sometimes"));
       console.log(error);
+    } finally {
+      dispatch(loadfinish());
     }
   }
 
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
-        <Link to={"/"} className={`${Styles.back__btn} btn `}>
+        <Link to={"/auth"} className={`${Styles.back__btn} btn `}>
           <IoArrowBack /> Go Back
         </Link>
         <Container className="h-100">
@@ -70,8 +75,8 @@ const Register = () => {
               <Card className={Styles.auth__card}>
                 <Row>
                   <Col className="p-4">
-                    <Card className="p-3 border-0 shadow">
-                      <CardTitle>Register</CardTitle>
+                    <Card className="p-2 border-0">
+                      <CardTitle className="fw-medium">Register</CardTitle>
                       <CardText>
                         Have An Account?
                         <Link to={"/auth"} className=" py-3">
@@ -96,22 +101,45 @@ const Register = () => {
                       </CardText>
                       <Form onSubmit={handleSubmit(formSubmit)}>
                         <FormGroup>
-                          <FormLabel>Enter Your Name:</FormLabel>
+                          <FormLabel>First Name:</FormLabel>
                           <FormControl
-                            placeholder="John Doe"
+                            placeholder="John"
                             type="text"
-                            {...register("name", { required: true })}
-                            aria-invalid={errors.name ? "true" : "false"}
-                            autoComplete=""
+                            {...register("first_name", { required: true })}
+                            aria-invalid={errors.first_name ? "true" : "false"}
+                            autoComplete="true"
                           />
                           <p
                             className={
-                              errors.name
+                              errors.first_name
                                 ? "text-danger visible m-0"
                                 : "invisible m-0"
                             }
                           >
-                            {errors.name?.type === "required" ? (
+                            {errors.first_name?.type === "required" ? (
+                              <span>Name is Required</span>
+                            ) : (
+                              <span>Enter a Valid Name</span>
+                            )}
+                          </p>
+                        </FormGroup>
+                        <FormGroup>
+                          <FormLabel>Last Name:</FormLabel>
+                          <FormControl
+                            placeholder="Doe"
+                            type="text"
+                            {...register("last_name", { required: true })}
+                            aria-invalid={errors.last_name ? "true" : "false"}
+                            autoComplete="true"
+                          />
+                          <p
+                            className={
+                              errors.last_name
+                                ? "text-danger visible m-0"
+                                : "invisible m-0"
+                            }
+                          >
+                            {errors.last_name?.type === "required" ? (
                               <span>Name is Required</span>
                             ) : (
                               <span>Enter a Valid Name</span>
@@ -125,7 +153,7 @@ const Register = () => {
                             type="email"
                             {...register("email", { required: true })}
                             aria-invalid={errors.email ? "true" : "false"}
-                            autoComplete=""
+                            autoComplete="true"
                           />
                           <p
                             className={
@@ -147,17 +175,25 @@ const Register = () => {
                             role="button"
                           >
                             Password:
-                            <FaRegEyeSlash
-                              onClick={() => {
-                                setHide(!hide);
-                              }}
-                            />
+                            {hide ? (
+                              <FaRegEyeSlash
+                                onClick={() => {
+                                  setHide(!hide);
+                                }}
+                              />
+                            ) : (
+                              <FaRegEye
+                                onClick={() => {
+                                  setHide(!hide);
+                                }}
+                              />
+                            )}
                           </FormLabel>
                           <FormControl
                             placeholder="Password"
                             type={hide ? "password" : "text"}
                             {...register("password", { required: true })}
-                            autoComplete=""
+                            autoComplete="true"
                           />
                           <p
                             className={
@@ -203,6 +239,7 @@ const Register = () => {
           </Row>
         </Container>
       </Container>
+      <Loader loading={loading} />
     </>
   );
 };

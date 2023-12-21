@@ -1,28 +1,3 @@
-@mixin deskTop {
-  @media only screen and (min-width: 680px) {
-    @content;
-  }
-}
-
-.card__img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.product__card {
-  min-width: 10rem !important;
-  width: 100%;
-  transition: 0.2s ease;
-  margin-inline: 0.4rem;
-  @include deskTop() {
-    width: 15rem !important;
-  }
-}
-// .product__card:hover {
-//   transform: translateY(-2px);
-//   box-shadow: 0 0 5px rgb(137, 137, 137);
-// }
 .img__icon {
   position: absolute;
   top: 10px;

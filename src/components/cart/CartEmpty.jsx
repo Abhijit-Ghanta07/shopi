@@ -32,7 +32,7 @@ const CartEmpty = () => {
                     data-abc="true"
                     to={"/"}
                   >
-                    continue shopping
+                    Continue Shopping
                   </Link>
                 </Col>
               </div>

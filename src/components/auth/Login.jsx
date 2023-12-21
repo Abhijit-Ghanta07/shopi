@@ -17,7 +17,7 @@ import {
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { FaLeaf, FaRegEyeSlash } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -28,6 +28,7 @@ import { useSetUser } from "./authUtils";
 import { IoArrowBack } from "react-icons/io5";
 // scss
 import Styles from "./auth.module.scss";
+import { ToastOpen } from "../../redux/Toast";
 const Login = () => {
   // navigate func
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
+      dispatch(ToastOpen("Failed To Login"));
     } finally {
       dispatch(loadfinish());
     }
@@ -83,6 +85,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
+      dispatch(ToastOpen("Something went wrong"));
     } finally {
       dispatch(loadfinish());
     }
@@ -137,11 +140,19 @@ const Login = () => {
                             role="button"
                           >
                             Password:
-                            <FaRegEyeSlash
-                              onClick={() => {
-                                setHide(!hide);
-                              }}
-                            />
+                            {hide ? (
+                              <FaRegEyeSlash
+                                onClick={() => {
+                                  setHide(!hide);
+                                }}
+                              />
+                            ) : (
+                              <FaRegEye
+                                onClick={() => {
+                                  setHide(!hide);
+                                }}
+                              />
+                            )}
                           </FormLabel>
                           <FormControl
                             placeholder="Password"
