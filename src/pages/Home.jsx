@@ -18,8 +18,8 @@ function Home() {
       <Banner />
       <Outlet />
       <ToastModal />
-      <Footer />
       <Loader loading={loading} />
+      <Footer />
     </div>
   );
 }

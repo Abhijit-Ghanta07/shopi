@@ -8,7 +8,6 @@ import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
 import MyOrder from "./orders/MyOrder";
 import { ToastModal, Loader } from "./loader/Loader";
-import Account from "./account/Account";
 
 export {
   CartWrapper,
@@ -23,5 +22,4 @@ export {
   MyOrder,
   Loader,
   ToastModal,
-  Account,
 };

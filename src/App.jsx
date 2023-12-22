@@ -1,19 +1,12 @@
-import { Suspense, lazy } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   Error,
   Login,
   Register,
   SingleProduct,
   Category,
-  Account,
   MyOrder,
-  Loader,
+  ProductList,
 } from "./components/index.js";
 import {
   HomePage,
@@ -25,11 +18,10 @@ import {
 } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import GetData from "./data/Getdata.jsx";
-const ProductList = lazy(() =>
-  import("./components/productsList/ProductList.jsx")
-);
+import { Profile } from "./components/account/accountIndex.js";
 // css
 import "./App.css";
+
 function App() {
   return (
     <>
@@ -53,7 +45,7 @@ function App() {
               </GuestProtected>
             }
           >
-            <Route index element={<Account />} />
+            <Route index element={<Profile />} />
           </Route>
           <Route
             path="/order"
