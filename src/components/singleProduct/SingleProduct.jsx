@@ -22,6 +22,7 @@ import useFindProduct from "../../hooks/FindProduct";
 
 // scss
 import Styles from "./product.module.scss";
+import { addWishlist, removeWishlist } from "../../redux/wishList";
 function SingleProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function SingleProduct() {
   const { productData } = useSelector((store) => store.product);
   const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
+  const wishlist = useSelector((store) => store.wishlist);
   // local States
   const [imgState, setImgState] = useState(0);
   // filltered items
@@ -52,11 +54,17 @@ function SingleProduct() {
       dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
-
+  function wishlistAdd() {
+    dispatch(addWishlist(this));
+  }
+  function wishlistRemove() {
+    dispatch(removeWishlist(this));
+  }
+  console.log(wishlist);
   const sizeArr = ["M", "L", "XL", "XXL"];
   return (
     <>
-      <Link to={"/"} className={`${Styles.back__btn} btn`}>
+      <Link to={navigate(-1)} className={`${Styles.back__btn} btn`}>
         <IoArrowBack />
         Go Back
       </Link>
@@ -120,15 +128,21 @@ function SingleProduct() {
                           Add To Cart
                         </Button>
                       )}
-
-                      <Button
-                        variant="success"
-                        onClick={() => {
-                          console.log("buy click", fillterdItem.id);
-                        }}
-                      >
-                        Add to WishList
-                      </Button>
+                      {wishlist.includes(fillterdItem.id) ? (
+                        <Button
+                          variant="primary"
+                          onClick={wishlistRemove.bind(fillterdItem.id)}
+                        >
+                          Remove WishList
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="success"
+                          onClick={wishlistAdd.bind(fillterdItem.id)}
+                        >
+                          Add WishList
+                        </Button>
+                      )}
                     </div>
                   </CardBody>
                 </Col>

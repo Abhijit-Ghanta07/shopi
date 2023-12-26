@@ -41,7 +41,9 @@ export const ToastModal = () => {
                   alt="close"
                 /> */}
             </ToastHeader>
-            <ToastBody className={Styles.toast__body}>{message}</ToastBody>
+            <ToastBody className={Styles.toast__body}>
+              {message.toUpperCase()}
+            </ToastBody>
           </Toast>
         </div>,
         document.getElementById("toast")

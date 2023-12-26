@@ -37,7 +37,6 @@ function Header() {
   const { productsID } = useSelector((store) => store.cart);
   const wishlist = useSelector((store) => store.wishlist);
   async function logout(params) {
-    console.log("click");
     const res = await signOut(auth);
     dispatch(removeuser());
     dispatch(cartReset());
@@ -111,7 +110,7 @@ function Header() {
                         </>
                       }
                     >
-                      <Link className={Styles.dropdown__link}>
+                      <Link className={Styles.dropdown__link} to={"/account"}>
                         <MdOutlineAccountBox />
                         Account
                       </Link>
