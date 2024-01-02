@@ -10,11 +10,12 @@ import {
 import { DB } from "./firebase";
 const collectionRef = collection(DB, "orders");
 
-const addOrder = async (userId, products = []) => {
+const addOrder = async (userId, products = [], price) => {
   try {
     const newOrder = await addDoc(collectionRef, {
       userId,
       products,
+      price,
       timestamp: serverTimestamp(),
     });
     return newOrder;

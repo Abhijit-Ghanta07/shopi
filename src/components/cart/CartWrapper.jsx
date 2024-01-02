@@ -12,21 +12,20 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
-  ModalTitle,
   Row,
   Stack,
 } from "react-bootstrap";
 import { CartEmpty, CartProduct, WishList } from "./cartIndex";
-import { IoArrowBack } from "react-icons/io5";
+
 import { useDispatch, useSelector } from "react-redux";
-import { loadfinish, setloading } from "../../redux/auth";
 import { ToastOpen } from "../../redux/Toast";
 import { cartReset } from "../../redux/cart";
-import { Link, useNavigate } from "react-router-dom";
+import { loaderOpen, loaderClose } from "../../redux/loader";
+import { useNavigate } from "react-router-dom";
 import payment from "../../assets/images/payment.jpg";
+import { addOrder } from "../../utils/orders";
 // styles
 import Styles from "./cart.module.scss";
-import { OrderBatchDelete, addOrder } from "../../utils/orders";
 
 const CartWrapper = () => {
   const dispatch = useDispatch();
@@ -41,15 +40,25 @@ const CartWrapper = () => {
     return productData.filter((product, i) => productsID?.includes(product.id));
   }, [productsID]);
 
+  // totalprice amount
+  const Totalamount = useMemo(() => {
+    if (totalPrice.length > 0) {
+      return totalPrice.reduce((sum, currentItem) => {
+        return sum + currentItem;
+      }, 0);
+    }
+  }, [totalPrice]);
+
   const handleCheckout = (evt) => {
     setModalShow(true);
   };
   const handleBuyClick = async () => {
     try {
-      dispatch(setloading());
+      dispatch(loaderOpen());
       const res = await addOrder(
         userId,
-        fillteredItem.map((item) => item.id)
+        fillteredItem.map((item) => item.id),
+        Totalamount
       );
       if (res) {
         dispatch(cartReset(userId));
@@ -59,17 +68,9 @@ const CartWrapper = () => {
     } catch (err) {
       dispatch(ToastOpen("something went wrong"));
     } finally {
-      dispatch(loadfinish());
+      dispatch(loaderClose());
     }
   };
-  // get total amount
-  const Totalamount = useMemo(() => {
-    if (totalPrice.length > 0) {
-      return totalPrice.reduce((sum, currentItem) => {
-        return sum + currentItem;
-      }, 0);
-    }
-  }, [totalPrice]);
   // if product length 0 return empty
 
   if (!fillteredItem.length) {
@@ -80,12 +81,8 @@ const CartWrapper = () => {
 
   return (
     <>
-      <Link to={"/"} className={`${Styles.back__btn} btn`}>
-        <IoArrowBack />
-        Go Back
-      </Link>
       <Container fluid="xl" className="mb-4">
-        <h3 className="p-2 fw-bold">Shopping Cart</h3>
+        <h3 className="p-2 fw-bold text-center">Shopping Cart</h3>
         <Row className="gap-3">
           <Col md="8" className="order-2 order-md-1">
             <Card className="p-3">

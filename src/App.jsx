@@ -18,7 +18,7 @@ import {
 } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import GetData from "./data/Getdata.jsx";
-import { Profile } from "./components/account/accountIndex.js";
+import { Profile, ResetPass } from "./components/account/accountIndex.js";
 // css
 import "./App.css";
 
@@ -46,6 +46,7 @@ function App() {
             }
           >
             <Route index element={<Profile />} />
+            <Route path="change" element={<ResetPass />} />
           </Route>
           <Route
             path="/order"

@@ -32,11 +32,6 @@ const Category = () => {
   // const [filter, setFilter] = useState(true);
   // fetch categories
   const { data, loading, err } = useFetchData(`categories/${id}/products`);
-  if (loading) {
-    dispatch(loaderOpen());
-  } else {
-    dispatch(loaderClose());
-  }
 
   function handleChange(e) {
     let value = e.target.value;
@@ -70,6 +65,13 @@ const Category = () => {
     }
   }, [range]);
 
+  useEffect(() => {
+    if (loading) {
+      dispatch(loaderOpen());
+    } else {
+      dispatch(loaderClose());
+    }
+  }, [loading]);
   return (
     <Container className="mt-3 py-4">
       <Row>

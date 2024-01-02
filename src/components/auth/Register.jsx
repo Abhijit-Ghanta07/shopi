@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -14,25 +14,24 @@ import {
   Row,
 } from "react-bootstrap";
 
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../utils/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { Loader } from "../index.js";
+import { useUpdateUser } from "./authUtils";
+import { useDispatch } from "react-redux";
+import { ToastOpen } from "../../redux/Toast";
+import { loaderClose, loaderOpen } from "../../redux/loader";
 // css
 import Styles from "./auth.module.scss";
-import { useSetUser, useUpdateUser } from "./authUtils";
-import { IoArrowBack } from "react-icons/io5";
-import { useDispatch } from "react-redux";
-import { loadfinish, setloading } from "../../redux/auth";
-import { ToastOpen } from "../../redux/Toast";
+
 const Register = () => {
   // navigate router
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // custom Hooks
-  const [loading, err, updateUser] = useUpdateUser();
+  const [, err, updateUser] = useUpdateUser();
   // userform hooks
   const {
     register,
@@ -41,11 +40,11 @@ const Register = () => {
   } = useForm();
   // loacal state
   const [hide, setHide] = useState(true);
-  const [checked, setCheck] = useState(false);
+  const [checked, setCheck] = useState(true);
   // form submission
   async function formSubmit(data) {
     try {
-      dispatch(setloading());
+      dispatch(loaderOpen());
       const res = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -59,17 +58,14 @@ const Register = () => {
       dispatch(ToastOpen("Something wrong! Try after sometimes"));
       console.log(error);
     } finally {
-      dispatch(loadfinish());
+      dispatch(loaderClose());
     }
   }
 
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
-        <Link to={"/auth"} className={`${Styles.back__btn} btn `}>
-          <IoArrowBack /> Go Back
-        </Link>
-        <Container className="h-100">
+        <Container className="h-100 py-5">
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>
@@ -105,7 +101,10 @@ const Register = () => {
                           <FormControl
                             placeholder="John"
                             type="text"
-                            {...register("first_name", { required: true })}
+                            {...register("first_name", {
+                              required: true,
+                              maxLength: 15,
+                            })}
                             aria-invalid={errors.first_name ? "true" : "false"}
                             autoComplete="true"
                           />
@@ -128,7 +127,10 @@ const Register = () => {
                           <FormControl
                             placeholder="Doe"
                             type="text"
-                            {...register("last_name", { required: true })}
+                            {...register("last_name", {
+                              required: true,
+                              maxLength: 10,
+                            })}
                             aria-invalid={errors.last_name ? "true" : "false"}
                             autoComplete="true"
                           />
@@ -151,7 +153,11 @@ const Register = () => {
                           <FormControl
                             placeholder="Example@email.com"
                             type="email"
-                            {...register("email", { required: true })}
+                            {...register("email", {
+                              required: true,
+                              pattern:
+                                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            })}
                             aria-invalid={errors.email ? "true" : "false"}
                             autoComplete="true"
                           />
@@ -192,7 +198,11 @@ const Register = () => {
                           <FormControl
                             placeholder="Password"
                             type={hide ? "password" : "text"}
-                            {...register("password", { required: true })}
+                            {...register("password", {
+                              required: true,
+                              minLength: 6,
+                              maxLength: 10,
+                            })}
                             autoComplete="true"
                           />
                           <p
@@ -205,7 +215,7 @@ const Register = () => {
                             {errors.password?.type === "required" ? (
                               <span>Password is Required</span>
                             ) : (
-                              <span>Enter a Valid Password</span>
+                              <span>Enter a password min 6 Letters</span>
                             )}
                           </p>
                         </FormGroup>
@@ -239,7 +249,6 @@ const Register = () => {
           </Row>
         </Container>
       </Container>
-      <Loader loading={loading} />
     </>
   );
 };

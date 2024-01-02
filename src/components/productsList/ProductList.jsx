@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { ProductCard } from "../index.js";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -10,11 +10,14 @@ import { loaderClose, loaderOpen } from "../../redux/loader.js";
 function ProductList() {
   const dispatch = useDispatch();
   const { productData, loading } = useSelector((store) => store.product);
-  if (loading) {
-    dispatch(loaderOpen());
-  } else {
-    dispatch(loaderClose());
-  }
+
+  useEffect(() => {
+    if (loading) {
+      dispatch(loaderOpen());
+    } else {
+      dispatch(loaderClose());
+    }
+  }, [loading]);
 
   return (
     <>

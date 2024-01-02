@@ -35,10 +35,6 @@ const Order = () => {
   }
   return (
     <>
-      <Link className={`${Styles.back__btn} btn`} onClick={() => navigate(-1)}>
-        <IoArrowBack />
-        Go Back
-      </Link>
       <Container className="mt-3">
         <Row>
           <Col>
@@ -59,7 +55,7 @@ const Order = () => {
                           <p>
                             Order Date:{convertTime(item.timestamp?.seconds)}
                           </p>
-                          <p>Price:000</p>
+                          <p>Price:{item?.price}</p>
                           <Button variant="primary">See Products</Button>
                         </Card>
                       );

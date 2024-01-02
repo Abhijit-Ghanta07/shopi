@@ -2,13 +2,29 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { CartWrapper, CartEmpty } from "../components/cart/cartIndex";
 import { Header } from "../includes/includes";
-
+import { Container, NavItem } from "react-bootstrap";
+import { IoArrowBack } from "react-icons/io5";
+// styles
+import Styles from "./page.module.scss";
+import { Link, useNavigate } from "react-router-dom";
 const Cart = () => {
+  const navigate = useNavigate();
   const { productsID } = useSelector((store) => store.cart);
   return (
     <>
       <Header />
-      {productsID.length > 0 ? <CartWrapper /> : <CartEmpty />}
+      <Container fluid className="p-0 position-relative">
+        <Link
+          className={`${Styles.back__btn} btn`}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IoArrowBack />
+          Go Back
+        </Link>
+        {productsID.length > 0 ? <CartWrapper /> : <CartEmpty />}
+      </Container>
     </>
   );
 };

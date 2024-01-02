@@ -24,7 +24,7 @@ export const Loader = ({ loading }) => {
 export const ToastModal = () => {
   const { show, message } = useSelector((store) => store.toast);
   const dispatch = useDispatch();
-  function closeToast(params) {
+  function closeToast() {
     dispatch(ToastClose());
   }
 

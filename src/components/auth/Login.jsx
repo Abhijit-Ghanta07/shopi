@@ -22,13 +22,13 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { loadfinish, setloading } from "../../redux/auth";
 import { mapItem } from "../../redux/cart";
 import { useSetUser } from "./authUtils";
-import { IoArrowBack } from "react-icons/io5";
+import { ToastOpen } from "../../redux/Toast";
+import { loaderClose, loaderOpen } from "../../redux/loader";
 // scss
 import Styles from "./auth.module.scss";
-import { ToastOpen } from "../../redux/Toast";
+
 const Login = () => {
   // navigate func
   const navigate = useNavigate();
@@ -44,11 +44,11 @@ const Login = () => {
 
   // local states
   const [hide, setHide] = useState(true);
-  const [checked, setcheck] = useState(false);
+  const [checked, setcheck] = useState(true);
   // handle form submit
   async function formSubmit(data) {
     try {
-      dispatch(setloading());
+      dispatch(loaderOpen());
       const res = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -63,22 +63,17 @@ const Login = () => {
       console.log(err);
       dispatch(ToastOpen("Failed To Login"));
     } finally {
-      dispatch(loadfinish());
+      dispatch(loaderClose());
     }
   }
-
-  // update user profile with name image
 
   // google authentication
   const googleAuth = async () => {
     try {
-      dispatch(setloading());
+      dispatch(loaderOpen());
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       if (user) {
-        // const userCart = await getCartItems(user.uid);
-        // mapCartItems(userCart);
-        // setUser(user);
         dispatch(mapItem(user?.uid));
         setUserState(user, "Login successfull");
         navigate("/");
@@ -87,16 +82,13 @@ const Login = () => {
       console.log(err);
       dispatch(ToastOpen("Something went wrong"));
     } finally {
-      dispatch(loadfinish());
+      dispatch(loaderClose());
     }
   };
   return (
     <>
       <Container fluid className={Styles.bg__gradient}>
-        <Link to={"/"} className={`${Styles.back__btn} btn `}>
-          <IoArrowBack /> Go Back
-        </Link>
-        <Container className="h-100 position-relative">
+        <Container className="h-100 position-relative py-5">
           <Row className="h-100 align-items-center">
             <Col className="p-0">
               <Card className={Styles.auth__card}>
@@ -116,7 +108,11 @@ const Login = () => {
                           <FormControl
                             placeholder="Example@email.com"
                             type="email"
-                            {...register("email", { required: true })}
+                            {...register("email", {
+                              required: true,
+                              pattern:
+                                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            })}
                             aria-invalid={errors.email ? "true" : "false"}
                             autoComplete=""
                           />
@@ -157,7 +153,10 @@ const Login = () => {
                           <FormControl
                             placeholder="Password"
                             type={hide ? "password" : "text"}
-                            {...register("password", { required: true })}
+                            {...register("password", {
+                              required: true,
+                              minLength: 6,
+                            })}
                             autoComplete=""
                           />
                           <p

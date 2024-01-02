@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 // css
@@ -6,21 +6,18 @@ import Styles from "./banner.module.scss";
 import { Link } from "react-router-dom";
 import useFetchData from "../../api/Api";
 import { fakeProduct } from "../../constants/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastOpen } from "../../redux/Toast";
 const Banner = () => {
-  const dispatch = useDispatch();
-  const { data, loading, err } = useFetchData("categories");
-  if (err) {
-    return dispatch(ToastOpen("Cataegories Loading error"));
-  }
+  const data = useSelector((store) => store.category);
+
   return (
     <>
       <Container fluid="xl" className="card mt-3">
         <Row className="py-3">
           <Col>
             <div className="d-flex justify-content-around flex-wrap">
-              {loading ? (
+              {!data ? (
                 <p>Loading....</p>
               ) : (
                 <>

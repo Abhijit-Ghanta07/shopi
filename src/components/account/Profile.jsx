@@ -7,19 +7,21 @@ import Styles from "./account.module.scss";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../utils/firebase";
 import { updateProfile } from "firebase/auth";
-import { addUser, loadfinish, setloading } from "../../redux/auth";
+import { addUser } from "../../redux/auth";
+import { loaderOpen, loaderClose } from "../../redux/loader";
 const Profile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
-
+  // local state
   const [inputVal, setInputval] = useState(null);
 
+  // handle input click
   const handleClick = async () => {
     if (inputVal == null) {
       console.log("hello");
       return dispatch(ToastOpen("Please select An Image"));
     }
-    dispatch(setloading());
+    dispatch(loaderOpen());
     let imageRef = ref(storage, `profiles/${inputVal.name}`);
     const res = await uploadBytes(imageRef, inputVal, { contentType: "image" });
     const downloadUrl = await getDownloadURL(imageRef);
@@ -32,6 +34,8 @@ const Profile = () => {
         userId: auth.currentUser.uid,
       })
     );
+    dispatch(loaderClose());
+    setInputval(null);
   };
   return (
     <>

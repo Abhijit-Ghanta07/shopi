@@ -1,15 +1,31 @@
 import React from "react";
 import { Header } from "../includes/includes.js";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Loader, ToastModal } from "../components/index.js";
+import { IoArrowBack } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
 
+// styles
+import Styles from "./page.module.scss";
 const Auth = () => {
-  const { loading } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+  const loading = useSelector((store) => store.loader);
   return (
     <>
       <Header />
-      <Outlet />
+      <Container fluid className="p-0 position-relative">
+        <Link
+          className={`${Styles.back__btn} btn `}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <IoArrowBack /> Go Back
+        </Link>
+        <Outlet />
+      </Container>
+
       <Loader loading={loading} />
       <ToastModal />
     </>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser, setloading } from "../../redux/auth";
+import { addUser } from "../../redux/auth";
 import { ToastOpen } from "../../redux/Toast";
 import { auth } from "../../utils/firebase";
 import { updateProfile } from "firebase/auth";
@@ -25,7 +25,7 @@ const useSetUser = () => {
 };
 const useUpdateUser = () => {
   const [loading, setLoading] = useState(false);
-  const [userState, setUserState] = useSetUser();
+  const [, setUserState] = useSetUser();
   const [error, setError] = useState(false);
   async function updateUser(user, first, last) {
     let name = `${first} ${last}`;
@@ -36,7 +36,6 @@ const useUpdateUser = () => {
         photoURL:
           "https://images.pexels.com/photos/19479502/pexels-photo-19479502/free-photo-of-model-in-a-leather-jacket-and-jeans-crossing-the-street.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       });
-
       setUserState(auth.currentUser, "your are register successfully");
       setLoading(false);
     } catch (err) {

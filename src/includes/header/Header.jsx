@@ -30,7 +30,7 @@ import avatar from "../../assets/svg/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../redux/auth";
 import { ToastOpen } from "../../redux/Toast";
-import { cartReset } from "../../redux/cart";
+import { cartEmpty } from "../../redux/cart";
 function Header() {
   const dispatch = useDispatch();
   const { user, userId } = useSelector((store) => store.auth);
@@ -39,7 +39,7 @@ function Header() {
   async function logout(params) {
     const res = await signOut(auth);
     dispatch(removeuser());
-    dispatch(cartReset());
+    dispatch(cartEmpty());
     dispatch(ToastOpen("Youre Are Logged Out"));
   }
 
@@ -47,8 +47,8 @@ function Header() {
     <>
       <Container
         fluid
-        className="shadow-sm position-sticky top-0 z-3"
-        style={{ background: "#fff" }}
+        className="shadow-sm position-sticky top-0"
+        style={{ background: "#fff", zIndex: 9 }}
       >
         <Container fluid="xl">
           <Row className="py-2 align-items-center gap-2">

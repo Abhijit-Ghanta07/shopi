@@ -50,6 +50,12 @@ const cartSlice = createSlice({
     productsID: [],
     firestoreProducts: [],
   },
+  reducers: {
+    cartEmpty: (state, action) => {
+      state.firestoreProducts = [];
+      state.productsID = [];
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -87,5 +93,7 @@ const cartSlice = createSlice({
       });
   },
 });
+
+export const { cartEmpty } = cartSlice.actions;
 
 export default cartSlice.reducer;
