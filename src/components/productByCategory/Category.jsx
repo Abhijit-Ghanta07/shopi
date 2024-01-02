@@ -13,48 +13,65 @@ import {
 } from "react-bootstrap";
 import { Loader } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
-import { fetchData } from "../../api/Api";
+import useFetchData, { fetchData } from "../../api/Api";
+import { useDispatch } from "react-redux";
+import { loaderOpen, loaderClose } from "../../redux/loader.js";
 const ProductCard = lazy(() => import("../ProductCard/ProductCard"));
+const FILLTERS = [
+  "Relavance",
+  "Price Low - High",
+  "Price High - Low",
+  "Popularity",
+  "Category",
+];
 const Category = () => {
   const { id } = useParams();
-  const [range, setRange] = useState(20);
-  const [products, setProducts] = useState(null);
+  const dispatch = useDispatch();
+  const [range, setRange] = useState(100);
+  const [products, setProducts] = useState([]);
   // const [filter, setFilter] = useState(true);
   // fetch categories
+  const { data, loading, err } = useFetchData(`categories/${id}/products`);
+  if (loading) {
+    dispatch(loaderOpen());
+  } else {
+    dispatch(loaderClose());
+  }
 
-  const FILLTERS = [
-    "Relavance",
-    "Price Low - High",
-    "Price High - Low",
-    "Popularity",
-    "Category",
-  ];
   function handleChange(e) {
     let value = e.target.value;
     let filt = FILLTERS.findIndex((item) => item == value);
-    if (filt == 2) {
-      return setProducts(products.sort((a, b) => a.price < b.price));
+    sortProduct(filt);
+  }
+  function sortProduct(q) {
+    switch (q) {
+      case 0:
+        setProducts(data);
+        break;
+      case 1:
+        setProducts([...data].sort((a, b) => a.price - b.price));
+        break;
+      case 2:
+        setProducts([...data].sort((a, b) => b.price - a.price));
+        break;
+      default:
+        setProducts(data);
+        break;
     }
   }
-  console.log(products);
   useEffect(() => {
-    const Controller = new AbortController();
-    async function GetCatagoryProduct(params) {
-      const Product = await fetchData(
-        `categories/${id}/products`,
-        Controller.signal
-      );
-      setProducts(Product);
+    setProducts(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (products) {
+      const sortedData = data?.filter((item) => item.price > range);
+      setProducts(sortedData);
     }
-    GetCatagoryProduct();
-    return () => {
-      Controller.abort();
-      console.log("aborted");
-    };
-  }, [id]);
+  }, [range]);
 
   return (
-    <Container className="mt-3">
+    <Container className="mt-3 py-4">
       <Row>
         <Col sm="3">
           <Card>
@@ -74,6 +91,7 @@ const Category = () => {
               <FormLabel>Price Range:{range}</FormLabel>
               <FormRange
                 value={range}
+                max={1000}
                 onChange={(e) => {
                   setRange(e.target.value);
                 }}

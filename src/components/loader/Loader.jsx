@@ -27,7 +27,6 @@ export const ToastModal = () => {
   function closeToast(params) {
     dispatch(ToastClose());
   }
-  // const [show, setShow] = useState(toastState.show);
 
   return (
     <>
@@ -41,9 +40,7 @@ export const ToastModal = () => {
                   alt="close"
                 /> */}
             </ToastHeader>
-            <ToastBody className={Styles.toast__body}>
-              {message.toUpperCase()}
-            </ToastBody>
+            <ToastBody className={Styles.toast__body}>{message}</ToastBody>
           </Toast>
         </div>,
         document.getElementById("toast")

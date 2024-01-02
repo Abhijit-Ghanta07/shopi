@@ -14,7 +14,7 @@ import { deleteItem } from "../../redux/cart";
 // scss
 import Styles from "./cart.module.scss";
 import { Link } from "react-router-dom";
-const CartProduct = ({ product }) => {
+const CartProduct = ({ product, setTotalPrice }) => {
   const dispatch = useDispatch();
   const [fireId, findId] = useFindProduct();
   const [total, setTotal] = useState(0);
@@ -26,9 +26,13 @@ const CartProduct = ({ product }) => {
       dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
+  // useEffect(() => {
+  //   setTotal(product.price * quantity);
+  // }, [quantity]);
   useEffect(() => {
-    setTotal(product.price * quantity);
-  }, [quantity]);
+    setTotalPrice((prev) => [...prev, product.price]);
+  }, []);
+
   function handleWishlistClick() {}
   return (
     <>
@@ -54,16 +58,16 @@ const CartProduct = ({ product }) => {
           </Col>
           <Col xs="6" sm="6" md="2">
             <Stack direction="horizontal" gap={1}>
-              <Button
+              {/* <Button
                 size="sm"
                 onClick={() => {
                   setQuantity((q) => q + 1);
                 }}
               >
                 <FaPlus />
-              </Button>
-              <p>{quantity}</p>
-              <Button
+              </Button> */}
+              <p className="fw-medium text-primary">Quantity:{quantity}</p>
+              {/* <Button
                 size="sm"
                 onClick={() => {
                   if (quantity > 0) {
@@ -72,12 +76,14 @@ const CartProduct = ({ product }) => {
                 }}
               >
                 <FaMinus />
-              </Button>
+              </Button> */}
             </Stack>
           </Col>
           <Col xs="6" sm="6" md="2">
-            <p className="m-0 fs-5 fw-medium">Price:${total}</p>
-            <p className="m-0 text-secondary">${product?.price}.00 Each</p>
+            <p className="m-0 fs-5 fw-bold text-danger">
+              Price:${product.price}
+            </p>
+            {/* <p className="m-0 text-secondary">${product?.price}.00 Each</p> */}
           </Col>
           <Col xs="10" sm="6" md="3">
             <Stack direction="horizontal" gap={2}>

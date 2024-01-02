@@ -8,8 +8,11 @@ const useFetchData = (query) => {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
+    // initilize abort controller
     const abortController = new AbortController();
+    // set the url
     const url = `https://api.escuelajs.co/api/v1/${query}`;
+    // declare fetchdata function
     async function fetchData() {
       console.log(query);
       try {
@@ -30,7 +33,7 @@ const useFetchData = (query) => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [query]);
   return { loading, data, err };
 };
 

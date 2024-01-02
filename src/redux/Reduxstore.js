@@ -6,6 +6,7 @@ import authReducer from "./auth";
 import productReducer from "./product";
 import toastReducer from "./Toast";
 import wishListReducer from "./wishList";
+import loaderReducer from "./loader";
 
 // const customizedMiddleware = getDefaultMiddleware({
 //   serializableCheck: {
@@ -21,6 +22,7 @@ const store = configureStore({
     auth: authReducer,
     product: productReducer,
     toast: toastReducer,
+    loader: loaderReducer,
     wishlist: wishListReducer,
   },
   middleware: (getDefaultMiddleware) =>

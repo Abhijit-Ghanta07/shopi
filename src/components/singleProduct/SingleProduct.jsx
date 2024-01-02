@@ -60,11 +60,10 @@ function SingleProduct() {
   function wishlistRemove() {
     dispatch(removeWishlist(this));
   }
-  console.log(wishlist);
   const sizeArr = ["M", "L", "XL", "XXL"];
   return (
     <>
-      <Link to={navigate(-1)} className={`${Styles.back__btn} btn`}>
+      <Link className={`${Styles.back__btn} btn`} onClick={() => navigate(-1)}>
         <IoArrowBack />
         Go Back
       </Link>
@@ -96,6 +95,7 @@ function SingleProduct() {
                         <img
                           src={img}
                           className={Styles.slide__img}
+                          loading="lazy"
                           onClick={() => {
                             setImgState(i);
                           }}
@@ -106,7 +106,13 @@ function SingleProduct() {
 
                     <ButtonGroup className="mb-3">
                       {sizeArr.map((size) => (
-                        <Button size="" variant="secondary">
+                        <Button
+                          size=""
+                          variant="secondary"
+                          onClick={(e) => {
+                            e.target.classList.add("active");
+                          }}
+                        >
                           {size}
                         </Button>
                       ))}

@@ -10,11 +10,14 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { DB } from "./firebase";
+
+const collectionRef = collection(DB, "cart");
+
 const addCartItem = async (productId, userId, quantity = 1) => {
   // add cart item to firestore
-  const DocRef = collection(DB, "cart");
+
   try {
-    const newDoc = await addDoc(DocRef, {
+    const newDoc = await addDoc(collectionRef, {
       productId,
       userId,
       quantity,
@@ -22,12 +25,11 @@ const addCartItem = async (productId, userId, quantity = 1) => {
     });
     return newDoc.id;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
 const getCartItems = async (userID) => {
-  let collectionRef = collection(DB, "cart");
   let q = query(collectionRef, where("userId", "==", `${userID}`));
   // get cartitems by userid
   try {
@@ -38,7 +40,7 @@ const getCartItems = async (userID) => {
     }));
     return newData;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 const deleteCartItems = async (docID) => {
@@ -46,8 +48,9 @@ const deleteCartItems = async (docID) => {
   if (docRef) {
     try {
       const product = await deleteDoc(docRef);
+      return true;
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 };
@@ -59,8 +62,9 @@ const updateCartItems = async (docID, quantity) => {
         quantity,
         timestamp: serverTimestamp(),
       });
+      return true;
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 };

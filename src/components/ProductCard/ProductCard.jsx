@@ -73,7 +73,13 @@ function ProductCard({ product }) {
         )}
 
         <Link to={`/product/${product.id}`} className={Styles.card__link}>
-          <CardImg src={product?.images[0]} className={Styles.card__img} />
+          <CardImg
+            src={product?.images[0]}
+            className={Styles.card__img}
+            onError={(e) => {
+              e.target.offsetParent.classList.add("d-none");
+            }}
+          />
         </Link>
 
         <CardBody>

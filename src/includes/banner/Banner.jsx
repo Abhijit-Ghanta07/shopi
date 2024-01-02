@@ -4,27 +4,16 @@ import { Col, Container, Row } from "react-bootstrap";
 // css
 import Styles from "./banner.module.scss";
 import { Link } from "react-router-dom";
-import { fetchData } from "../../api/Api";
+import useFetchData from "../../api/Api";
 import { fakeProduct } from "../../constants/constants";
+import { useDispatch } from "react-redux";
+import { ToastOpen } from "../../redux/Toast";
 const Banner = () => {
-  const [loading, setLoading] = useState(false);
-  const [catagories, setCatagories] = useState([]);
-  // get allcatagories
-  useEffect(() => {
-    const abortController = new AbortController();
-    async function getCatagories() {
-      setLoading(true);
-      const catagory = await fetchData("categories", abortController.signal);
-      if (catagory) {
-        setCatagories(catagory);
-        setLoading(false);
-      }
-    }
-    getCatagories();
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+  const dispatch = useDispatch();
+  const { data, loading, err } = useFetchData("categories");
+  if (err) {
+    return dispatch(ToastOpen("Cataegories Loading error"));
+  }
   return (
     <>
       <Container fluid="xl" className="card mt-3">
@@ -43,8 +32,8 @@ const Banner = () => {
                     />
                     <p> All</p>
                   </Link>
-                  {catagories &&
-                    catagories.map((cata) => {
+                  {data &&
+                    data.map((cata) => {
                       return (
                         <Link
                           to={`category/${cata?.id}`}
@@ -54,7 +43,10 @@ const Banner = () => {
                           <img
                             src={cata?.image}
                             alt="catagory img"
-                            className={cata.image ? Styles.cata__img : "d-none"}
+                            className={Styles.cata__img}
+                            onError={(e) => {
+                              e.target.parentElement.classList.add("d-none");
+                            }}
                           />
                           <p> {cata?.name}</p>
                         </Link>

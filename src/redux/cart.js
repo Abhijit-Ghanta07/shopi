@@ -4,6 +4,7 @@ import {
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
 import { addCartItem, deleteCartItems, getCartItems } from "../utils/fireStore";
+import { OrderBatchDelete } from "../utils/orders";
 
 export const mapItem = createAsyncThunk("cart/mapUserCart", async (userId) => {
   try {
@@ -35,17 +36,21 @@ export const deleteItem = createAsyncThunk(
     }
   }
 );
+export const cartReset = createAsyncThunk("cart/cartReset", async (userId) => {
+  try {
+    let res = await OrderBatchDelete(userId);
+    return res;
+  } catch (err) {
+    return err;
+  }
+});
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     productsID: [],
     firestoreProducts: [],
   },
-  reducers: {
-    cartReset: (state) => {
-      return { productsID: [], firestoreProducts: [] };
-    },
-  },
+
   extraReducers: (builder) => {
     builder
       .addCase(mapItem.fulfilled, (state, action) => {
@@ -76,9 +81,11 @@ const cartSlice = createSlice({
         state.firestoreProducts = state.firestoreProducts.filter(
           (item) => item.fireId !== action.payload.fireId
         );
+      })
+      .addCase(cartReset.fulfilled, (state, action) => {
+        (state.productsID = []), (state.firestoreProducts = []);
       });
   },
 });
 
-export const { cartReset } = cartSlice.actions;
 export default cartSlice.reducer;
