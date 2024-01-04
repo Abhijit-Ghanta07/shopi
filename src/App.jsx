@@ -46,6 +46,7 @@ function App() {
             }
           >
             <Route index element={<Profile />} />
+            <Route path="order" element={<MyOrder />} />
             <Route path="change" element={<ResetPass />} />
           </Route>
           <Route

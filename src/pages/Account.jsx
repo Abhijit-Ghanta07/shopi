@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Header } from "../includes/includes";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import {
   Button,
   Col,
@@ -26,9 +32,11 @@ import { ToastOpen } from "../redux/Toast";
 import { cartEmpty } from "../redux/cart";
 
 const Account = () => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((store) => store.loader);
+  const { user } = useSelector((store) => store.auth);
   const [show, setShow] = useState(false);
   const handleLogout = async () => {
     const res = await signOut(auth);
@@ -37,6 +45,7 @@ const Account = () => {
     dispatch(ToastOpen("Youre Are Logged Out"));
     navigate("/");
   };
+
   return (
     <>
       <Header />
@@ -49,22 +58,27 @@ const Account = () => {
             <Col sm="3" className="py-3">
               <ListGroup as={"ul"}>
                 <ListGroupItem active>
-                  <Link className={`${Styles.links__active}`}>Profile </Link>
+                  <Link className={`${Styles.links__active}`} to={"/account"}>
+                    Profile{" "}
+                  </Link>
                 </ListGroupItem>
                 <ListGroupItem>
-                  <Link
-                    to={"/order"}
-                    className={`${Styles.links} text-primary`}
-                  >
+                  <Link to={"order"} className={`${Styles.links} text-primary`}>
                     My Orders{" "}
                   </Link>
                 </ListGroupItem>
                 <ListGroupItem>
                   <Link
-                    to={"change"}
+                    to={
+                      user?.providerId == "password"
+                        ? "change"
+                        : (e) => {
+                            e.preventDefault(console.log("not route"));
+                          }
+                    }
                     className={`${Styles.links} text-primary`}
                   >
-                    Change Password{" "}
+                    Change Password
                   </Link>
                 </ListGroupItem>
                 <ListGroupItem>

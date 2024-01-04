@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -14,25 +14,36 @@ import Styles from "./order.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { getOrders } from "../../utils/orders";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loaderOpen, loaderClose } from "../../redux/loader";
+import { Loader, ToastModal } from "../loader/Loader";
 
 const Order = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector((store) => store.loader);
   const { userId } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  useEffect(() => {
-    async function allOrders() {
+  async function allOrders() {
+    try {
+      dispatch(loaderOpen());
       const orders = await getOrders(userId);
       setOrders(orders);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(loaderClose());
     }
-    allOrders();
-  }, []);
-  console.log(orders);
+  }
+
   function convertTime(seconds) {
     const date = new Date(0); // The 0 is the epoch (January 1, 1970)
     date.setUTCSeconds(seconds);
     return date.toLocaleDateString();
   }
+  useEffect(() => {
+    allOrders();
+  }, [userId]);
   return (
     <>
       <Container className="mt-3">
@@ -66,6 +77,7 @@ const Order = () => {
           </Col>
         </Row>
       </Container>
+      <Loader loading={loading} />
     </>
   );
 };

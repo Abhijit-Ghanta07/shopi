@@ -6,6 +6,7 @@ import {
   CardTitle,
   Col,
   Container,
+  Form,
   FormControl,
   FormGroup,
   FormLabel,
@@ -24,6 +25,7 @@ import { loaderOpen, loaderClose } from "../../redux/loader";
 import { useNavigate } from "react-router-dom";
 import payment from "../../assets/images/payment.jpg";
 import { addOrder } from "../../utils/orders";
+import { ToastModal, Loader } from "../index.js";
 // styles
 import Styles from "./cart.module.scss";
 
@@ -33,6 +35,11 @@ const CartWrapper = () => {
   const navigate = useNavigate();
   const { productData } = useSelector((store) => store.product);
   const { productsID } = useSelector((store) => store.cart);
+  const loading = useSelector((store) => store.loader);
+
+  const initial = { card: null, expiry: null, cvv: null };
+  const [cardData, setCardData] = useState(initial);
+  const [cardErr, setCardErr] = useState(false);
   const [totalPrice, setTotalPrice] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   // fillter items
@@ -52,6 +59,7 @@ const CartWrapper = () => {
   const handleCheckout = (evt) => {
     setModalShow(true);
   };
+
   const handleBuyClick = async () => {
     try {
       dispatch(loaderOpen());
@@ -71,6 +79,22 @@ const CartWrapper = () => {
       dispatch(loaderClose());
     }
   };
+
+  function validateData() {
+    const card = "4400440044004400";
+    const exp = "10/30";
+    const cvv = "000";
+    if (
+      cardData.card == card &&
+      cardData.expiry == exp &&
+      cardData.cvv == cvv
+    ) {
+      setCardErr(false);
+      handleBuyClick();
+    } else {
+      setCardErr(true);
+    }
+  }
   // if product length 0 return empty
 
   if (!fillteredItem.length) {
@@ -155,6 +179,7 @@ const CartWrapper = () => {
         <Modal.Header closeButton>
           <Modal.Title>Confirm Checkout</Modal.Title>
         </Modal.Header>
+
         <ModalBody>
           <p className="m-0">Card Number:4400440044004400</p>
           <p className="m-0">Expiry:10/30</p>
@@ -162,22 +187,49 @@ const CartWrapper = () => {
           <Stack direction="vertical">
             <FormGroup className="mb-3">
               <FormLabel>Card Number:</FormLabel>
-              <FormControl />
+              <FormControl
+                name="card"
+                onChange={(e) => {
+                  setCardData((prev) => ({
+                    ...prev,
+                    [e.target.name]: e.target.value,
+                  }));
+                }}
+              />
             </FormGroup>
             <Row>
               <Col xs="4">
                 <FormGroup>
                   <FormLabel>Expiry:</FormLabel>
-                  <FormControl />
+                  <FormControl
+                    name="expiry"
+                    onChange={(e) => {
+                      setCardData((prev) => ({
+                        ...prev,
+                        [e.target.name]: e.target.value,
+                      }));
+                    }}
+                  />
                 </FormGroup>
               </Col>
               <Col xs="4">
                 <FormGroup>
                   <FormLabel>CVV:</FormLabel>
-                  <FormControl />
+                  <FormControl
+                    name="cvv"
+                    onChange={(e) => {
+                      setCardData((prev) => ({
+                        ...prev,
+                        [e.target.name]: e.target.value,
+                      }));
+                    }}
+                  />
                 </FormGroup>
               </Col>
             </Row>
+            <p className="text-danger">
+              {cardErr ? "Please Enter Correct Details" : ""}
+            </p>
           </Stack>
         </ModalBody>
         <ModalFooter>
@@ -189,11 +241,13 @@ const CartWrapper = () => {
           >
             Cancel
           </Button>
-          <Button variant="primary" onClick={handleBuyClick}>
+          <Button variant="primary" onClick={validateData}>
             Confirm
           </Button>
         </ModalFooter>
       </Modal>
+      <ToastModal />
+      <Loader loading={loading} />
     </>
   );
 };
