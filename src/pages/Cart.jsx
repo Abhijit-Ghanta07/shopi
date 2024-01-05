@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { CartWrapper, CartEmpty } from "../components/cart/cartIndex";
 import { Header } from "../includes/includes";
-import { Container, NavItem } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 // styles
 import Styles from "./page.module.scss";

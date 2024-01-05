@@ -1,20 +1,22 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { FaUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-import { Link, useResolvedPath } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Badge,
+  Button,
   Col,
   Container,
   Dropdown,
   DropdownButton,
   DropdownDivider,
-  DropdownHeader,
-  DropdownMenu,
-  DropdownToggle,
-  FormControl,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
   Row,
 } from "react-bootstrap";
 import { IoBagCheckOutline } from "react-icons/io5";
@@ -25,7 +27,6 @@ import { MdOutlineAccountBox } from "react-icons/md";
 
 // styles
 import Styles from "./header.module.scss";
-import Banner from "../banner/Banner";
 import avatar from "../../assets/svg/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../redux/auth";
@@ -36,12 +37,18 @@ function Header() {
   const { user, userId } = useSelector((store) => store.auth);
   const { productsID } = useSelector((store) => store.cart);
   const wishlist = useSelector((store) => store.wishlist);
+  const [show, setShow] = useState(false);
   async function logout(params) {
-    const res = await signOut(auth);
+    await signOut(auth);
     dispatch(removeuser());
     dispatch(cartEmpty());
     dispatch(ToastOpen("Youre Are Logged Out"));
   }
+
+  const handleLogout = async () => {
+    setShow(false);
+    await logout();
+  };
 
   return (
     <>
@@ -121,7 +128,12 @@ function Header() {
                         Change Password
                       </Link>
 
-                      <Link className={Styles.dropdown__link} onClick={logout}>
+                      <Link
+                        className={Styles.dropdown__link}
+                        onClick={() => {
+                          setShow(true);
+                        }}
+                      >
                         <IoIosLogOut />
                         Logout
                       </Link>
@@ -162,6 +174,32 @@ function Header() {
           </Row>
         </Container>
       </Container>
+      <Modal
+        show={show}
+        onHide={() => {
+          setShow(false);
+        }}
+      >
+        <ModalHeader closeButton>
+          <ModalTitle>Confirm Logout</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+          <p className="text-danger fw-bold fs-4">Are Your Sure to Logout</p>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            variant="info"
+            onClick={() => {
+              setShow(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleLogout}>
+            Confirm
+          </Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 }

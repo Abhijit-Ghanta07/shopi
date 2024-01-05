@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Loader, ToastModal } from "../components/index.js";
 import { Outlet, useLocation } from "react-router-dom";
 import { Footer, Header, Banner } from "../includes/includes.js";
@@ -17,9 +17,9 @@ function Home() {
       <Header />
       <Banner />
       <Outlet />
+      <Footer />
       <ToastModal />
       <Loader loading={loading} />
-      <Footer />
     </div>
   );
 }

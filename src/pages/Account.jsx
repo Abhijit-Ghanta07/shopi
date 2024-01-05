@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../includes/includes";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   Col,

@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   Error,
@@ -8,14 +9,14 @@ import {
   MyOrder,
   ProductList,
 } from "./components/index.js";
-import {
-  HomePage,
-  AuthPage,
-  CartPage,
-  OrderPage,
-  AccountPage,
-  ProductPage,
-} from "./pages/pages.js";
+
+// lazy components
+const HomePage = lazy(() => import("./pages/Home.jsx"));
+const AuthPage = lazy(() => import("./pages/Auth.jsx"));
+const CartPage = lazy(() => import("./pages/Cart.jsx"));
+const OrderPage = lazy(() => import("./pages/Order.jsx"));
+const AccountPage = lazy(() => import("./pages/Account.jsx"));
+const ProductPage = lazy(() => import("./pages/ProductPage.jsx"));
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import GetData from "./data/Getdata.jsx";
 import { Profile, ResetPass } from "./components/account/accountIndex.js";
@@ -27,22 +28,45 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />}>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <HomePage />
+              </Suspense>
+            }
+          >
             <Route index element={<ProductList />} />
             <Route path="category/:id" element={<Category />} />
-            <Route path="*" element={<Error />} />
+            <Route path="/*" element={<Error />} />
           </Route>
-          <Route path="/product" element={<ProductPage />}>
+          <Route
+            path="/product"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <ProductPage />
+              </Suspense>
+            }
+          >
             <Route path=":id" element={<SingleProduct />} />
           </Route>
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <CartPage />
+              </Suspense>
+            }
+          />
           <Route path="/wishlist" element={<CartPage />} />
           <Route
             path="/account"
             element={
-              <GuestProtected>
-                <AccountPage />
-              </GuestProtected>
+              <Suspense fallback={<div>Loading...</div>}>
+                <GuestProtected>
+                  <AccountPage />
+                </GuestProtected>
+              </Suspense>
             }
           >
             <Route index element={<Profile />} />
@@ -52,9 +76,11 @@ function App() {
           <Route
             path="/order"
             element={
-              <GuestProtected>
-                <OrderPage />
-              </GuestProtected>
+              <Suspense fallback={<div>Loading...</div>}>
+                <GuestProtected>
+                  <OrderPage />
+                </GuestProtected>
+              </Suspense>
             }
           >
             <Route index element={<MyOrder />} />
@@ -63,9 +89,11 @@ function App() {
           <Route
             path="/auth"
             element={
-              <UserProtected>
-                <AuthPage />
-              </UserProtected>
+              <Suspense fallback={<div>Loading...</div>}>
+                <UserProtected>
+                  <AuthPage />
+                </UserProtected>
+              </Suspense>
             }
           >
             <Route index element={<Login />} />
@@ -73,6 +101,7 @@ function App() {
           </Route>
 
           <Route path="/not" element={<Error />} />
+          <Route path="/*" element={<Error />} />
         </Routes>
       </Router>
       <GetData />
