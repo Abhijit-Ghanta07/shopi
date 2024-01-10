@@ -128,6 +128,9 @@ const CartWrapper = () => {
                     />
                   ))}
               </Stack>
+            </Card>
+            <Card className="p-3 my-2">
+              <CardTitle className="fw-bold fs-4">WishList</CardTitle>
               <WishList />
             </Card>
           </Col>

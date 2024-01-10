@@ -1,5 +1,68 @@
+.product__img {
+  max-width: 100%;
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
 .product__card {
-  margin-top: 2rem;
-  width: max-content;
+  width: 100%;
   transition: 0.2s ease;
+}
+.back__btn {
+  border: 1px solid rgb(47, 47, 47) !important;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.payment__img {
+  max-width: 100%;
+  object-fit: contain;
+}
+// cart empty
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+  background-color: #eee;
+  font-family: "Calibri", sans-serif !important;
+}
+
+.mt__100 {
+  margin-top: 30px;
+}
+
+.card {
+  margin-bottom: 30px;
+  border: 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, 0.05);
+  box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, 0.05);
+}
+
+.card__header {
+  background-color: #fff;
+  border-bottom: none;
+  padding: 24px;
+  border-bottom: 1px solid #f6f7fb;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card__header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card__body {
+  padding: 30px;
+  background-color: transparent;
+}
+
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: #4466f2 !important;
+  border-color: #4466f2 !important;
 }

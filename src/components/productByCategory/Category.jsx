@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Card,
@@ -13,10 +13,10 @@ import {
 } from "react-bootstrap";
 import { Loader } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
-import useFetchData, { fetchData } from "../../api/Api";
+import useFetchData from "../../api/Api";
 import { useDispatch } from "react-redux";
 import { loaderOpen, loaderClose } from "../../redux/loader.js";
-const ProductCard = lazy(() => import("../ProductCard/ProductCard"));
+import ProductCard from "../ProductCard/ProductCard";
 const FILLTERS = [
   "Relavance",
   "Price Low - High",
@@ -105,9 +105,7 @@ const Category = () => {
         <Col sm="9" className="d-flex flex-wrap">
           {products &&
             products.map((item) => (
-              <Suspense fallback={<Loader loading={true} />}>
-                <ProductCard product={item} key={item.id} />
-              </Suspense>
+              <ProductCard product={item} key={item.id} />
             ))}
         </Col>
       </Row>

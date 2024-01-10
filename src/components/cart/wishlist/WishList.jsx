@@ -19,7 +19,7 @@ const WishList = () => {
       <Container>
         <Row className="gap-3">
           <Col>
-            <Stack direction="horizontal" className="gap-3">
+            <Stack direction="vertical" className="gap-3">
               {fillteredItem.length > 0 ? (
                 fillteredItem.map((item) => (
                   <WishlistProduct key={item?.id} product={item} />
@@ -29,7 +29,6 @@ const WishList = () => {
               )}
             </Stack>
           </Col>
-          <Col></Col>
         </Row>
       </Container>
     </>
