@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -12,27 +12,92 @@ import {
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+} from "firebase/auth";
+import { auth } from "../../utils/firebase";
+import { ToastOpen } from "../../redux/Toast";
+import { loaderClose, loaderOpen } from "../../redux/loader";
+import { useNavigate } from "react-router-dom";
 
 const ResetPass = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [hide, setHide] = useState(true);
+  const [resetState, setReset] = useState(false);
 
   function changePass(data) {
-    console.log(data);
+    if (user?.providerId !== "password") {
+      return dispatch(ToastOpen("Sorry You are not Logged In with Password"));
+    }
+    if (data.new !== data.confirm) {
+      return dispatch(ToastOpen("Plase enter same password"));
+    }
+    // call updete pass fucntion
+    dispatch(loaderOpen());
+    updatePass(auth.currentUser, data.old, data.new)
+      .then((res) => {
+        if (!res) {
+          return dispatch(ToastOpen("Something went wrong"));
+        }
+        dispatch(ToastOpen("Password Update Successfull"));
+        setReset(true);
+        dispatch(loaderClose());
+        navigate("/auth");
+        dispatch(ToastOpen("Please Sign In again"));
+      })
+      .catch((err) => {
+        dispatch(ToastOpen("Something went wrong"));
+      })
+      .finally(() => {
+        dispatch(loaderClose());
+      });
   }
+
+  async function updatePass(user, OldPass, Newpass) {
+    const credential = EmailAuthProvider.credential(user.email, OldPass);
+    try {
+      // authenticate user
+      await reauthenticateWithCredential(user, credential);
+
+      // then update the password
+      await updatePassword(user, Newpass);
+
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    if (resetState) {
+      reset();
+    }
+  }, [resetState]);
+
   return (
     <>
       <Container>
         <Row>
           <Col>
+            <h3 className="text-center">Change Password</h3>
             <Form onSubmit={handleSubmit(changePass)}>
               <FormGroup className="mb-3">
-                <FormLabel>Current Password:</FormLabel>
-                <FormControl {...register("current", { required: true })} />
+                <FormLabel>Old Password:</FormLabel>
+                <FormControl
+                  {...register("old", { required: true, minLength: 6 })}
+                />
               </FormGroup>
               <FormGroup className="mb-3">
                 <FormLabel>New Password:</FormLabel>

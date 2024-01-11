@@ -63,13 +63,7 @@ const Account = () => {
                 </ListGroupItem>
                 <ListGroupItem>
                   <Link
-                    to={
-                      user?.providerId == "password"
-                        ? "change"
-                        : (e) => {
-                            e.preventDefault(console.log("not route"));
-                          }
-                    }
+                    to={"change"}
                     className={`${Styles.links} text-primary`}
                   >
                     Change Password
