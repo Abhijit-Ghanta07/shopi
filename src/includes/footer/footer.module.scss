@@ -1,0 +1,16 @@
+@import "../../sass//variable.scss";
+.footer__container {
+  background-color: $light;
+}
+
+.links {
+  color: $dark;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.4s ease;
+  width: fit-content;
+  &:hover {
+    color: $primary;
+    transform: translateX(10px);
+  }
+}

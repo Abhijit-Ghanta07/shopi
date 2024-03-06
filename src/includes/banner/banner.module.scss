@@ -14,3 +14,20 @@
   border-radius: 50%;
   object-fit: cover;
 }
+.slider__con {
+}
+.slider__wrapper {
+  white-space: nowrap;
+  padding: 0 !important;
+  border-radius: 5px;
+  display: flex;
+}
+.slider {
+  position: relative;
+  min-width: 100%;
+}
+.slider__img {
+  min-width: 100%;
+  height: 240px;
+  object-fit: cover;
+}

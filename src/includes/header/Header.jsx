@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { FaUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -9,7 +8,6 @@ import {
   Button,
   Col,
   Container,
-  Dropdown,
   DropdownButton,
   DropdownDivider,
   Modal,
@@ -23,8 +21,9 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { IoIosLogOut } from "react-icons/io";
-import { MdOutlineAccountBox } from "react-icons/md";
-
+import { MdAccountCircle } from "react-icons/md";
+import { GoPasskeyFill } from "react-icons/go";
+import { RiLogoutCircleRFill } from "react-icons/ri";
 // styles
 import Styles from "./header.module.scss";
 import avatar from "../../assets/svg/avatar.svg";
@@ -54,42 +53,20 @@ function Header() {
     <>
       <Container
         fluid
-        className="shadow-sm position-sticky top-0"
-        style={{ background: "#fff", zIndex: 9 }}
+        className="shadow-sm position-sticky top-0 bg-light"
+        style={{ zIndex: 9 }}
       >
-        <Container fluid="xl">
+        <Container fluid="xl p-0">
           <Row className="py-2 align-items-center gap-2">
             <Col className="d-flex flex-column text-center text-md-start">
-              <Link to={"/"} className="text-decoration-none display-6 fw-bold">
+              <Link
+                to={"/"}
+                className="text-decoration-none fs-4 text-dark fw-bold"
+              >
                 SHOPI
               </Link>
-              <p className="small text-secondary m-0 ">
-                All Your Needs Are Here.
-              </p>
-              {/* <Dropdown className="py-3 ">
-              <DropdownToggle className="text-black bg-body border-0">
-                Catagories
-              </DropdownToggle>
-              <DropdownMenu>
-                {catagories &&
-                  catagories.map((catagory, i) => {
-                    return (
-                      <Link
-                        to={`category/${catagory?.id}`}
-                        key={i + 1}
-                        className="text-capitalize dropdown-item"
-                      >
-                        {catagory?.name}
-                      </Link>
-                    );
-                  })}
-              </DropdownMenu>
-            </Dropdown> */}
+              <p className="small m-0 ">All Your Needs Are Here.</p>
             </Col>
-            {/* 
-          <Col>
-            <FormControl onChange={handleSubmit} />
-          </Col> */}
 
             <Col>
               <div className="d-flex gap-4 justify-content-end">
@@ -113,28 +90,31 @@ function Header() {
                             className={Styles.rounded__img}
                           />
 
-                          <p className="m-0">{user.displayName}</p>
+                          <p className="m-0 fs-6 text-capitalize">
+                            {user.displayName.split(" ")[0]}
+                          </p>
                         </>
                       }
                     >
                       <Link className={Styles.dropdown__link} to={"/account"}>
-                        <MdOutlineAccountBox />
+                        <MdAccountCircle fontSize="1rem" />
                         Account
                       </Link>
 
                       <DropdownDivider />
 
                       <Link className={Styles.dropdown__link}>
+                        <GoPasskeyFill fontSize="1rem" />
                         Change Password
                       </Link>
-
+                      <DropdownDivider />
                       <Link
                         className={Styles.dropdown__link}
                         onClick={() => {
                           setShow(true);
                         }}
                       >
-                        <IoIosLogOut />
+                        <RiLogoutCircleRFill fontSize="1rem" />
                         Logout
                       </Link>
                     </DropdownButton>
@@ -142,7 +122,7 @@ function Header() {
                 ) : (
                   <Link
                     to={"/auth"}
-                    className="text-decoration-none text-black"
+                    className="text-decoration-none text-black mt-2"
                   >
                     <img
                       src={avatar}
@@ -152,7 +132,7 @@ function Header() {
                     Login
                   </Link>
                 )}
-                <Link to={"/cart"} className="position-relative">
+                <Link to={"/cart"} className="position-relative fs-6 mt-2">
                   <FaRegHeart className={Styles.header__user_icons} />
                   <Badge bg="danger" pill className={Styles.header__badge}>
                     {wishlist.length}
@@ -161,10 +141,10 @@ function Header() {
 
                 <Link
                   to={"/cart"}
-                  className="position-relative text-decoration-none text-black"
+                  className="position-relative text-decoration-none text-black mt-2"
                 >
                   <IoCartOutline className={Styles.header__user_icons} />
-                  <span className="fw-medium">Cart</span>
+                  <span className="fw-medium ">Cart</span>
                   <Badge bg="danger" pill className={Styles.header__badge}>
                     {productsID.length}
                   </Badge>
