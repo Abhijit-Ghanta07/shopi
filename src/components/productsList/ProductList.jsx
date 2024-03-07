@@ -7,6 +7,7 @@ import { Banner } from "../../includes/includes.js";
 // scss
 import Styles from "./productlist.module.scss";
 import { loaderClose, loaderOpen } from "../../redux/loader.js";
+import { useLocation } from "react-router-dom";
 function ProductList() {
   const dispatch = useDispatch();
   const { productData, loading } = useSelector((store) => store.product);
@@ -18,15 +19,14 @@ function ProductList() {
       dispatch(loaderClose());
     }
   }, [loading]);
-
   return (
     <>
       <Container fluid="xl" className="mt-5">
         <Row>
           <Col className="d-flex flex-wrap gap-2 justify-content-center">
             {productData &&
-              productData.map((item) => (
-                <ProductCard product={item} key={item.id} />
+              productData.map((item, index) => (
+                <ProductCard product={item} key={index} />
               ))}
           </Col>
         </Row>

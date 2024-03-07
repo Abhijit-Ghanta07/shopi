@@ -6,21 +6,15 @@
 
 **NodeJs v18.0**
 
----
-
 **ReactJs v18.0**
 
 ## Developement Server
 
-> Port:3000
+Port:3000
 
----
+**Script**
 
-> **Script**
-
----
-
-> npm Run dev
+npm Run dev
 
 ## Deploy
 
@@ -30,4 +24,4 @@
 
 **Script**
 
-> npm run build
+npm run build

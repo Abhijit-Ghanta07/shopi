@@ -1,3 +1,8 @@
+// import font
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+// import sass files
+@import "../../sass/variable.scss";
+
 .product__img {
   max-width: 100%;
   width: 80px;
@@ -11,16 +16,16 @@
   transition: 0.2s ease;
 }
 .back__btn {
-  border: 1px solid rgb(47, 47, 47) !important;
-  margin-left: 10px;
-  margin-top: 10px;
+  @include back__btn__nm;
+  // border: 1px solid rgb(47, 47, 47) !important;
+  // margin-left: 10px;
+  // margin-top: 10px;
 }
 .payment__img {
   max-width: 100%;
   object-fit: contain;
 }
 // cart empty
-@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 
 body {
   background-color: #eee;

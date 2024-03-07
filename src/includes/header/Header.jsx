@@ -20,17 +20,17 @@ import {
 import { IoBagCheckOutline } from "react-icons/io5";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase";
-import { IoIosLogOut } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 import { GoPasskeyFill } from "react-icons/go";
 import { RiLogoutCircleRFill } from "react-icons/ri";
-// styles
-import Styles from "./header.module.scss";
-import avatar from "../../assets/svg/avatar.svg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../redux/auth";
 import { ToastOpen } from "../../redux/Toast";
 import { cartEmpty } from "../../redux/cart";
+// styles
+import avatar from "../../assets/svg/avatar.svg";
+import Styles from "./header.module.scss";
 function Header() {
   const dispatch = useDispatch();
   const { user, userId } = useSelector((store) => store.auth);
@@ -61,7 +61,7 @@ function Header() {
             <Col className="d-flex flex-column text-center text-md-start">
               <Link
                 to={"/"}
-                className="text-decoration-none fs-4 text-dark fw-bold"
+                className="text-decoration-none fs-2 mb-0 text-dark fw-bold"
               >
                 SHOPI
               </Link>

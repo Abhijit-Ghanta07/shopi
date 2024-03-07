@@ -7,7 +7,7 @@ import SingleProduct from "./singleProduct/SingleProduct";
 import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
 import MyOrder from "./orders/MyOrder";
-import { ToastModal, Loader } from "./loader/Loader";
+import { ToastModal, Loader, Loading } from "./loader/Loader";
 
 export {
   CartWrapper,
@@ -22,4 +22,5 @@ export {
   MyOrder,
   Loader,
   ToastModal,
+  Loading,
 };

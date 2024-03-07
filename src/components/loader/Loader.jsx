@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner, ToastBody, ToastHeader } from "react-bootstrap";
+import { Button, Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,24 @@ export const ToastModal = () => {
         </div>,
         document.getElementById("toast")
       )}
+    </>
+  );
+};
+
+export const Loading = () => {
+  return (
+    <>
+      <div className={Styles.loading}>
+        <Spinner
+          as="span"
+          animation="border"
+          variant="dark"
+          size="lg"
+          role="status"
+          aria-hidden="true"
+        />
+        <h3>Loading...</h3>
+      </div>
     </>
   );
 };

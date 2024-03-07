@@ -22,16 +22,11 @@
   background-size: 100%;
 
   &__register {
+    @extend .card__img;
     background: url("../.././assets/images/auth2.png");
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
     background-size: 150%;
   }
 }
 .back__btn {
-  border: 1px solid rgb(47, 47, 47) !important;
-  margin-left: 10px;
-  margin-top: 10px;
+  @include back__btn__nm;
 }

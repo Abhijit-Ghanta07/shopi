@@ -23,3 +23,13 @@
   overflow: hidden;
   text-transform: capitalize;
 }
+.loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+}

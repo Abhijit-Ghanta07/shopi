@@ -94,6 +94,7 @@ function SingleProduct() {
                       {fillterdItem?.images.map((img, i) => (
                         <img
                           src={img}
+                          key={i}
                           className={Styles.slide__img}
                           loading="lazy"
                           onClick={() => {
@@ -105,8 +106,9 @@ function SingleProduct() {
                     <CardText className="m-0">SIZE:</CardText>
 
                     <ButtonGroup className="mb-3">
-                      {sizeArr.map((size) => (
+                      {sizeArr.map((size, index) => (
                         <Button
+                          key={index}
                           size=""
                           variant="secondary"
                           onClick={(e) => {

@@ -5,17 +5,22 @@
   background: $body-bg;
 }
 .back__btn {
-  border: 1px solid rgb(47, 47, 47) !important;
-  margin-left: 10px;
-  margin-top: 10px;
-  position: absolute;
-  top: 0;
-  z-index: 3;
+  @include back__btn;
+  // border: 1px solid rgb(47, 47, 47) !import
+  // margin-left: 1
+  // margin-top: 1
+  // position: absol
+  // top
+  // z-index:;
 }
 .links {
   text-decoration: none !important;
+  &__active {
+    @extend .links;
+    color: #fff;
+  }
 }
-.links__active {
-  color: #fff;
-  text-decoration: none !important;
-}
+// .links__active {
+
+//   text-decoration: none !important;
+// }
