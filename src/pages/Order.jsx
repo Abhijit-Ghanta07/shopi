@@ -7,17 +7,11 @@ import { IoArrowBack } from "react-icons/io5";
 // styles
 import Styles from "./page.module.scss";
 const Order = () => {
-  const navigate = useNavigate();
   return (
     <>
       <Header />
       <Container fluid className="p-0 position-relative">
-        <Link
-          className={`${Styles.back__btn} btn `}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
+        <Link className={`${Styles.back__btn} btn `} to={-1}>
           <IoArrowBack /> Go Back
         </Link>
         <Outlet />

@@ -7,7 +7,6 @@ import { ScrollTop } from "../utils/Utill.jsx";
 import Styles from "./page.module.scss";
 import { useSelector } from "react-redux";
 function Home() {
-  const { pathname } = useLocation();
   const loading = useSelector((store) => store.loader);
 
   return (

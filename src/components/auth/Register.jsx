@@ -72,8 +72,8 @@ const Register = () => {
                 <Row>
                   <Col className="p-4">
                     <Card className="p-2 border-0">
-                      <CardTitle className="fw-medium">Register</CardTitle>
-                      <CardText>
+                      <CardTitle className={Styles.title}>Register</CardTitle>
+                      <CardText className={Styles.title__sub}>
                         Have An Account?
                         <Link to={"/auth"} className=" py-3">
                           Login

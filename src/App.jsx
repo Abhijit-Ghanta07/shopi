@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import {
   Error,
   Login,
@@ -10,7 +11,7 @@ import {
   ProductList,
   Loading,
 } from "./components/index.js";
-
+import { ScrollTop } from "./utils/Utill";
 // lazy components
 const HomePage = lazy(() => import("./pages/Home.jsx"));
 const AuthPage = lazy(() => import("./pages/Auth.jsx"));
@@ -27,82 +28,85 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Loading />}>
-              <HomePage />
-            </Suspense>
-          }
-        >
-          <Route index element={<ProductList />} />
-          <Route path="category/:id" element={<Category />} />
+      <Router>
+        <ScrollTop />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<Loading />}>
+                <HomePage />
+              </Suspense>
+            }
+          >
+            <Route index element={<ProductList />} />
+            <Route path="category/:id" element={<Category />} />
+            <Route path="/*" element={<Error />} />
+          </Route>
+          <Route
+            path="/product"
+            element={
+              <Suspense fallback={<Loading />}>
+                <ProductPage />
+              </Suspense>
+            }
+          >
+            <Route path=":id" element={<SingleProduct />} />
+          </Route>
+          <Route
+            path="/cart"
+            element={
+              <Suspense fallback={<Loading />}>
+                <CartPage />
+              </Suspense>
+            }
+          />
+          <Route path="/wishlist" element={<CartPage />} />
+          <Route
+            path="/account"
+            element={
+              <Suspense fallback={<Loading />}>
+                <GuestProtected>
+                  <AccountPage />
+                </GuestProtected>
+              </Suspense>
+            }
+          >
+            <Route index element={<Profile />} />
+            <Route path="order" element={<MyOrder />} />
+            <Route path="change" element={<ResetPass />} />
+          </Route>
+          <Route
+            path="/order"
+            element={
+              <Suspense fallback={<Loading />}>
+                <GuestProtected>
+                  <OrderPage />
+                </GuestProtected>
+              </Suspense>
+            }
+          >
+            <Route index element={<MyOrder />} />
+          </Route>
+
+          <Route
+            path="/auth"
+            element={
+              <Suspense fallback={<Loading />}>
+                <UserProtected>
+                  <AuthPage />
+                </UserProtected>
+              </Suspense>
+            }
+          >
+            <Route index element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+
+          <Route path="/not" element={<Error />} />
           <Route path="/*" element={<Error />} />
-        </Route>
-        <Route
-          path="/product"
-          element={
-            <Suspense fallback={<Loading />}>
-              <ProductPage />
-            </Suspense>
-          }
-        >
-          <Route path=":id" element={<SingleProduct />} />
-        </Route>
-        <Route
-          path="/cart"
-          element={
-            <Suspense fallback={<Loading />}>
-              <CartPage />
-            </Suspense>
-          }
-        />
-        <Route path="/wishlist" element={<CartPage />} />
-        <Route
-          path="/account"
-          element={
-            <Suspense fallback={<Loading />}>
-              <GuestProtected>
-                <AccountPage />
-              </GuestProtected>
-            </Suspense>
-          }
-        >
-          <Route index element={<Profile />} />
-          <Route path="order" element={<MyOrder />} />
-          <Route path="change" element={<ResetPass />} />
-        </Route>
-        <Route
-          path="/order"
-          element={
-            <Suspense fallback={<Loading />}>
-              <GuestProtected>
-                <OrderPage />
-              </GuestProtected>
-            </Suspense>
-          }
-        >
-          <Route index element={<MyOrder />} />
-        </Route>
-
-        <Route
-          path="/auth"
-          element={
-            <Suspense fallback={<Loading />}>
-              <UserProtected>
-                <AuthPage />
-              </UserProtected>
-            </Suspense>
-          }
-        >
-          <Route index element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-
-        <Route path="/not" element={<Error />} />
-        <Route path="/*" element={<Error />} />
-      </Routes>
+        </Routes>
+      </Router>
 
       <GetData />
     </>

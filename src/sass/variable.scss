@@ -28,3 +28,17 @@ $primary: #7289da;
     display: none !important;
   }
 }
+
+@mixin rounded__img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-inline: 0.3rem;
+}
+
+@mixin link__nm {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: normal;
+}

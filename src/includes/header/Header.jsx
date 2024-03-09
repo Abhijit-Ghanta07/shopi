@@ -23,6 +23,7 @@ import { auth } from "../../utils/firebase";
 import { MdAccountCircle } from "react-icons/md";
 import { GoPasskeyFill } from "react-icons/go";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import { IoBagHandleOutline } from "react-icons/io5";
 
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../redux/auth";
@@ -53,29 +54,52 @@ function Header() {
     <>
       <Container
         fluid
-        className="shadow-sm position-sticky top-0 bg-light"
+        className="shadow-sm position-sticky top-0 bg-light p-2"
         style={{ zIndex: 9 }}
       >
         <Container fluid="xl p-0">
           <Row className="py-2 align-items-center gap-2">
-            <Col className="d-flex flex-column text-center text-md-start">
+            <Col className="d-flex flex-column text-md-start">
               <Link
                 to={"/"}
-                className="text-decoration-none fs-2 mb-0 text-dark fw-bold"
+                className="text-decoration-none display-6 mb-0 text-dark fw-bold"
               >
                 SHOPI
               </Link>
-              <p className="small m-0 ">All Your Needs Are Here.</p>
+              <p className="small m-0">All Your Needs Are Here.</p>
             </Col>
 
             <Col>
-              <div className="d-flex gap-4 justify-content-end">
+              <div className="d-flex gap-4 justify-content-between justify-content-md-end">
                 {userId && (
                   <Link to={"/order"} className={Styles.link}>
-                    <IoBagCheckOutline className={Styles.header__user_icons} />
-                    My Orders
+                    <IoBagHandleOutline
+                      className={Styles.header__user_icons}
+                      size={"1.7rem"}
+                    />
+                    <span className="fw-bold">Orders</span>
                   </Link>
                 )}
+                <Link to={"/cart"} className="position-relative fs-6 mt-1">
+                  <FaRegHeart className={Styles.header__user_icons} />
+                  <Badge bg="danger" pill className={Styles.header__badge}>
+                    {wishlist.length}
+                  </Badge>
+                </Link>
+
+                <Link
+                  to={"/cart"}
+                  className="position-relative text-decoration-none text-black mt-1"
+                >
+                  <IoCartOutline
+                    className={Styles.header__user_icons}
+                    size={"1.8rem"}
+                  />
+                  <span className={Styles.sm__hide}>Cart</span>
+                  <Badge bg="danger" pill className={Styles.header__badge}>
+                    {productsID.length}
+                  </Badge>
+                </Link>
 
                 {userId ? (
                   <>
@@ -122,33 +146,16 @@ function Header() {
                 ) : (
                   <Link
                     to={"/auth"}
-                    className="text-decoration-none text-black mt-2"
+                    className="text-decoration-none text-black"
                   >
                     <img
                       src={avatar}
                       alt="catagories img"
                       className={Styles.rounded__img}
                     />
-                    Login
+                    <span className={Styles.sm__hide}>Login</span>
                   </Link>
                 )}
-                <Link to={"/cart"} className="position-relative fs-6 mt-2">
-                  <FaRegHeart className={Styles.header__user_icons} />
-                  <Badge bg="danger" pill className={Styles.header__badge}>
-                    {wishlist.length}
-                  </Badge>
-                </Link>
-
-                <Link
-                  to={"/cart"}
-                  className="position-relative text-decoration-none text-black mt-2"
-                >
-                  <IoCartOutline className={Styles.header__user_icons} />
-                  <span className="fw-medium ">Cart</span>
-                  <Badge bg="danger" pill className={Styles.header__badge}>
-                    {productsID.length}
-                  </Badge>
-                </Link>
               </div>
             </Col>
           </Row>

@@ -15,12 +15,7 @@ const Auth = () => {
     <>
       <Header />
       <Container fluid className="p-0 position-relative">
-        <Link
-          className={`${Styles.back__btn} btn `}
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
+        <Link className={`${Styles.back__btn} btn `} to={-1} replace>
           <IoArrowBack /> Go Back
         </Link>
         <Outlet />

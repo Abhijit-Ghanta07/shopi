@@ -1,12 +1,16 @@
-@import "../../sass//variable.scss";
+@import "../../sass/variable.scss";
+@import "../../sass/responsive.scss";
 .footer__container {
   background-color: $light;
   margin: 1rem 0;
 }
 
 .links {
+  @include smallScreen() {
+    font-size: 0.9rem;
+  }
+  @include link__nm;
   color: $dark;
-  text-decoration: none;
   font-weight: 500;
   transition: 0.4s ease;
   width: fit-content;
@@ -14,4 +18,9 @@
     color: $primary;
     transform: translateX(10px);
   }
+}
+
+.link__group__title {
+  font-weight: bold;
+  font-family: serif;
 }

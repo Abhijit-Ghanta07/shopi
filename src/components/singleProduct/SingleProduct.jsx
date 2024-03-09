@@ -17,9 +17,9 @@ import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "../../redux/cart";
 import { IoArrowBack } from "react-icons/io5";
-import { BsCurrencyDollar } from "react-icons/bs";
+import { BsCheckLg, BsCurrencyDollar } from "react-icons/bs";
 import useFindProduct from "../../hooks/FindProduct";
-
+import { FaDollarSign } from "react-icons/fa6";
 // scss
 import Styles from "./product.module.scss";
 import { addWishlist, removeWishlist } from "../../redux/wishList";
@@ -40,6 +40,15 @@ function SingleProduct() {
       return item.id == id;
     });
   }, [id]);
+  let relativeProducts = useMemo(() => {
+    return productData.filter((item) => {
+      return (
+        item.category?.id == fillterdItem.category.id &&
+        item.id !== fillterdItem.id
+      );
+    });
+  }, [id]);
+
   // handle add to cart click
   function handleAddClick() {
     if (!userId) {
@@ -63,7 +72,7 @@ function SingleProduct() {
   const sizeArr = ["M", "L", "XL", "XXL"];
   return (
     <>
-      <Link className={`${Styles.back__btn} btn`} onClick={() => navigate(-1)}>
+      <Link className={`${Styles.back__btn} btn`} to={-1}>
         <IoArrowBack />
         Go Back
       </Link>
@@ -80,16 +89,20 @@ function SingleProduct() {
                 </Col>
                 <Col xs="12" sm="8">
                   <CardBody className="p-0 px-3">
-                    <CardTitle>{fillterdItem.title}</CardTitle>
-                    <Badge className="my-2" pill bg="secondary">
-                      {fillterdItem?.category?.name}
+                    <CardTitle className={Styles.product__title}>
+                      {fillterdItem.title}
+                    </CardTitle>
+                    <Badge className="my-2 shadow" pill bg="secondary">
+                      {fillterdItem?.category?.name.toUpperCase()}
                     </Badge>
                     {/* <CardText>{fillterdItem.description}</CardText> */}
-                    <CardText className="fw-bold fs-5 m-0">
+                    <CardText className={Styles.product__price__title}>
                       Price: <BsCurrencyDollar />
                       {fillterdItem?.price}
                     </CardText>
-                    <CardText className="m-0 fw-medium">IMAGES:</CardText>
+                    <CardText className={Styles.product__image__title}>
+                      IMAGES:
+                    </CardText>
                     <Stack direction="horizontal" gap={1} className="mb-2">
                       {fillterdItem?.images.map((img, i) => (
                         <img
@@ -103,7 +116,9 @@ function SingleProduct() {
                         />
                       ))}
                     </Stack>
-                    <CardText className="m-0">SIZE:</CardText>
+                    <CardText className={Styles.product__size__title}>
+                      SIZE:
+                    </CardText>
 
                     <ButtonGroup className="mb-3">
                       {sizeArr.map((size, index) => (
@@ -112,7 +127,7 @@ function SingleProduct() {
                           size=""
                           variant="secondary"
                           onClick={(e) => {
-                            e.target.classList.add("active");
+                            e.target.classList.toggle("active");
                           }}
                         >
                           {size}
@@ -156,6 +171,54 @@ function SingleProduct() {
                 </Col>
               </Card>
             )}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card className={Styles.relativeCardWrapper}>
+              <CardTitle className={Styles.relativeCardWrapper__title}>
+                Related Products:
+              </CardTitle>
+              <Stack
+                direction="horizontal"
+                className={Styles.relative__wrapper}
+                gap={2}
+              >
+                {relativeProducts.map((product, index) => {
+                  return (
+                    <Link
+                      key={index}
+                      className={Styles.card__link}
+                      to={`/product/${product.id}`}
+                      replace
+                    >
+                      <Card className={Styles.relativeProductCard}>
+                        <img
+                          src={product.images[0]}
+                          className={Styles.relativeProduct__img}
+                          onError={(e) => {
+                            e.target.parentElement.parentElement.classList.add(
+                              "d-none"
+                            );
+                          }}
+                        />
+                        <CardTitle className={Styles.relativeProduct__title}>
+                          {product.title}
+                        </CardTitle>
+                        <CardBody className="p-2">
+                          <Badge className="shadow m-2" pill bg="secondary">
+                            {fillterdItem?.category?.name.toUpperCase()}
+                          </Badge>
+                          <CardText className={Styles.relativeProduct__text}>
+                            Price: <FaDollarSign /> <span>{product.price}</span>
+                          </CardText>
+                        </CardBody>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </Stack>
+            </Card>
           </Col>
         </Row>
       </Container>

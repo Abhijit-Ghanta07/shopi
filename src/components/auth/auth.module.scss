@@ -30,3 +30,12 @@
 .back__btn {
   @include back__btn__nm;
 }
+
+.title {
+  font-family: serif;
+  font-weight: bold !important;
+  &__sub {
+    @extend .title;
+    font-weight: 500 !important;
+  }
+}

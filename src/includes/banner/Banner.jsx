@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 // css
 import Styles from "./banner.module.scss";
@@ -41,10 +41,11 @@ const Banner = () => {
                           alt="catagory img"
                           className={Styles.cata__img}
                           onError={(e) => {
+                            console.dir(e.target.parentElement);
                             e.target.parentElement.classList.add("d-none");
                           }}
                         />
-                        <p> {cata?.name}</p>
+                        <p className={Styles.banner__title}>{cata?.name}</p>
                       </Link>
                     );
                   })}
@@ -57,7 +58,7 @@ const Banner = () => {
       <Container fluid className="mt-2 p-0">
         <Row className="overflow-hidden mx-3">
           <Col className={Styles.slider__wrapper}>
-            {catagoryList.map((slide) => {
+            {catagoryList.map((slide, index) => {
               return (
                 <div className={Styles.slider} key={slide.id}>
                   <img

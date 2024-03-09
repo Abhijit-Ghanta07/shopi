@@ -8,6 +8,10 @@
 
 **ReactJs v18.0**
 
+**Firebase Account**
+
+**FireStore**
+
 ## Developement Server
 
 Port:3000
@@ -18,7 +22,7 @@ npm Run dev
 
 ## Deploy
 
-**Deployed on render Free Server**
+**Deployed on Render Free Server**
 
 ---
 

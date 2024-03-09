@@ -80,8 +80,9 @@ const Category = () => {
             <CardBody>
               <CardTitle>Fillters</CardTitle>
               <CardText>Fillter By:</CardText>
-              {FILLTERS.map((filter) => (
+              {FILLTERS.map((filter, index) => (
                 <FormCheck
+                  key={index}
                   type="radio"
                   label={filter}
                   id={filter + "default"}
@@ -104,8 +105,8 @@ const Category = () => {
         {/* <p>{products.length} Products Found:</p> */}
         <Col sm="9" className="d-flex flex-wrap">
           {products &&
-            products.map((item) => (
-              <ProductCard product={item} key={item.id} />
+            products.map((item, index) => (
+              <ProductCard product={item} key={index} />
             ))}
         </Col>
       </Row>

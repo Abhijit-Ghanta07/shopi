@@ -15,3 +15,72 @@
 .back__btn {
   @include back__btn__nm;
 }
+
+.product {
+  &__title {
+    font-weight: bold !important;
+    font-family: serif;
+  }
+  &__image__title {
+    @extend .product__title;
+  }
+  &__size__title {
+    @extend .product__title;
+  }
+  &__price__title {
+    @extend .product__title;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  }
+}
+
+.relative__wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem 0;
+}
+.relativeProductCard {
+}
+.relativeCardWrapper {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  &__title {
+    font-weight: bold !important;
+    font-family: serif;
+  }
+}
+
+.relativeProduct {
+  &__title {
+    @include smallScreen() {
+      font-size: 0.9rem !important;
+    }
+    font-size: 1rem !important;
+    padding: 0.5rem 1rem;
+    margin: 0 !important;
+    font-family: serif;
+    white-space: normal;
+    font-weight: bold !important;
+  }
+  &__img {
+    object-fit: cover;
+    height: 25vh;
+  }
+  &__text {
+    @include smallScreen() {
+      font-size: 0.8rem;
+    }
+    font-weight: bold !important;
+    font-family: serif;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}
+.card__link {
+  @include smallScreen() {
+    min-width: 80% !important;
+  }
+  all: unset;
+  min-width: 300px;
+  width: fit-content;
+  height: auto;
+}

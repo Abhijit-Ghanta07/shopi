@@ -95,8 +95,8 @@ const Login = () => {
                 <Row>
                   <Col className="px-4 py-3">
                     <Card className="p-3 border-0 shadow">
-                      <CardTitle>Login</CardTitle>
-                      <CardText>
+                      <CardTitle className={Styles.title}>Login</CardTitle>
+                      <CardText className={Styles.title__sub}>
                         Don't have an account Yet?{" "}
                         <Link to={"register"} className=" py-3">
                           Sign Up

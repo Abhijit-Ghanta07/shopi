@@ -60,9 +60,9 @@ const Order = () => {
                   className="align-items-center"
                 >
                   {orders &&
-                    orders.map((item) => {
+                    orders.map((item, index) => {
                       return (
-                        <Card className={Styles.order__card}>
+                        <Card key={index} className={Styles.order__card}>
                           <p>
                             Order Date:{convertTime(item.timestamp?.seconds)}
                           </p>

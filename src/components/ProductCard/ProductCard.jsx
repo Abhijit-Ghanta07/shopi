@@ -83,19 +83,24 @@ function ProductCard({ product }) {
         </Link>
 
         <CardBody>
-          <CardSubtitle>{product.title}</CardSubtitle>
+          <CardSubtitle className={Styles.product__title}>
+            {product.title}
+          </CardSubtitle>
           {/* <CardText className="text-success">
             {product?.rating?.rate}
             <FaStar />
             By
             {product?.rating?.count}
           </CardText> */}
-          <CardText className="fw-medium m-0">
+          <CardText
+            className="fw-bold m-0"
+            style={{ fontFamily: "sans-serif" }}
+          >
             <FaDollarSign />
             {product?.price}
           </CardText>
-          <Badge className="my-2" pill bg="secondary">
-            {product?.category?.name}
+          <Badge className="my-2 shadow" pill bg="secondary">
+            {product?.category?.name.toUpperCase()}
           </Badge>
 
           <div className="d-flex ">

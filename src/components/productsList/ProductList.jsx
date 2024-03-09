@@ -8,6 +8,7 @@ import { Banner } from "../../includes/includes.js";
 import Styles from "./productlist.module.scss";
 import { loaderClose, loaderOpen } from "../../redux/loader.js";
 import { useLocation } from "react-router-dom";
+import { ScrollTop } from "../../utils/Utill.jsx";
 function ProductList() {
   const dispatch = useDispatch();
   const { productData, loading } = useSelector((store) => store.product);

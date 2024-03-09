@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../includes/includes";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   Button,
   Col,
@@ -26,7 +26,6 @@ import { ToastOpen } from "../redux/Toast";
 import { cartEmpty } from "../redux/cart";
 
 const Account = () => {
-  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((store) => store.loader);
@@ -40,11 +39,12 @@ const Account = () => {
     navigate("/");
   };
 
+  const linksArr = ["profile", "order", "change"];
   return (
     <>
       <Header />
       <Container fluid className="p-0 position-relative">
-        <Link to={"/"} className={`${Styles.back__btn} btn `}>
+        <Link to={-1} replace className={`${Styles.back__btn} btn `}>
           <IoArrowBack /> Go Back
         </Link>
         <Container className="mt-3 py-5">
@@ -53,7 +53,7 @@ const Account = () => {
               <ListGroup as={"ul"}>
                 <ListGroupItem active>
                   <Link className={`${Styles.links__active}`} to={"/account"}>
-                    Profile{" "}
+                    Profile
                   </Link>
                 </ListGroupItem>
                 <ListGroupItem>
