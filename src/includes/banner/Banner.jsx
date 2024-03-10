@@ -41,7 +41,6 @@ const Banner = () => {
                           alt="catagory img"
                           className={Styles.cata__img}
                           onError={(e) => {
-                            console.dir(e.target.parentElement);
                             e.target.parentElement.classList.add("d-none");
                           }}
                         />

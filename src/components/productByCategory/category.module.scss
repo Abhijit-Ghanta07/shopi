@@ -1,0 +1,35 @@
+@import "../../sass/responsive.scss";
+@import "../../sass/variable.scss";
+
+.hide__sm {
+  @include deskTop() {
+    display: block !important;
+    margin-right: auto;
+  }
+
+  display: none !important;
+}
+
+.hide__lg {
+  @include deskTop() {
+    display: none !important;
+  }
+
+  display: inline-block !important;
+  margin-left: auto;
+}
+
+.filter__title {
+  display: inline-block;
+  font-family: serif;
+  font-weight: bold;
+  font-size: clamp(1.2rem, 1.5rem, 18rem);
+  margin: 0;
+}
+.card__wrapper {
+  @include deskTop() {
+    display: block;
+  }
+  display: flex;
+  justify-content: space-between;
+}

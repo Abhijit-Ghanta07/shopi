@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../includes/includes";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   Col,
@@ -17,6 +17,7 @@ import {
 import { IoArrowBack } from "react-icons/io5";
 import { Loader, ToastModal } from "../components/loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
+import { AccountSidebarLinks } from "../constants/constants.js";
 // scss
 import Styles from "./page.module.scss";
 import { signOut } from "firebase/auth";
@@ -29,7 +30,7 @@ const Account = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((store) => store.loader);
-  const { user } = useSelector((store) => store.auth);
+  // const { user } = useSelector((store) => store.auth);
   const [show, setShow] = useState(false);
   const handleLogout = async () => {
     const res = await signOut(auth);
@@ -39,54 +40,18 @@ const Account = () => {
     navigate("/");
   };
 
-  const linksArr = ["profile", "order", "change"];
   return (
     <>
       <Header />
       <Container fluid className="p-0 position-relative">
-        <Link to={-1} replace className={`${Styles.back__btn} btn `}>
+        <Link to="/" replace className={`${Styles.back__btn} btn `}>
           <IoArrowBack /> Go Back
         </Link>
-        <Container className="mt-3 py-5">
-          <Row className="gap-4">
-            <Col sm="3" className="py-3">
-              <ListGroup as={"ul"}>
-                <ListGroupItem active>
-                  <Link className={`${Styles.links__active}`} to={"/account"}>
-                    Profile
-                  </Link>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <Link to={"order"} className={`${Styles.links} text-primary`}>
-                    My Orders{" "}
-                  </Link>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <Link
-                    to={"change"}
-                    className={`${Styles.links} text-primary`}
-                  >
-                    Change Password
-                  </Link>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <Link
-                    className={`${Styles.links} text-primary`}
-                    onClick={() => {
-                      setShow(true);
-                    }}
-                  >
-                    Logout
-                  </Link>
-                </ListGroupItem>
-              </ListGroup>
-            </Col>
-            <Col sm="8">
-              <Outlet />
-            </Col>
-          </Row>
-        </Container>
       </Container>
+      {/* sidebar components */}
+      <AccountSidebar linksArr={AccountSidebarLinks} setShow={setShow} />
+
+      {/* modal for confirm logout  */}
       <Modal
         show={show}
         onHide={() => {
@@ -119,4 +84,59 @@ const Account = () => {
   );
 };
 
+const AccountSidebar = ({ linksArr, setShow }) => {
+  const { pathname } = useLocation();
+  let endPath = pathname.split("/")[2];
+
+  return (
+    <>
+      <Container className="mt-3 py-5">
+        <Row className="gap-4">
+          <Col sm="3" className="py-3">
+            <ListGroup as={"ul"}>
+              {linksArr.map((linkItem, index) => {
+                return (
+                  <ListGroupItem
+                    key={index}
+                    active={
+                      endPath == linkItem.link || pathname == linkItem.link
+                        ? true
+                        : false
+                    }
+                  >
+                    <Link
+                      className={
+                        endPath == linkItem.link || pathname == linkItem.link
+                          ? Styles.links__active
+                          : Styles.links
+                      }
+                      to={linkItem.link}
+                    >
+                      {linkItem.title}
+                    </Link>
+                  </ListGroupItem>
+                );
+              })}
+
+              <ListGroupItem>
+                <Link
+                  className={`${Styles.links} text-primary`}
+                  to={""}
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                >
+                  Logout
+                </Link>
+              </ListGroupItem>
+            </ListGroup>
+          </Col>
+          <Col sm="8">
+            <Outlet />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
+};
 export default Account;

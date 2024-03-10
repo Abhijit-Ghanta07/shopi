@@ -9,6 +9,7 @@ import {
   Container,
   FormCheck,
   FormLabel,
+  FormSelect,
   Row,
 } from "react-bootstrap";
 import { Loader } from "../index.js";
@@ -17,6 +18,10 @@ import useFetchData from "../../api/Api";
 import { useDispatch } from "react-redux";
 import { loaderOpen, loaderClose } from "../../redux/loader.js";
 import ProductCard from "../ProductCard/ProductCard";
+
+// scss
+import style from "./category.module.scss";
+// constant data
 const FILLTERS = [
   "Relavance",
   "Price Low - High",
@@ -76,29 +81,42 @@ const Category = () => {
     <Container className="mt-3 py-4">
       <Row>
         <Col sm="3">
-          <Card>
-            <CardBody>
-              <CardTitle>Fillters</CardTitle>
-              <CardText>Fillter By:</CardText>
-              {FILLTERS.map((filter, index) => (
-                <FormCheck
-                  key={index}
-                  type="radio"
-                  label={filter}
-                  id={filter + "default"}
-                  name="formId"
-                  value={filter}
-                  onChange={handleChange}
+          <Card className="my-3">
+            <CardBody className={style.card__wrapper}>
+              <CardTitle className={style.hide__sm}>Fillters</CardTitle>
+              <CardText className={style.filter__title}>Sort By:</CardText>
+              <div className={style.hide__sm}>
+                {FILLTERS.map((filter, index) => (
+                  <FormCheck
+                    key={index}
+                    type="radio"
+                    label={filter}
+                    id={filter + "default"}
+                    name="formId"
+                    value={filter}
+                    onChange={handleChange}
+                  />
+                ))}
+                <FormLabel>Price Range:{range}</FormLabel>
+                <FormRange
+                  value={range}
+                  max={1000}
+                  onChange={(e) => {
+                    setRange(e.target.value);
+                  }}
                 />
-              ))}
-              <FormLabel>Price Range:{range}</FormLabel>
-              <FormRange
-                value={range}
-                max={1000}
-                onChange={(e) => {
-                  setRange(e.target.value);
-                }}
-              />
+              </div>
+              <div className={style.hide__lg}>
+                <FormSelect>
+                  {FILLTERS.map((fillter, index) => {
+                    return (
+                      <option key={index} value={fillter}>
+                        {fillter}
+                      </option>
+                    );
+                  })}
+                </FormSelect>
+              </div>
             </CardBody>
           </Card>
         </Col>

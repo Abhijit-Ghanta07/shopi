@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-
-import { IoCartOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import {
   Badge,
   Button,
@@ -17,13 +13,16 @@ import {
   ModalTitle,
   Row,
 } from "react-bootstrap";
-import { IoBagCheckOutline } from "react-icons/io5";
+
+import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { MdAccountCircle } from "react-icons/md";
 import { GoPasskeyFill } from "react-icons/go";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { IoCartOutline } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../redux/auth";
@@ -34,10 +33,13 @@ import avatar from "../../assets/svg/avatar.svg";
 import Styles from "./header.module.scss";
 function Header() {
   const dispatch = useDispatch();
+  // globals states
   const { user, userId } = useSelector((store) => store.auth);
   const { productsID } = useSelector((store) => store.cart);
   const wishlist = useSelector((store) => store.wishlist);
+  // components states
   const [show, setShow] = useState(false);
+  // logout function
   async function logout(params) {
     await signOut(auth);
     dispatch(removeuser());
@@ -100,7 +102,7 @@ function Header() {
                     {productsID.length}
                   </Badge>
                 </Link>
-
+                {/* if user existed then show the profile and dropdown */}
                 {userId ? (
                   <>
                     <DropdownButton
@@ -127,7 +129,10 @@ function Header() {
 
                       <DropdownDivider />
 
-                      <Link className={Styles.dropdown__link}>
+                      <Link
+                        className={Styles.dropdown__link}
+                        to={"/account/change"}
+                      >
                         <GoPasskeyFill fontSize="1rem" />
                         Change Password
                       </Link>
@@ -161,6 +166,7 @@ function Header() {
           </Row>
         </Container>
       </Container>
+      {/* modal for comfirm logout method */}
       <Modal
         show={show}
         onHide={() => {
