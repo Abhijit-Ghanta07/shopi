@@ -187,7 +187,7 @@ function SingleProduct() {
                 {relativeProducts.map((product, index) => {
                   return (
                     <Link
-                      key={index}
+                      key={product.id}
                       className={Styles.card__link}
                       to={`/product/${product.id}`}
                       replace

@@ -64,6 +64,7 @@ function Header() {
             <Col className="d-flex flex-column text-md-start">
               <Link
                 to={"/"}
+                replace
                 className="text-decoration-none display-6 mb-0 text-dark fw-bold"
               >
                 SHOPI

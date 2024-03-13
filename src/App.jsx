@@ -19,6 +19,7 @@ const CartPage = lazy(() => import("./pages/Cart.jsx"));
 const OrderPage = lazy(() => import("./pages/Order.jsx"));
 const AccountPage = lazy(() => import("./pages/Account.jsx"));
 const ProductPage = lazy(() => import("./pages/ProductPage.jsx"));
+import { ErrorPage } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import GetData from "./data/Getdata.jsx";
 import { Profile, ResetPass } from "./components/account/accountIndex.js";
@@ -41,7 +42,6 @@ function App() {
           >
             <Route index element={<ProductList />} />
             <Route path="category/:id" element={<Category />} />
-            <Route path="/*" element={<Error />} />
           </Route>
           <Route
             path="/product"
@@ -103,8 +103,22 @@ function App() {
             <Route path="register" element={<Register />} />
           </Route>
 
-          <Route path="/not" element={<Error />} />
-          <Route path="/*" element={<Error />} />
+          <Route
+            path="/not_found"
+            element={
+              <ErrorPage>
+                <Error />
+              </ErrorPage>
+            }
+          />
+          <Route
+            path="/*"
+            element={
+              <ErrorPage>
+                <Error />
+              </ErrorPage>
+            }
+          />
         </Routes>
       </Router>
 

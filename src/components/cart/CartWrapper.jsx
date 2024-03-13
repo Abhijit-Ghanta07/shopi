@@ -30,11 +30,12 @@ import { ToastModal, Loader } from "../index.js";
 import Styles from "./cart.module.scss";
 
 const CartWrapper = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId } = useSelector((store) => store.auth);
-  const navigate = useNavigate();
   const { productData } = useSelector((store) => store.product);
   const { productsID } = useSelector((store) => store.cart);
+  const wishtList = useSelector((store) => store.wishlist);
   const loading = useSelector((store) => store.loader);
 
   const initial = { card: null, expiry: null, cvv: null };
@@ -44,7 +45,7 @@ const CartWrapper = () => {
   const [modalShow, setModalShow] = useState(false);
   // fillter items
   let fillteredItem = useMemo(() => {
-    return productData.filter((product, i) => productsID?.includes(product.id));
+    return productData.filter((product) => productsID?.includes(product.id));
   }, [productsID]);
 
   // totalprice amount
@@ -129,10 +130,14 @@ const CartWrapper = () => {
                   ))}
               </Stack>
             </Card>
-            <Card className="p-3 my-2">
-              <CardTitle className="fw-bold fs-4">WishList</CardTitle>
-              <WishList />
-            </Card>
+            {wishtList.length > 0 ? (
+              <Card className="p-3 my-2">
+                <CardTitle className="fw-bold fs-4">WishList</CardTitle>
+                <WishList />
+              </Card>
+            ) : (
+              <></>
+            )}
           </Col>
           <Col md="3" className="order-1 order-md-2">
             <Card className="p-2">

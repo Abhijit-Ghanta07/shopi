@@ -1,7 +1,8 @@
 .product__img {
   max-width: 100%;
-  width: 80px;
-  height: 100px;
+  width: 150px;
+  height: auto;
+  border-radius: 10%;
   object-fit: cover;
   mix-blend-mode: multiply;
 }

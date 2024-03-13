@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
-import { FaStar } from "react-icons/fa6";
-import { FaDollarSign } from "react-icons/fa6";
-
 import { useDispatch, useSelector } from "react-redux";
-import { FaRegHeart } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa6";
+
 import useFindProduct from "../../hooks/FindProduct";
 import { deleteItem } from "../../redux/cart";
-
+import { Link } from "react-router-dom";
+import { addWishlist, removeWishlist } from "../../redux/wishList";
 // scss
 import Styles from "./cart.module.scss";
-import { Link } from "react-router-dom";
+
 const CartProduct = ({ product, setTotalPrice }) => {
   const dispatch = useDispatch();
+  const wishList = useSelector((store) => store.wishlist);
   const [fireId, findId] = useFindProduct();
-  const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [wishAdd, setWishAdd] = useState(false);
 
   function handleRemoveClick() {
     const ID = findId(this);
@@ -26,14 +23,29 @@ const CartProduct = ({ product, setTotalPrice }) => {
       dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
-  // useEffect(() => {
-  //   setTotal(product.price * quantity);
-  // }, [quantity]);
+  useEffect(() => {
+    if (wishList.length > 0) {
+      wishList.forEach((item) => {
+        if (item == product?.id) {
+          setWishAdd(true);
+        }
+      });
+    } else {
+      setWishAdd(false);
+    }
+  }, [wishList]);
   useEffect(() => {
     setTotalPrice((prev) => [...prev, product.price]);
   }, []);
 
-  function handleWishlistClick() {}
+  function handleWishlistClick() {
+    if (wishAdd) {
+      dispatch(removeWishlist(this));
+      setWishAdd(false);
+    } else {
+      dispatch(addWishlist(this));
+    }
+  }
   return (
     <>
       <Container fluid>
@@ -49,7 +61,7 @@ const CartProduct = ({ product, setTotalPrice }) => {
               </Link>
 
               <Stack direction="vertical">
-                <p>{product?.title}</p>
+                <p className="fw-bold">{product?.title}</p>
                 <Badge style={{ width: "fit-content" }} bg="secondary">
                   {product?.category?.name}
                 </Badge>
@@ -66,7 +78,7 @@ const CartProduct = ({ product, setTotalPrice }) => {
               >
                 <FaPlus />
               </Button> */}
-              <p className="fw-medium text-primary">Quantity:{quantity}</p>
+              <p className="fw-medium ">Quantity:{quantity}</p>
               {/* <Button
                 size="sm"
                 onClick={() => {
@@ -80,16 +92,17 @@ const CartProduct = ({ product, setTotalPrice }) => {
             </Stack>
           </Col>
           <Col xs="6" sm="6" md="2">
-            <p className="m-0 fs-5 fw-bold text-danger">
-              Price:${product.price}
-            </p>
+            <p className="m-0 fs-5 fw-bold">Price:${product.price}</p>
             {/* <p className="m-0 text-secondary">${product?.price}.00 Each</p> */}
           </Col>
           <Col xs="10" sm="6" md="3">
             <Stack direction="horizontal" gap={2}>
-              <Button size="sm" onClick={handleWishlistClick.bind(product.id)}>
-                <FaHeart />
-              </Button>
+              <button
+                onClick={handleWishlistClick.bind(product.id)}
+                className={Styles.wishBtn}
+              >
+                <FaHeart color={wishAdd ? "red" : "#000"} />
+              </button>
               <Button
                 variant="danger"
                 size="sm"

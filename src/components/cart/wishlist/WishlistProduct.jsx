@@ -42,7 +42,7 @@ const WishlistProduct = ({ product }) => {
           </Col>
 
           <Col xs="10" sm="6" md="5" className="py-3">
-            <p className="small">Price:${product.description}</p>
+            <p className="small">{product.description}</p>
             {/* <p className="m-0 text-secondary">${product?.price}.00 Each</p> */}
             <Button
               variant="danger"

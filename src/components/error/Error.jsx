@@ -19,7 +19,7 @@ function Error() {
 
                   <p>the page you are looking for not avaible!</p>
 
-                  <Link to={"/"} className={Styles.link__404}>
+                  <Link to={"/"} replace className={Styles.link__404}>
                     Go to Home
                   </Link>
                 </div>
