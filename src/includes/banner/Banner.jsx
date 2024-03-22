@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Container,
+  Row,
+  Stack,
+} from "react-bootstrap";
 
 // css
 import Styles from "./banner.module.scss";
@@ -28,10 +35,14 @@ const Banner = () => {
                         to the cart
                       </p>
                       <p></p>
-                      <ButtonGroup className="py-3 px-2">
-                        <Button variant="danger">Buy Now </Button>
+                      <Stack
+                        direction="horizontal"
+                        gap={2}
+                        className="py-3 px-2"
+                      >
+                        <Button variant="secondary">Buy Now </Button>
                         <Button variant="warning">View More</Button>
-                      </ButtonGroup>
+                      </Stack>
                     </Col>
 
                     <Col xs>

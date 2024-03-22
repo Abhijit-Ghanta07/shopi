@@ -1,4 +1,20 @@
+@font-face {
+  font-family: "popines";
+  src: url("./assets/fonts/Poppins-Medium.ttf");
+}
+
+* {
+  font-family: "popines";
+}
+
 #root {
   min-height: 100vh;
   position: relative;
+}
+
+@media screen and (max-width: 440px) {
+  *:hover {
+    box-shadow: initial;
+    color: initial;
+  }
 }

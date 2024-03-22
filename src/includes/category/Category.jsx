@@ -14,7 +14,7 @@ const Category = () => {
         <Row className="py-3">
           <h2 className="fw-bold px-4 py-2">Shop By Category</h2>
           <Col>
-            <div className="d-flex justify-content-around flex-wrap">
+            <div className={Styles.wrapper}>
               {!catagoryList ? (
                 <p>Loading....</p>
               ) : (
@@ -25,7 +25,7 @@ const Category = () => {
                       alt="img"
                       className={Styles.cata__img}
                     />
-                    <p> All</p>
+                    <p className={Styles.banner__title}> All</p>
                   </Link>
                   {catagoryList.map((cata) => {
                     return (

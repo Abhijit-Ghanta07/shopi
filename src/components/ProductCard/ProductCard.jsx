@@ -54,7 +54,7 @@ function ProductCard({ product }) {
   return (
     <>
       <Card className={Styles.product__card}>
-        {wishlist.includes(product?.id) ? (
+        {/* {wishlist.includes(product?.id) ? (
           <IoMdHeart
             className={Styles.img__icon}
             onClick={(e) => {
@@ -70,7 +70,7 @@ function ProductCard({ product }) {
               dispatch(addWishlist(product?.id));
             }}
           />
-        )}
+        )} */}
 
         <Link to={`/product/${product.id}`} className={Styles.card__link}>
           <CardImg
@@ -82,7 +82,7 @@ function ProductCard({ product }) {
           />
         </Link>
 
-        <CardBody>
+        <CardBody className="d-flex flex-column justify-content-end">
           <CardSubtitle className={Styles.product__title}>
             {product.title}
           </CardSubtitle>
@@ -93,17 +93,22 @@ function ProductCard({ product }) {
             {product?.rating?.count}
           </CardText> */}
           <CardText
-            className="fw-bold m-0"
+            className="small fw-medium m-0"
             style={{ fontFamily: "sans-serif" }}
           >
             <FaDollarSign />
             {product?.price}
           </CardText>
-          <Badge className="my-2 shadow" pill bg="secondary">
+          <Badge
+            className="my-2 shadow"
+            pill
+            bg="warning"
+            style={{ width: "fit-content" }}
+          >
             {product?.category?.name.toUpperCase()}
           </Badge>
 
-          <div className="d-flex ">
+          <div className={Styles.buy__btn}>
             {productsID.includes(product.id) ? (
               <Button
                 variant="danger"
@@ -114,7 +119,7 @@ function ProductCard({ product }) {
               </Button>
             ) : (
               <Button
-                variant="success"
+                variant="primary"
                 className="w-100"
                 onClick={handleAddClick.bind(product.id)}
               >
