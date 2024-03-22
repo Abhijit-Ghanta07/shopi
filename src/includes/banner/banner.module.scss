@@ -1,21 +1,8 @@
-.link {
-  text-decoration: none;
-  color: #454545;
-  font-weight: bold;
-  font-size: 1.1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: serif;
-}
+@import "../../sass/variable.scss";
 
-.cata__img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
 .slider__con {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .slider__wrapper {
   white-space: nowrap;
@@ -24,15 +11,27 @@
   display: flex;
 }
 .slider {
-  position: relative;
   min-width: 100%;
+  background: $primary;
+
+  &__title {
+    padding: 1rem 0.8rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    white-space: normal;
+    font-size: 2.5rem;
+  }
+  &__subtitle {
+    padding: 0.5rem 0.8rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+  }
 }
 .slider__img {
-  min-width: 100%;
-  height: 240px;
+  max-width: 100%;
+  width: 100%;
   object-fit: cover;
-}
-.banner__title {
-  font-weight: bold;
-  font-family: serif;
+  height: 450px;
+  mix-blend-mode: hard-light;
 }

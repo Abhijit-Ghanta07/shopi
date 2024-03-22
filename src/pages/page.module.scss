@@ -3,6 +3,7 @@
   min-height: 100vh;
   height: auto;
   background: $body-bg;
+  overflow-x: hidden !important;
 }
 .back__btn {
   @include back__btn;

@@ -1,0 +1,21 @@
+.con {
+  background-color: #fff;
+}
+
+.link {
+  text-decoration: none;
+  color: #454545;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: serif;
+}
+
+.cata__img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
+  object-fit: cover;
+}

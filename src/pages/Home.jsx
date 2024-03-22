@@ -1,6 +1,6 @@
 import { Loader, ToastModal } from "../components/index.js";
 import { Outlet } from "react-router-dom";
-import { Footer, Header, Banner } from "../includes/includes.js";
+import { Footer, Header, Banner, Category } from "../includes/includes.js";
 import { useSelector } from "react-redux";
 // scss
 import Styles from "./page.module.scss";
@@ -14,6 +14,7 @@ function Home() {
       <div className={Styles.home__wrapper}>
         <Header />
         <Banner />
+        <Category />
         <Outlet />
         <Footer />
         <ToastModal />
