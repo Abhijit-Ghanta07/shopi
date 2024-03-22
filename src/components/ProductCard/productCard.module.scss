@@ -1,17 +1,23 @@
 @import "../../sass/responsive.scss";
 .card__img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  max-width: 100%;
+  height: 150px;
+  border-radius: 0 !important;
+  @include deskTop() {
+    height: 200px;
+    transition: 0.3s ease;
+  }
 }
 
 .product__card {
-  min-width: 10rem !important;
-  width: 100%;
+  position: relative;
+  width: 9rem !important;
+  max-width: 100%;
   transition: 0.2s ease;
   margin-inline: 0.4rem;
+  overflow: hidden;
   @include deskTop() {
-    width: 15rem !important;
+    width: 13rem !important;
   }
 }
 // .product__card:hover {
@@ -32,12 +38,26 @@
 .card__link {
   color: #000;
   text-decoration: none;
+  @include deskTop() {
+    overflow: hidden;
+    &:hover > img {
+      scale: 1.1;
+    }
+  }
 }
 .icon {
   font-size: 2rem;
   cursor: pointer;
 }
 .product__title {
-  font-family: serif;
-  font-weight: bold !important;
+  font-weight: 500 !important;
+  font-family: "popines";
+  font-size: 0.8rem !important;
+}
+.buy__btn {
+  display: flex;
+  width: 100%;
+  button {
+    font-size: 0.9rem !important;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -22,17 +22,12 @@ import ProductCard from "../ProductCard/ProductCard";
 // scss
 import style from "./category.module.scss";
 // constant data
-const FILLTERS = [
-  "Relavance",
-  "Price Low - High",
-  "Price High - Low",
-  "Popularity",
-  "Category",
-];
+const FILLTERS = ["Relavance", "Price Low - High", "Price High - Low"];
 const Category = () => {
   const { id } = useParams();
+  const [searchParam, setSearchParam] = useSearchParams();
   const dispatch = useDispatch();
-  const [range, setRange] = useState(100);
+  const [range, setRange] = useState(0);
   const [products, setProducts] = useState([]);
   // const [filter, setFilter] = useState(true);
   // fetch categories
@@ -47,12 +42,15 @@ const Category = () => {
     switch (q) {
       case 0:
         setProducts(data);
+        setSearchParam({ sort: "relevance" });
         break;
       case 1:
         setProducts([...data].sort((a, b) => a.price - b.price));
+        setSearchParam({ sort: "price_low-high" });
         break;
       case 2:
         setProducts([...data].sort((a, b) => b.price - a.price));
+        setSearchParam({ sort: "price_high-low" });
         break;
       default:
         setProducts(data);
@@ -61,12 +59,14 @@ const Category = () => {
   }
   useEffect(() => {
     setProducts(data);
+    setSearchParam({ sort: "relevance" });
   }, [data]);
 
   useEffect(() => {
     if (products) {
       const sortedData = data?.filter((item) => item.price > range);
       setProducts(sortedData);
+      setSearchParam({ filter: `price_greater${range}` });
     }
   }, [range]);
 
@@ -78,7 +78,7 @@ const Category = () => {
     }
   }, [loading]);
   return (
-    <Container className="mt-3 py-4">
+    <Container fluid className="mt-3 py-4 bg-light">
       <Row>
         <Col sm="3">
           <Card className="my-3">

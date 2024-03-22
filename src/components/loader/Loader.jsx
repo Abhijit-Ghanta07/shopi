@@ -33,13 +33,6 @@ export const ToastModal = () => {
       {createPortal(
         <div className={Styles.toast}>
           <Toast show={show} delay={3000} autohide onClose={closeToast}>
-            <ToastHeader className="justify-content-end">
-              {/* <img
-                  src="holder.js/20x20?text=%20"
-                  className="rounded me-2"
-                  alt="close"
-                /> */}
-            </ToastHeader>
             <ToastBody className={Styles.toast__body}>{message}</ToastBody>
           </Toast>
         </div>,

@@ -19,9 +19,11 @@
   z-index: 99;
 }
 .toast__body {
-  background-color: #61fc68 !important;
   overflow: hidden;
   text-transform: capitalize;
+  background-color: #0ba312 !important;
+  color: #fff;
+  font-weight: 500 !important;
 }
 .loading {
   height: 100vh;

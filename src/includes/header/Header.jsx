@@ -56,7 +56,7 @@ function Header() {
     <>
       <Container
         fluid
-        className="shadow-sm position-sticky top-0 bg-light p-2"
+        className="shadow-sm position-sticky top-0 bg-light px-2"
         style={{ zIndex: 9 }}
       >
         <Container fluid="xl p-0">
