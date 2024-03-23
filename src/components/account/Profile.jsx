@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Button, Col, Container, FormGroup, Row, Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastOpen } from "../../redux/Toast";
+import { ToastOpen } from "../../services/redux/Toast";
 // scss
 import Styles from "./account.module.scss";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { auth, storage } from "../../utils/firebase";
+import { auth, storage } from "../../services/firebase/firebase";
 import { updateProfile } from "firebase/auth";
-import { addUser } from "../../redux/auth";
-import { loaderOpen, loaderClose } from "../../redux/loader";
+import { addUser } from "../../services/redux/auth";
+import { loaderOpen, loaderClose } from "../../services/redux/loader";
 const Profile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);

@@ -14,10 +14,10 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, deleteItem } from "../../redux/cart";
-import { ToastOpen } from "../../redux/Toast";
+import { addItem, deleteItem } from "../../services/redux/cart";
+import { ToastOpen } from "../../services/redux/Toast";
 import useFindProduct from "../../hooks/FindProduct";
-import { addWishlist, removeWishlist } from "../../redux/wishList";
+// import { addWishlist, removeWishlist } from "../../redux/wishList";
 
 // css
 import Styles from "./productCard.module.scss";
@@ -82,7 +82,7 @@ function ProductCard({ product }) {
           />
         </Link>
 
-        <CardBody className="d-flex flex-column justify-content-end">
+        <CardBody className="d-flex flex-column justify-content-end py-2">
           <CardSubtitle className={Styles.product__title}>
             {product.title}
           </CardSubtitle>
@@ -113,6 +113,7 @@ function ProductCard({ product }) {
               <Button
                 variant="danger"
                 className="w-100"
+                size="sm"
                 onClick={handleRemoveClick.bind(product.id)}
               >
                 Remove from Cart
@@ -120,6 +121,7 @@ function ProductCard({ product }) {
             ) : (
               <Button
                 variant="primary"
+                size="sm"
                 className="w-100"
                 onClick={handleAddClick.bind(product.id)}
               >

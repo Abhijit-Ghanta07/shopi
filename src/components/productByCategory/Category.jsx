@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import {
   Card,
@@ -14,9 +14,9 @@ import {
 } from "react-bootstrap";
 import { Loader } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
-import useFetchData from "../../api/Api";
+import useFetch from "../../hooks/UseFetch";
 import { useDispatch } from "react-redux";
-import { loaderOpen, loaderClose } from "../../redux/loader.js";
+import { loaderOpen, loaderClose } from "../../services/redux/loader.js";
 import ProductCard from "../ProductCard/ProductCard";
 
 // scss
@@ -31,8 +31,7 @@ const Category = () => {
   const [products, setProducts] = useState([]);
   // const [filter, setFilter] = useState(true);
   // fetch categories
-  const { data, loading, err } = useFetchData(`categories/${id}/products`);
-
+  const { data, loading, err } = useFetch(`categories/${id}/products`);
   function handleChange(e) {
     let value = e.target.value;
     let filt = FILLTERS.findIndex((item) => item == value);
@@ -108,7 +107,7 @@ const Category = () => {
               </div>
               <div className={style.hide__lg}>
                 <FormSelect>
-                  {FILLTERS.map((fillter, index) => {
+                  {FILLTERS?.map((fillter, index) => {
                     return (
                       <option key={index} value={fillter}>
                         {fillter}
@@ -123,7 +122,7 @@ const Category = () => {
         {/* <p>{products.length} Products Found:</p> */}
         <Col sm="9" className="d-flex flex-wrap">
           {products &&
-            products.map((item, index) => (
+            products?.map((item, index) => (
               <ProductCard product={item} key={index} />
             ))}
         </Col>

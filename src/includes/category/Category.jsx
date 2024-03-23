@@ -12,7 +12,7 @@ const Category = () => {
     <>
       <Container fluid className={Styles.con}>
         <Row className="py-3">
-          <h2 className="fw-bold px-4 py-2">Shop By Category</h2>
+          <h4 className="fw-bold px-3 py-2">Shop By Category</h4>
           <Col>
             <div className={Styles.wrapper}>
               {!catagoryList ? (

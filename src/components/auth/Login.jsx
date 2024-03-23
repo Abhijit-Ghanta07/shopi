@@ -15,17 +15,17 @@ import {
   Row,
 } from "react-bootstrap";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../utils/firebase";
+import { auth, googleProvider } from "../../services/firebase/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { mapItem } from "../../redux/cart";
+import { mapItem } from "../../services/redux/cart";
 import { useSetUser } from "./authUtils";
-import { ToastOpen } from "../../redux/Toast";
-import { loaderClose, loaderOpen } from "../../redux/loader";
+import { ToastOpen } from "../../services/redux/Toast";
+import { loaderClose, loaderOpen } from "../../services/redux/loader";
 // scss
 import Styles from "./auth.module.scss";
 

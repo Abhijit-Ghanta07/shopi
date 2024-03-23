@@ -18,9 +18,9 @@ import {
   reauthenticateWithCredential,
   updatePassword,
 } from "firebase/auth";
-import { auth } from "../../utils/firebase";
-import { ToastOpen } from "../../redux/Toast";
-import { loaderClose, loaderOpen } from "../../redux/loader";
+import { auth } from "../../services/firebase/firebase";
+import { ToastOpen } from "../../services/redux/Toast";
+import { loaderClose, loaderOpen } from "../../services/redux/loader";
 import { useNavigate } from "react-router-dom";
 
 const ResetPass = () => {

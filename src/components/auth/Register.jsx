@@ -15,14 +15,14 @@ import {
 } from "react-bootstrap";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase";
+import { auth } from "../../services/firebase/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useUpdateUser } from "./authUtils";
 import { useDispatch } from "react-redux";
-import { ToastOpen } from "../../redux/Toast";
-import { loaderClose, loaderOpen } from "../../redux/loader";
+import { ToastOpen } from "../../services/redux/Toast";
+import { loaderClose, loaderOpen } from "../../services/redux/loader";
 // css
 import Styles from "./auth.module.scss";
 

@@ -21,10 +21,10 @@ import { AccountSidebarLinks } from "../constants/constants.js";
 // scss
 import Styles from "./page.module.scss";
 import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
-import { removeuser } from "../redux/auth";
-import { ToastOpen } from "../redux/Toast";
-import { cartEmpty } from "../redux/cart";
+import { auth } from "../services/firebase/firebase";
+import { removeuser } from "../services/redux/auth";
+import { ToastOpen } from "../services/redux/Toast";
+import { cartEmpty } from "../services/redux/cart";
 
 const Account = () => {
   const dispatch = useDispatch();

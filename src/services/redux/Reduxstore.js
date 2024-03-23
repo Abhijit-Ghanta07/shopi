@@ -5,7 +5,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import cartReducer from "./cart";
 import authReducer from "./auth";
-import productReducer from "./product";
+import productReducer from "./product.js";
 import toastReducer from "./Toast";
 import wishListReducer from "./wishList";
 import loaderReducer from "./loader";
@@ -45,6 +45,6 @@ const store = configureStore({
 });
 
 // export stores
-export const persistedStore = persistStore(store);
+const persistedStore = persistStore(store);
 
-export default store;
+export { store, persistedStore };

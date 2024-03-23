@@ -3,8 +3,12 @@ import {
   createAsyncThunk,
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
-import { addCartItem, deleteCartItems, getCartItems } from "../utils/fireStore";
-import { OrderBatchDelete } from "../utils/orders";
+import {
+  addCartItem,
+  deleteCartItems,
+  getCartItems,
+} from "../firebase/fireStore";
+import { OrderBatchDelete } from "../firebase/storeOrder";
 
 export const mapItem = createAsyncThunk("cart/mapUserCart", async (userId) => {
   try {

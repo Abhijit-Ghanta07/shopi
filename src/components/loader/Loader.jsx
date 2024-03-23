@@ -3,7 +3,7 @@ import { Button, Spinner, ToastBody, ToastHeader } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastClose } from "../../redux/Toast";
+import { ToastClose } from "../../services/redux/Toast";
 
 // scss
 import Styles from "./loader.module.scss";

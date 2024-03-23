@@ -16,7 +16,7 @@ import {
 
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../../utils/firebase";
+import { auth } from "../../services/firebase/firebase";
 import { MdAccountCircle } from "react-icons/md";
 import { GoPasskeyFill } from "react-icons/go";
 import { RiLogoutCircleRFill } from "react-icons/ri";
@@ -25,9 +25,9 @@ import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeuser } from "../../redux/auth";
-import { ToastOpen } from "../../redux/Toast";
-import { cartEmpty } from "../../redux/cart";
+import { removeuser } from "../../services/redux/auth";
+import { ToastOpen } from "../../services/redux/Toast";
+import { cartEmpty } from "../../services/redux/cart";
 // styles
 import avatar from "../../assets/svg/avatar.svg";
 import Styles from "./header.module.scss";
@@ -44,7 +44,7 @@ function Header() {
     await signOut(auth);
     dispatch(removeuser());
     dispatch(cartEmpty());
-    dispatch(ToastOpen("Youre Are Logged Out"));
+    dispatch(ToastOpen("Logged Out"));
   }
 
   const handleLogout = async () => {
@@ -56,7 +56,7 @@ function Header() {
     <>
       <Container
         fluid
-        className="shadow-sm position-sticky top-0 bg-light px-2"
+        className="shadow-sm position-sticky top-0 bg-light"
         style={{ zIndex: 9 }}
       >
         <Container fluid="xl p-0">

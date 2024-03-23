@@ -19,12 +19,12 @@ import {
 import { CartEmpty, CartProduct, WishList } from "./cartIndex";
 
 import { useDispatch, useSelector } from "react-redux";
-import { ToastOpen } from "../../redux/Toast";
-import { cartReset } from "../../redux/cart";
-import { loaderOpen, loaderClose } from "../../redux/loader";
+import { ToastOpen } from "../../services/redux/Toast";
+import { cartReset } from "../../services/redux/cart";
+import { loaderOpen, loaderClose } from "../../services/redux/loader";
 import { useNavigate } from "react-router-dom";
 import payment from "../../assets/images/payment.jpg";
-import { addOrder } from "../../utils/orders";
+import { addOrder } from "../../services/firebase/storeOrder";
 import { ToastModal, Loader } from "../index.js";
 // styles
 import Styles from "./cart.module.scss";

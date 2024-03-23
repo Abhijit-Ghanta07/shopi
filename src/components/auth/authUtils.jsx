@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../redux/auth";
-import { ToastOpen } from "../../redux/Toast";
-import { auth } from "../../utils/firebase";
+import { addUser } from "../../services/redux/auth";
+import { ToastOpen } from "../../services/redux/Toast";
+import { auth } from "../../services/firebase/firebase";
 import { updateProfile } from "firebase/auth";
 
 const useSetUser = () => {

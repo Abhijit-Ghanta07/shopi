@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../api/Api";
+import fetchData from "../api/axios";
 
 // Async thunk to fetch product data
 export const fetchProductData = createAsyncThunk(
@@ -10,7 +10,7 @@ export const fetchProductData = createAsyncThunk(
       const response = await fetchData("products");
       return response;
     } catch (err) {
-      return err;
+      console.log(err.name);
     }
   }
 );

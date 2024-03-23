@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { addCartItem } from "../../utils/fireStore";
+import { addCartItem } from "../services/firebase/fireStore";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../context/cart";
 
 const useAddCart = () => {
   const dispatch = useDispatch();

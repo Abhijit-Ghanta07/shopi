@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
 
 import { useDispatch } from "react-redux";
-import { addWishlist, removeWishlist } from "../../../redux/wishList";
+import { addWishlist, removeWishlist } from "../../../services/redux/wishList";
 
 // scss
 import Styles from "./wishlist.module.scss";

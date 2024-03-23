@@ -19,11 +19,11 @@ const Banner = () => {
   return (
     <>
       <Container fluid className={Styles.slider__con}>
-        <Row className="">
+        <Row>
           <Col className={Styles.slider__wrapper}>
-            {catagoryList.map((slide, index) => {
+            {catagoryList?.map((slide, index) => {
               return (
-                <Container className={Styles.slider}>
+                <Container className={Styles.slider} key={slide?.id}>
                   <Row key={slide.id}>
                     <Col className="p-4" xs>
                       <h3 className={Styles.slider__title}>
@@ -38,7 +38,7 @@ const Banner = () => {
                       <Stack
                         direction="horizontal"
                         gap={2}
-                        className="py-3 px-2"
+                        className="py-3 px-2 z-3 position-relative"
                       >
                         <Button variant="secondary">Buy Now </Button>
                         <Button variant="warning">View More</Button>
@@ -47,9 +47,12 @@ const Banner = () => {
 
                     <Col xs>
                       <img
-                        src={slide.image}
+                        src={slide?.image}
                         alt="slider image"
                         className={Styles.slider__img}
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
                       />
                     </Col>
                   </Row>

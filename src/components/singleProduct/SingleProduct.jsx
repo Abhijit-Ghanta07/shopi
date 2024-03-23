@@ -13,16 +13,15 @@ import {
   CardTitle,
   ButtonGroup,
 } from "react-bootstrap";
-import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem, deleteItem } from "../../redux/cart";
+import { addItem, deleteItem } from "../../services/redux/cart";
 import { IoArrowBack } from "react-icons/io5";
-import { BsCheckLg, BsCurrencyDollar } from "react-icons/bs";
 import useFindProduct from "../../hooks/FindProduct";
 import { FaDollarSign } from "react-icons/fa6";
+import { BsCurrencyDollar } from "react-icons/bs";
 // scss
 import Styles from "./product.module.scss";
-import { addWishlist, removeWishlist } from "../../redux/wishList";
+import { addWishlist, removeWishlist } from "../../services/redux/wishList";
 function SingleProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();

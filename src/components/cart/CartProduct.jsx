@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa";
 
 import useFindProduct from "../../hooks/FindProduct";
-import { deleteItem } from "../../redux/cart";
+import { deleteItem } from "../../services/redux/cart";
 import { Link } from "react-router-dom";
-import { addWishlist, removeWishlist } from "../../redux/wishList";
+import { addWishlist, removeWishlist } from "../../services/redux/wishList";
 // scss
 import Styles from "./cart.module.scss";
 
