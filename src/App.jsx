@@ -8,21 +8,22 @@ import {
   SingleProduct,
   Category,
   MyOrder,
-  ProductList,
   Loading,
+  Home,
 } from "./components/index.js";
-import { ScrollTop } from "./utils/Utill";
+
 // lazy components
-const HomePage = lazy(() => import("./pages/Home.jsx"));
-const AuthPage = lazy(() => import("./pages/Auth.jsx"));
-const CartPage = lazy(() => import("./pages/Cart.jsx"));
-const OrderPage = lazy(() => import("./pages/Order.jsx"));
-const AccountPage = lazy(() => import("./pages/Account.jsx"));
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+const AuthPage = lazy(() => import("./pages/AuthPage.jsx"));
+const CartPage = lazy(() => import("./pages/CartPage.jsx"));
+const OrderPage = lazy(() => import("./pages/OrderPage.jsx"));
+const AccountPage = lazy(() => import("./pages/AccountPage.jsx"));
 const ProductPage = lazy(() => import("./pages/ProductPage.jsx"));
 import { ErrorPage } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
-import GetData from "./data/Getdata.jsx";
 import { Profile, ResetPass } from "./components/account/accountIndex.js";
+import GetData from "./data/Getdata.jsx";
+import { ScrollTop } from "./utils/Utill";
 // css
 import "./App.css";
 
@@ -40,7 +41,7 @@ function App() {
               </Suspense>
             }
           >
-            <Route index element={<ProductList />} />
+            <Route index element={<Home />} />
             <Route path="category/:id" element={<Category />} />
           </Route>
           <Route

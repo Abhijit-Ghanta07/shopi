@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Button, Col, Container, FormGroup, Row, Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastOpen } from "../../services/redux/Toast";
-// scss
-import Styles from "./account.module.scss";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../services/firebase/firebase";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../../services/redux/auth";
 import { loaderOpen, loaderClose } from "../../services/redux/loader";
+// scss
+import Styles from "./account.module.scss";
+
 const Profile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
@@ -18,24 +19,34 @@ const Profile = () => {
   // handle input click
   const handleClick = async () => {
     if (inputVal == null) {
-      console.log("hello");
       return dispatch(ToastOpen("Please select An Image"));
     }
     dispatch(loaderOpen());
     let imageRef = ref(storage, `profiles/${inputVal.name}`);
-    const res = await uploadBytes(imageRef, inputVal, { contentType: "image" });
-    const downloadUrl = await getDownloadURL(imageRef);
-    const updateUser = await updateProfile(auth.currentUser, {
-      photoURL: downloadUrl,
-    });
-    dispatch(
-      addUser({
-        user: auth.currentUser?.providerData[0],
-        userId: auth.currentUser.uid,
-      })
-    );
-    dispatch(loaderClose());
-    setInputval(null);
+    try {
+      const res = await uploadBytes(imageRef, inputVal, {
+        contentType: "image",
+      });
+      const downloadUrl = await getDownloadURL(imageRef);
+      const updateUser = await updateProfile(auth.currentUser, {
+        photoURL: downloadUrl,
+      });
+      if (updateUser) {
+        dispatch(
+          addUser({
+            user: auth.currentUser?.providerData[0],
+            userId: auth.currentUser.uid,
+          })
+        );
+        dispatch(loaderClose());
+        setInputval(null);
+      } else {
+        dispatch(ToastOpen("something went wrong"));
+        dispatch(loaderClose());
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>

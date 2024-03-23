@@ -1,8 +1,8 @@
-import AccountPage from "./Account";
-import AuthPage from "./Auth";
-import CartPage from "./Cart";
-import HomePage from "./Home";
-import OrderPage from "./Order";
+import AccountPage from "./AccountPage";
+import AuthPage from "./AuthPage";
+import CartPage from "./CartPage";
+import HomePage from "./HomePage";
+import OrderPage from "./OrderPage";
 import ProductPage from "./ProductPage";
 import ErrorPage from "./ErrorPage";
 

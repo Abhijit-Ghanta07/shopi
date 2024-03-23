@@ -3,6 +3,7 @@ import Error from "./error/Error";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ProductList from "./productsList/ProductList";
+import Home from "./home/Home";
 import SingleProduct from "./singleProduct/SingleProduct";
 import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
@@ -23,4 +24,5 @@ export {
   Loader,
   ToastModal,
   Loading,
+  Home,
 };

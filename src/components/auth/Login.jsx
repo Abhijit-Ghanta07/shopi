@@ -23,9 +23,9 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { mapItem } from "../../services/redux/cart";
-import { useSetUser } from "./authUtils";
 import { ToastOpen } from "../../services/redux/Toast";
 import { loaderClose, loaderOpen } from "../../services/redux/loader";
+import useSetUser from "../../hooks/UseSetUser";
 // scss
 import Styles from "./auth.module.scss";
 

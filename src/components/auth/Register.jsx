@@ -31,7 +31,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // custom Hooks
-  const [, err, updateUser] = useUpdateUser();
+  const { updateUser } = useUpdateUser();
   // userform hooks
   const {
     register,

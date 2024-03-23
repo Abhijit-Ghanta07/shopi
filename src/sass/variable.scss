@@ -13,9 +13,9 @@ $primary: #028090;
   position: absolute;
   top: 0;
   z-index: 3;
-  display: block;
+  display: block !important;
   @include smallScreen {
-    display: none;
+    display: none !important;
   }
 }
 
