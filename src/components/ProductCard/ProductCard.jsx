@@ -79,6 +79,7 @@ function ProductCard({ product }) {
             onError={(e) => {
               e.target?.offsetParent?.classList.add("d-none");
             }}
+            alt="product img"
           />
         </Link>
 

@@ -1,5 +1,3 @@
-// import font
-@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 // import sass files
 @import "../../sass/variable.scss";
 
@@ -26,11 +24,6 @@
   object-fit: contain;
 }
 // cart empty
-
-body {
-  background-color: #eee;
-  font-family: "Calibri", sans-serif !important;
-}
 
 .mt__100 {
   margin-top: 30px;
@@ -68,8 +61,8 @@ body {
 .btn-primary,
 .btn-primary.disabled,
 .btn-primary:disabled {
-  background-color: #4466f2 !important;
-  border-color: #4466f2 !important;
+  background-color: $primary !important;
+  border-color: $primary !important;
 }
 
 .wishBtn {

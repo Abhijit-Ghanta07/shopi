@@ -3,6 +3,7 @@
   max-width: 100%;
   height: fit-content;
   border-radius: 0 !important;
+  aspect-ratio: auto;
   @include deskTop() {
     height: 200px;
     transition: 0.3s ease;
