@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "../services/axios/axios";
 
 const useFetch = (query) => {
   const [loading, setLoding] = useState(false);
@@ -9,29 +10,33 @@ const useFetch = (query) => {
     // initilize abort controller
     const abortController = new AbortController();
     // set the url
-    const url = `https://api.escuelajs.co/api/v1/${query}`;
+    // const url = `https://api.escuelajs.co/api/v1/${query}`;
     // declare fetchdata function
-    async function fetchData() {
-      console.log(query);
-      setLoding(true);
-      const Res = await axios.get(url, {
-        signal: abortController.signal,
-      });
-      if (Res.status === 200) {
-        setData(Res.data);
+    const fetchApiData = async () => {
+      try {
+        setLoding(true);
+        const response = await axios.get(query, {
+          signal: abortController.signal,
+        });
+        if (response.status == 200) {
+          setData(response.data);
+        } else {
+          throw new Error("server error");
+        }
+      } catch (error) {
+        setErr(true);
+      } finally {
         setLoding(false);
       }
-    }
-    fetchData().catch((err) => {
-      setErr(true);
-      setLoding(false);
-    });
-
+    };
+    fetchApiData();
     return () => {
       abortController.abort();
     };
   }, [query]);
-  return { loading, data, err };
+
+  // return data
+  return { data, loading, err };
 };
 
 export default useFetch;

@@ -77,7 +77,7 @@ function ProductCard({ product }) {
             src={product?.images[0]}
             className={Styles.card__img}
             onError={(e) => {
-              e.target.offsetParent.classList.add("d-none");
+              e.target?.offsetParent?.classList.add("d-none");
             }}
           />
         </Link>

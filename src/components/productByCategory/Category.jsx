@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -23,14 +23,18 @@ import style from "./category.module.scss";
 const FILLTERS = ["Relavance", "Price Low - High", "Price High - Low"];
 const Category = () => {
   const { id } = useParams();
-  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
   // const [filter, setFilter] = useState(true);
+  const [products, setProducts] = useState([]);
   // fetch categories
   const { data, loading, err } = useFetch(`categories/${id}/products`);
+  if (err) {
+    return navigate("/", { replace: true });
+  }
 
   useEffect(() => {
     setProducts(data);
-  }, [id]);
+  }, [data]);
   return (
     <Container fluid className="m-0 py-4 bg-light">
       <Row>
@@ -90,8 +94,8 @@ function Fillterscard({ data, setData }) {
     if (data) {
       let sortedData = data?.filter((item) => item.price > range);
       setData(sortedData);
-      setSearchParam({ filter: `price_greater${range}` });
     }
+    setSearchParam({ filter: `price_greater${range}` });
   }, [range]);
   return (
     <Card className="my-3">

@@ -10,9 +10,9 @@ const Getdata = () => {
   const { productData } = useSelector((store) => store.product);
 
   useEffect(() => {
-    if (productData !== null) {
-      return;
-    }
+    // if (productData !== null) {
+    //   return;
+    // }
     dispatch(fetchProductData());
     dispatch(fetchCategory());
   }, []);
