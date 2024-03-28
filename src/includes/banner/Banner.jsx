@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -15,12 +15,26 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 const Banner = () => {
   const catagoryList = useSelector((store) => store.category);
+  const sliderRef = useRef();
+  const [slideState, setSlideState] = useState(0);
 
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      if (slideState >= 5) {
+        setSlideState(0);
+      } else {
+        setSlideState(slideState + 1);
+        sliderRef.current.style.transform = `translateX(-${slideState * 100}%)`;
+      }
+    }, 5000);
+
+    return () => clearInterval(slideInterval);
+  }, [slideState]);
   return (
     <>
       <Container fluid className={Styles.slider__con}>
         <Row>
-          <Col className={Styles.slider__wrapper}>
+          <Col ref={sliderRef} className={Styles.slider__wrapper}>
             {catagoryList?.map((slide, index) => {
               return (
                 <Container className={Styles.slider} key={slide?.id}>

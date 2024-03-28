@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,13 +8,30 @@ import { fakeProduct } from "../../constants/constants";
 import Styles from "./category.module.scss";
 const Category = () => {
   const catagoryList = useSelector((store) => store.category);
+  const slideRef = useRef(null);
+  const btnRef = useRef(null);
+  const [index, setIndex] = useState(0);
+  const screeen = window.innerWidth;
+  const scrollEle = slideRef.current?.scrollWidth;
+  // const handleSlideClick = () => {
+  //   setIndex(index + 1);
+  //   if (screeen < scrollEle && index < 5) {
+  //     slideRef.current.style.transform = `translateX(-${index * 80}px)`;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (screeen < 450) {
+  //     btnRef.current.style.display = "block";
+  //   }
+  // }, []);
   return (
     <>
       <Container fluid className={Styles.con}>
         <Row className="py-3">
           <h4 className="fw-bold px-3 py-2">Shop By Category</h4>
           <Col>
-            <div className={Styles.wrapper}>
+            <div className={Styles.wrapper} ref={slideRef}>
               {!catagoryList ? (
                 <p>Loading....</p>
               ) : (
@@ -49,6 +66,13 @@ const Category = () => {
                 </>
               )}
             </div>
+            {/* <button
+              className={Styles.next__btn}
+              ref={btnRef}
+              onClick={handleSlideClick}
+            >
+              Next
+            </button> */}
           </Col>
         </Row>
       </Container>

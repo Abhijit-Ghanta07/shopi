@@ -20,7 +20,7 @@ import useMaxPrice from "../../hooks/UseMaxPrice.jsx";
 import style from "./category.module.scss";
 
 // constant data
-const FILLTERS = ["Relavance", "Price Low - High", "Price High - Low"];
+
 const Category = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -32,14 +32,11 @@ const Category = () => {
     return navigate("/", { replace: true });
   }
 
-  useEffect(() => {
-    setProducts(data);
-  }, [data]);
   return (
     <Container fluid className="m-0 py-4 bg-light">
       <Row>
         <Col sm="3">
-          <Fillterscard data={products} setData={setProducts} />
+          <Fillterscard data={data} setData={setProducts} />
         </Col>
         {/* <p>{products.length} Products Found:</p> */}
         <Col sm="9">
@@ -62,6 +59,7 @@ function Fillterscard({ data, setData }) {
   const { maxprice } = useMaxPrice(data);
   const [searchParam, setSearchParam] = useSearchParams();
   const [range, setRange] = useState(0);
+  const FILLTERS = ["Relavance", "Price Low - High", "Price High - Low"];
   function handleChange(e) {
     let value = e.target.value;
     if (!data) {
@@ -78,24 +76,25 @@ function Fillterscard({ data, setData }) {
         break;
       case 1:
         setData([...data].sort((a, b) => a.price - b.price));
-        setSearchParam({ sort: "price_low-high" });
+        setSearchParam({ sort: "low-high" });
         break;
       case 2:
         setData([...data].sort((a, b) => b.price - a.price));
-        setSearchParam({ sort: "price_high-low" });
+        setSearchParam({ sort: "high-low" });
         break;
       default:
         setData(data);
-        break;
     }
   }
-
+  useEffect(() => {
+    setData(data);
+  }, [data]);
   useEffect(() => {
     if (data) {
       let sortedData = data?.filter((item) => item.price > range);
       setData(sortedData);
     }
-    setSearchParam({ filter: `price_greater${range}` });
+    setSearchParam({ sort: `price>${range}` });
   }, [range]);
   return (
     <Card className="my-3">
@@ -124,7 +123,7 @@ function Fillterscard({ data, setData }) {
           />
         </div>
         <div className={style.hide__lg}>
-          <FormSelect>
+          <FormSelect onChange={handleChange}>
             {FILLTERS?.map((fillter, index) => {
               return (
                 <option key={index} value={fillter}>

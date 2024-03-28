@@ -2,11 +2,17 @@
 @import "../../sass/responsive.scss";
 .con {
   background-color: #fff;
+  overflow-x: hidden;
+  position: relative;
 }
 .wrapper {
   white-space: nowrap;
   display: flex;
-  overflow-x: auto;
+  position: relative;
+  transition: 0.5s ease;
+  @include smallScreen() {
+    overflow-x: auto;
+  }
   @include deskTop() {
     white-space: normal;
     justify-content: space-around;
@@ -47,4 +53,16 @@
   font-weight: 500;
   color: #000;
   font-size: 1.1rem;
+}
+.next__btn {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  border: 2px solid $primary;
+  outline: 0;
+  background-color: $light;
+  font-size: 1.1rem;
+  padding: 10px 18px;
+  border-radius: 7px;
+  display: none;
 }

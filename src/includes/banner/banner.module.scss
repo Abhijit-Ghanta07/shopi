@@ -11,12 +11,22 @@
   padding: 0 !important;
   border-radius: 5px;
   display: flex;
-  overflow-x: auto;
+  transition: transform 1s ease;
+  // animation: slide 40s linear alternate;
 }
+// @keyframes slide {
+//   0% {
+//     transform: translateX(0%);
+//   }
+//   100% {
+//     transform: translateX(500%);
+//   }
+// }
 .slider {
   min-width: 100%;
   position: relative;
   background: $primary;
+  overflow-y: hidden;
   @include deskTop() {
     height: 450px;
   }
@@ -30,6 +40,9 @@
     font-size: 2.5rem;
     color: #fff;
     z-index: 2;
+    &:hover {
+      color: #fff;
+    }
   }
   &__subtitle {
     position: relative;
@@ -39,6 +52,9 @@
     font-size: 1.2rem;
     color: #ffffff;
     z-index: 2 !important;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 .slider__img {
