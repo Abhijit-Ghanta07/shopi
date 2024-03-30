@@ -38,7 +38,7 @@ const Footer = () => {
                 variant="primary"
                 style={{ width: "fit-content", marginInline: "auto" }}
               >
-                <span className="text-dark fw-bold">Subscribe</span>
+                <span className="text-dark fw-medium">Subscribe</span>
               </Button>
             </Stack>
           </Col>
