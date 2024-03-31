@@ -33,3 +33,31 @@
   display: flex;
   justify-content: space-between;
 }
+
+.cata__link {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.cata__img {
+  width: 35px;
+  height: 35px;
+  border-radius: 7px;
+  @include smallScreen() {
+    width: 25px;
+    height: 25px;
+  }
+}
+.cata__text {
+  text-align: center;
+  vertical-align: bottom;
+  margin: 0;
+  @include smallScreen() {
+    font-size: 0.8rem;
+  }
+}

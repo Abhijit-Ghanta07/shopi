@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -18,6 +23,7 @@ import useFetch from "../../hooks/UseFetch";
 import useMaxPrice from "../../hooks/UseMaxPrice.jsx";
 // scss
 import style from "./category.module.scss";
+import { useSelector } from "react-redux";
 
 // constant data
 
@@ -33,7 +39,7 @@ const Category = () => {
   }
 
   return (
-    <Container fluid className="m-0 py-4 bg-light">
+    <Container fluid className="m-0 py-3 bg-light">
       <Row>
         <Col sm="3">
           <Fillterscard data={data} setData={setProducts} />
@@ -44,6 +50,7 @@ const Category = () => {
             products?.map((item, index) => (
               <ProductCard product={item} key={index} />
             ))} */}
+          <CategoryBanner />
           <ProductList
             data={products}
             loading={loading}
@@ -97,7 +104,7 @@ function Fillterscard({ data, setData }) {
     setSearchParam({ sort: `price>${range}` });
   }, [range]);
   return (
-    <Card className="my-3">
+    <Card className="my-3 py-4">
       <CardBody className={style.card__wrapper}>
         <CardTitle className={style.hide__sm}>Fillters</CardTitle>
         <CardText className={style.filter__title}>Sort By:</CardText>
@@ -138,4 +145,38 @@ function Fillterscard({ data, setData }) {
   );
 }
 
+function CategoryBanner() {
+  const catagoryList = useSelector((store) => store.category);
+
+  return (
+    <Container className=" px-0 py-3 overflow-hidden">
+      <Row>
+        <Col>
+          <div className="d-flex   gap-3">
+            {catagoryList &&
+              catagoryList.map((cata, index) => {
+                return (
+                  <Link
+                    key={cata?.id}
+                    className={style.cata__link}
+                    to={`/category/${cata?.id}`}
+                  >
+                    <img
+                      src={cata?.image}
+                      alt="catagory img"
+                      className={style.cata__img}
+                      onError={(e) => {
+                        e.target.parentElement.classList.add("d-none");
+                      }}
+                    />
+                    <p className={style.cata__text}>{cata?.name}</p>
+                  </Link>
+                );
+              })}
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
 export default Category;

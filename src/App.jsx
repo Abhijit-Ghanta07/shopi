@@ -6,7 +6,6 @@ import {
   Login,
   Register,
   SingleProduct,
-  Category,
   MyOrder,
   Loading,
   Home,
@@ -19,7 +18,7 @@ const CartPage = lazy(() => import("./pages/CartPage.jsx"));
 const OrderPage = lazy(() => import("./pages/OrderPage.jsx"));
 const AccountPage = lazy(() => import("./pages/AccountPage.jsx"));
 const ProductPage = lazy(() => import("./pages/ProductPage.jsx"));
-import { ErrorPage } from "./pages/pages.js";
+import { ErrorPage, CategoryPage } from "./pages/pages.js";
 import { GuestProtected, UserProtected } from "./utils/ProtectedRoute";
 import { Profile, ResetPass } from "./components/account/accountIndex.js";
 import GetData from "./data/Getdata.jsx";
@@ -42,8 +41,15 @@ function App() {
             }
           >
             <Route index element={<Home />} />
-            <Route path="category/:id" element={<Category />} />
           </Route>
+          <Route
+            path="/category/:id"
+            element={
+              <Suspense fallback={<Loading />}>
+                <CategoryPage />
+              </Suspense>
+            }
+          />
           <Route
             path="/product"
             element={
