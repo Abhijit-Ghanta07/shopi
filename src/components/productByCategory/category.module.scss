@@ -23,7 +23,7 @@
   display: inline-block;
   font-family: serif;
   font-weight: bold;
-  font-size: clamp(1.2rem, 1.5rem, 18rem);
+  font-size: clamp(1rem, 1.3rem, 1.7rem);
   margin: 0;
 }
 .card__wrapper {
@@ -48,16 +48,12 @@
   width: 35px;
   height: 35px;
   border-radius: 7px;
-  @include smallScreen() {
-    width: 25px;
-    height: 25px;
-  }
 }
 .cata__text {
   text-align: center;
   vertical-align: bottom;
   margin: 0;
   @include smallScreen() {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }

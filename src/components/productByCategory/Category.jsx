@@ -40,12 +40,12 @@ const Category = () => {
 
   return (
     <Container fluid className="m-0 py-3 bg-light">
-      <Row>
+      <Row className="p-0">
         <Col sm="3">
           <Fillterscard data={data} setData={setProducts} />
         </Col>
         {/* <p>{products.length} Products Found:</p> */}
-        <Col sm="9">
+        <Col sm="9" className="p-0">
           {/* {products &&
             products?.map((item, index) => (
               <ProductCard product={item} key={index} />
@@ -104,7 +104,7 @@ function Fillterscard({ data, setData }) {
     setSearchParam({ sort: `price>${range}` });
   }, [range]);
   return (
-    <Card className="my-3 py-4">
+    <Card className="my-3 py-3">
       <CardBody className={style.card__wrapper}>
         <CardTitle className={style.hide__sm}>Fillters</CardTitle>
         <CardText className={style.filter__title}>Sort By:</CardText>
@@ -149,10 +149,10 @@ function CategoryBanner() {
   const catagoryList = useSelector((store) => store.category);
 
   return (
-    <Container className=" px-0 py-3 overflow-hidden">
+    <Container className=" px-0 my-3 overflow-hidden">
       <Row>
         <Col>
-          <div className="d-flex   gap-3">
+          <div className="d-flex overflow-auto gap-3">
             {catagoryList &&
               catagoryList.map((cata, index) => {
                 return (

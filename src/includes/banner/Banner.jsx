@@ -55,7 +55,7 @@ const Banner = () => {
                         className="py-3 px-2 z-3 position-relative"
                       >
                         <Button variant="secondary">Buy Now </Button>
-                        <Button variant="success">View More</Button>
+                        <Button variant="warning">View More</Button>
                       </Stack>
                     </Col>
 

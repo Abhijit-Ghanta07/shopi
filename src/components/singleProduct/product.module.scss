@@ -17,9 +17,10 @@
 }
 
 .product {
+  font-family: "popines" !important;
   &__title {
     font-weight: bold !important;
-    font-family: serif;
+    font-family: "popines" !important;
   }
   &__image__title {
     @extend .product__title;
@@ -29,7 +30,7 @@
   }
   &__price__title {
     @extend .product__title;
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-family: "popines" !important;
   }
 }
 
@@ -37,15 +38,20 @@
   overflow-x: auto;
   white-space: nowrap;
   padding: 1rem 0;
+  overflow-y: hidden;
+  gap: 1rem !important;
 }
 .relativeProductCard {
+  border-radius: 10px !important;
+  height: 55vh !important;
+  padding-bottom: 0.5rem;
 }
 .relativeCardWrapper {
   margin-top: 1.5rem;
   padding: 1rem;
   &__title {
     font-weight: bold !important;
-    font-family: serif;
+    font-family: "popines" !important;
   }
 }
 
@@ -57,20 +63,21 @@
     font-size: 1rem !important;
     padding: 0.5rem 1rem;
     margin: 0 !important;
-    font-family: serif;
+    font-family: "popines" !important;
     white-space: normal;
     font-weight: bold !important;
   }
   &__img {
     object-fit: cover;
-    height: 25vh;
+    border-radius: 10px 10px 0 0;
+    height: 30vh !important;
   }
   &__text {
     @include smallScreen() {
       font-size: 0.8rem;
     }
     font-weight: bold !important;
-    font-family: serif;
+    font-family: "popines" !important;
     font-size: 0.9rem;
     padding: 0.5rem;
   }
@@ -83,4 +90,20 @@
   min-width: 300px;
   width: fit-content;
   height: auto;
+}
+
+.cata__arrow__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 100%;
+
+  svg {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+.active {
+  color: $dark;
 }

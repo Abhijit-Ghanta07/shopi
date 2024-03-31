@@ -19,7 +19,7 @@ function ProductList({ data, loading, title }) {
       <Container fluid className={Styles.list__con}>
         <Row>
           <h4 className="fw-bold p-3">{title ? title : "Trending Products"}</h4>
-          <Col className="d-flex flex-wrap gap-1">
+          <Col className="d-flex flex-wrap gap-1 row-gap-3">
             {data &&
               data?.map((item, index) => (
                 <ProductCard product={item} key={index} />

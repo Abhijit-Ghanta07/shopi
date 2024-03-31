@@ -5,6 +5,8 @@ $dark: #2c2f33;
 $light: #f7f7f9;
 $card-bg: #ffffff;
 $primary: #028090;
+$text-dark: #000;
+$text-light: #f8f8f8;
 
 @mixin back__btn {
   border: 1px solid rgb(47, 47, 47) !important;
@@ -41,4 +43,5 @@ $primary: #028090;
   color: inherit;
   font-size: 1rem;
   font-weight: normal;
+  font-family: "popines" !important;
 }

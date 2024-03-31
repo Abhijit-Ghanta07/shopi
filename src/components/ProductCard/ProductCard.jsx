@@ -103,8 +103,8 @@ function ProductCard({ product }) {
           <Badge
             className="my-2 shadow"
             pill
-            bg="warning"
-            style={{ width: "fit-content" }}
+            bg="primary"
+            style={{ width: "fit-content", fontSize: ".6rem" }}
           >
             {product?.category?.name.toUpperCase()}
           </Badge>
@@ -121,7 +121,7 @@ function ProductCard({ product }) {
               </Button>
             ) : (
               <Button
-                variant="primary"
+                variant="secondary"
                 size="sm"
                 className="w-100"
                 onClick={handleAddClick.bind(product.id)}

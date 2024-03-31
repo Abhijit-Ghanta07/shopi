@@ -19,6 +19,8 @@ import { IoArrowBack } from "react-icons/io5";
 import useFindProduct from "../../hooks/FindProduct";
 import { FaDollarSign } from "react-icons/fa6";
 import { BsCurrencyDollar } from "react-icons/bs";
+import { CiCircleChevRight } from "react-icons/ci";
+import { CiCircleChevLeft } from "react-icons/ci";
 // scss
 import Styles from "./product.module.scss";
 import { addWishlist, removeWishlist } from "../../services/redux/wishList";
@@ -137,14 +139,14 @@ function SingleProduct() {
                     <div className="d-flex gap-3">
                       {productsID.includes(fillterdItem.id) ? (
                         <Button
-                          variant="danger"
+                          variant="secondary"
                           onClick={handleRemoveClick.bind(fillterdItem.id)}
                         >
                           Remove from Cart
                         </Button>
                       ) : (
                         <Button
-                          variant="warning"
+                          variant="primary"
                           onClick={handleAddClick.bind(fillterdItem.id)}
                         >
                           Add To Cart
@@ -152,14 +154,14 @@ function SingleProduct() {
                       )}
                       {wishlist.includes(fillterdItem.id) ? (
                         <Button
-                          variant="primary"
+                          variant="info"
                           onClick={wishlistRemove.bind(fillterdItem.id)}
                         >
                           Remove WishList
                         </Button>
                       ) : (
                         <Button
-                          variant="success"
+                          variant="warning"
                           onClick={wishlistAdd.bind(fillterdItem.id)}
                         >
                           Add WishList
@@ -172,16 +174,21 @@ function SingleProduct() {
             )}
           </Col>
         </Row>
+
         <Row>
           <Col>
             <Card className={Styles.relativeCardWrapper}>
-              <CardTitle className={Styles.relativeCardWrapper__title}>
-                Related Products:
-              </CardTitle>
+              <Stack direction="horizontal" className="justify-content-between">
+                <h4 className="fw-bold">Related Products</h4>
+                <div className={Styles.cata__arrow__wrapper}>
+                  <CiCircleChevLeft className={Styles.active} />
+                  <CiCircleChevRight />
+                </div>
+              </Stack>
+
               <Stack
                 direction="horizontal"
                 className={Styles.relative__wrapper}
-                gap={2}
               >
                 {relativeProducts.map((product, index) => {
                   return (

@@ -35,10 +35,10 @@ const Footer = () => {
             <Stack gap={3}>
               <FormControl className="" placeholder="Email" />
               <Button
-                variant="primary"
+                variant="secondary"
                 style={{ width: "fit-content", marginInline: "auto" }}
               >
-                <span className="text-dark fw-medium">Subscribe</span>
+                <span className="text-light fw-medium">Subscribe</span>
               </Button>
             </Stack>
           </Col>

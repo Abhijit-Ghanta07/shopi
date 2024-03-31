@@ -3,7 +3,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fakeProduct } from "../../constants/constants";
-
+import { CiCircleChevRight } from "react-icons/ci";
+import { CiCircleChevLeft } from "react-icons/ci";
 // style
 import Styles from "./category.module.scss";
 const Category = () => {
@@ -28,8 +29,18 @@ const Category = () => {
   return (
     <>
       <Container fluid className={Styles.con}>
-        <Row className="py-3">
-          <h4 className="fw-bold px-3 py-2">Shop By Category</h4>
+        <Row className="py-3 ">
+          <Col xs={8}>
+            <h4 className="fw-bold">Shop By Category</h4>
+          </Col>
+          <Col xs={4}>
+            <div className={Styles.cata__arrow__wrapper}>
+              <CiCircleChevLeft className={Styles.active} />
+              <CiCircleChevRight />
+            </div>
+          </Col>
+        </Row>
+        <Row className="p-0">
           <Col>
             <div className={Styles.wrapper} ref={slideRef}>
               {!catagoryList ? (

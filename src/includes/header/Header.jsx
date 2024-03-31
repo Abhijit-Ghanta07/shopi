@@ -23,7 +23,7 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
-
+import { FaRegUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../services/redux/auth";
 import { ToastOpen } from "../../services/redux/Toast";
@@ -62,14 +62,10 @@ function Header() {
         <Container fluid="xl p-0">
           <Row className="py-2 align-items-center gap-2">
             <Col className="d-flex flex-column text-md-start">
-              <Link
-                to={"/"}
-                replace
-                className="text-decoration-none display-6 mb-0 text-dark fw-bold"
-              >
+              <Link to={"/"} replace className={Styles.title}>
                 SHOPI
               </Link>
-              <p className="small m-0">All Your Needs Are Here.</p>
+              <p className={Styles.subtitle}>All Your Needs Are Here.</p>
             </Col>
 
             <Col>
@@ -80,12 +76,15 @@ function Header() {
                       className={Styles.header__user_icons}
                       size={"1.7rem"}
                     />
-                    <span className="fw-bold">Orders</span>
+                    <span className="fw-medium">Orders</span>
                   </Link>
                 )}
                 <Link to={"/cart"} className="position-relative fs-6 mt-1">
-                  <FaRegHeart className={Styles.header__user_icons} />
-                  <Badge bg="danger" pill className={Styles.header__badge}>
+                  <FaRegHeart
+                    className={Styles.header__user_icons}
+                    size={"1.5rem"}
+                  />
+                  <Badge bg="primary" pill className={Styles.header__badge}>
                     {wishlist.length}
                   </Badge>
                 </Link>
@@ -99,7 +98,7 @@ function Header() {
                     size={"1.8rem"}
                   />
                   <span className={Styles.sm__hide}>Cart</span>
-                  <Badge bg="danger" pill className={Styles.header__badge}>
+                  <Badge bg="primary" pill className={Styles.header__badge}>
                     {productsID.length}
                   </Badge>
                 </Link>
@@ -152,13 +151,9 @@ function Header() {
                 ) : (
                   <Link
                     to={"/auth"}
-                    className="text-decoration-none text-black"
+                    className="text-decoration-none text-black mt-1"
                   >
-                    <img
-                      src={avatar}
-                      alt="catagories img"
-                      className={Styles.rounded__img}
-                    />
+                    <FaRegUserCircle fontSize="1.5rem" className="mx-1" />
                     <span className={Styles.sm__hide}>Login</span>
                   </Link>
                 )}
@@ -178,11 +173,11 @@ function Header() {
           <ModalTitle>Confirm Logout</ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <p className="text-danger fw-bold fs-4">Are Your Sure to Logout</p>
+          <p className="text-danger fw-medium fs-5">Are Your Sure to Logout</p>
         </ModalBody>
         <ModalFooter>
           <Button
-            variant="info"
+            variant="warning"
             onClick={() => {
               setShow(false);
             }}
