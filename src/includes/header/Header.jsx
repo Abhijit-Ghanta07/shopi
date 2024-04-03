@@ -29,14 +29,12 @@ import { removeuser } from "../../services/redux/auth";
 import { ToastOpen } from "../../services/redux/Toast";
 import { cartEmpty } from "../../services/redux/cart";
 // styles
-import avatar from "../../assets/svg/avatar.svg";
 import Styles from "./header.module.scss";
 function Header() {
   const dispatch = useDispatch();
   // globals states
   const { user, userId } = useSelector((store) => store.auth);
   const { productsID } = useSelector((store) => store.cart);
-  const wishlist = useSelector((store) => store.wishlist);
   // components states
   const [show, setShow] = useState(false);
   // logout function
@@ -79,7 +77,7 @@ function Header() {
                     <span className="fw-medium">Orders</span>
                   </Link>
                 )}
-                <Link to={"/cart"} className="position-relative fs-6 mt-1">
+                {/* <Link to={"/cart"} className="position-relative fs-6 mt-1">
                   <FaRegHeart
                     className={Styles.header__user_icons}
                     size={"1.5rem"}
@@ -87,7 +85,7 @@ function Header() {
                   <Badge bg="primary" pill className={Styles.header__badge}>
                     {wishlist.length}
                   </Badge>
-                </Link>
+                </Link> */}
 
                 <Link
                   to={"/cart"}

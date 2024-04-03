@@ -16,6 +16,7 @@ $text-light: #f8f8f8;
   top: 0;
   z-index: 3;
   display: block !important;
+  font-family: "tabara" !important;
   @include smallScreen {
     display: none !important;
   }
@@ -26,6 +27,7 @@ $text-light: #f8f8f8;
   margin-left: 10px;
   margin-top: 10px;
   display: inline-block !important;
+  font-family: "tabara" !important;
   @include smallScreen() {
     display: none !important;
   }
@@ -42,6 +44,5 @@ $text-light: #f8f8f8;
   text-decoration: none;
   color: inherit;
   font-size: 1rem;
-  font-weight: normal;
-  font-family: "popines" !important;
+  font-family: "jhalMuri" !important;
 }

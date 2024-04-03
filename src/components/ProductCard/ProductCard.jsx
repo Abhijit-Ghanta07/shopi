@@ -93,10 +93,7 @@ function ProductCard({ product }) {
             By
             {product?.rating?.count}
           </CardText> */}
-          <CardText
-            className="small fw-medium m-0"
-            style={{ fontFamily: "sans-serif" }}
-          >
+          <CardText className="small fw-medium m-0">
             <FaDollarSign />
             {product?.price}
           </CardText>
@@ -104,7 +101,11 @@ function ProductCard({ product }) {
             className="my-2 shadow"
             pill
             bg="primary"
-            style={{ width: "fit-content", fontSize: ".6rem" }}
+            style={{
+              width: "fit-content",
+              fontSize: ".6rem",
+              fontFamily: "popines",
+            }}
           >
             {product?.category?.name.toUpperCase()}
           </Badge>

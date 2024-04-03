@@ -7,17 +7,9 @@
 }
 .back__btn {
   @include back__btn;
-  // border: 1px solid rgb(47, 47, 47) !import
-  // margin-left: 1
-  // margin-top: 1
-  // position: absol
-  // top
-  // z-index:;
 }
 .links {
-  text-decoration: none !important;
   &__active {
-    @extend .links;
     color: #fff;
   }
 }

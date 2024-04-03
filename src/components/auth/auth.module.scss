@@ -1,11 +1,20 @@
 // import global variables
 @import "../../sass/variable.scss";
+
 .bg__gradient {
-  background: linear-gradient(90deg, rgb(250, 201, 201), rgb(255, 255, 197));
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#febbbb+0,fe9090+45,ff5c5c+100;Red+3D+%231 */
+  background: linear-gradient(
+    to right,
+    #febbbb 0%,
+    #fe9090 45%,
+    #ff5c5c 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
   padding: 0;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
+  font-family: "jhalMuri" !important;
 }
 
 .auth__card {
@@ -33,10 +42,9 @@
 }
 
 .title {
-  font-family: serif;
-  font-weight: bold !important;
+  font-family: "jhalMuri";
+  font-weight: normal !important;
   &__sub {
     @extend .title;
-    font-weight: 500 !important;
   }
 }

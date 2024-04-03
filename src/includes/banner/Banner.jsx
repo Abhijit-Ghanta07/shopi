@@ -54,8 +54,18 @@ const Banner = () => {
                         gap={2}
                         className="py-3 px-2 z-3 position-relative"
                       >
-                        <Button variant="secondary">Buy Now </Button>
-                        <Button variant="warning">View More</Button>
+                        <Button
+                          variant="secondary"
+                          className={Styles.banner__btn}
+                        >
+                          Buy Now{" "}
+                        </Button>
+                        <Button
+                          variant="warning"
+                          className={Styles.banner__btn}
+                        >
+                          View More
+                        </Button>
                       </Stack>
                     </Col>
 

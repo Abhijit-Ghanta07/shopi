@@ -61,8 +61,11 @@ const CartProduct = ({ product, setTotalPrice }) => {
               </Link>
 
               <Stack direction="vertical">
-                <p className="fw-bold">{product?.title}</p>
-                <Badge style={{ width: "fit-content" }} bg="secondary">
+                <p className="">{product?.title}</p>
+                <Badge
+                  style={{ width: "fit-content", fontFamily: "jhalMuri" }}
+                  bg="primary"
+                >
                   {product?.category?.name}
                 </Badge>
               </Stack>

@@ -65,8 +65,8 @@
   @include smallScreen() {
     display: none;
   }
-  font-weight: 600;
-  font-family: serif;
+  font-weight: 500;
+  font-family: "jhalMuri";
   display: inline-block;
 }
 
@@ -75,8 +75,10 @@
   font-weight: bold;
   font-size: 1.7rem;
   margin: 0 !important;
+  font-family: "jhalMuri";
 }
 .subtitle {
   font-size: 0.8rem !important;
   margin: 0 !important;
+  font-family: "tabara";
 }

@@ -24,6 +24,7 @@ import { Profile, ResetPass } from "./components/account/accountIndex.js";
 import GetData from "./data/Getdata.jsx";
 import { ScrollTop } from "./utils/Utill";
 // css
+import "./sass/main.scss";
 import "./App.css";
 
 function App() {

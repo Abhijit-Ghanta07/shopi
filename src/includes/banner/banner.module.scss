@@ -34,12 +34,12 @@
   &__title {
     position: relative;
     padding: 1rem 0.8rem;
-    font-weight: 700;
     text-transform: capitalize;
     white-space: normal;
     font-size: 2.5rem;
     color: $text-light;
     z-index: 2;
+    font-family: "tabara";
     &:hover {
       color: $text-light;
     }
@@ -47,11 +47,12 @@
   &__subtitle {
     position: relative;
     padding: 0.5rem 0.8rem;
-    font-weight: 500;
+    font-weight: 300 !important;
     text-transform: capitalize;
     font-size: 1.2rem;
     color: $text-light;
     z-index: 2 !important;
+    font-family: "tabara";
     &:hover {
       color: $text-light;
     }
@@ -71,4 +72,7 @@
     height: 450px;
     mix-blend-mode: difference;
   }
+}
+.banner__btn {
+  font-family: "jhalMuri" !important;
 }

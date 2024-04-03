@@ -64,12 +64,7 @@ function SingleProduct() {
       dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
-  function wishlistAdd() {
-    dispatch(addWishlist(this));
-  }
-  function wishlistRemove() {
-    dispatch(removeWishlist(this));
-  }
+
   const sizeArr = ["M", "L", "XL", "XXL"];
   return (
     <>
@@ -93,7 +88,12 @@ function SingleProduct() {
                     <CardTitle className={Styles.product__title}>
                       {fillterdItem.title}
                     </CardTitle>
-                    <Badge className="my-2 shadow" pill bg="secondary">
+                    <Badge
+                      className="my-2 shadow"
+                      pill
+                      bg="primary"
+                      style={{ fontFamily: "jhalMuri" }}
+                    >
                       {fillterdItem?.category?.name.toUpperCase()}
                     </Badge>
                     {/* <CardText>{fillterdItem.description}</CardText> */}
@@ -139,7 +139,7 @@ function SingleProduct() {
                     <div className="d-flex gap-3">
                       {productsID.includes(fillterdItem.id) ? (
                         <Button
-                          variant="secondary"
+                          variant="danger"
                           onClick={handleRemoveClick.bind(fillterdItem.id)}
                         >
                           Remove from Cart
@@ -152,21 +152,7 @@ function SingleProduct() {
                           Add To Cart
                         </Button>
                       )}
-                      {wishlist.includes(fillterdItem.id) ? (
-                        <Button
-                          variant="info"
-                          onClick={wishlistRemove.bind(fillterdItem.id)}
-                        >
-                          Remove WishList
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="warning"
-                          onClick={wishlistAdd.bind(fillterdItem.id)}
-                        >
-                          Add WishList
-                        </Button>
-                      )}
+                      <Button variant="warning">Buy Now</Button>
                     </div>
                   </CardBody>
                 </Col>

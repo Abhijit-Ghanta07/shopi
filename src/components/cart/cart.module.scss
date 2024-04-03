@@ -3,10 +3,11 @@
 
 .product__img {
   max-width: 100%;
-  width: 80px;
+  width: 130px;
   height: 100px;
-  object-fit: cover;
+  object-fit: fill;
   mix-blend-mode: multiply;
+  border-radius: 7px;
 }
 
 .product__card {
@@ -56,6 +57,7 @@
 .card__body {
   padding: 30px;
   background-color: transparent;
+  font-family: "jhalMuri" !important;
 }
 
 .btn-primary,
