@@ -1,24 +1,24 @@
 @font-face {
   font-family: "popines";
-  src: url("./assets/fonts/Poppins-Medium.ttf");
+  src: url("/fonts/Poppins-Medium.ttf") format("truetype");
 }
 @font-face {
   font-family: "jhalMuri";
-  src: url("./assets/fonts/JhalMuri.ttf");
+  src: url("/fonts/JhalMuri.ttf") format("truetype");
 }
 @font-face {
   font-family: "tabara";
-  src: url("./assets/fonts/RussoOne-Regular.ttf");
+  src: url("/fonts/RussoOne-Regular.ttf") format("truetype");
 }
 
-#root {
-  min-height: 100vh;
-  position: relative;
-}
 body {
   font-family: "tabara" !important;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+#root {
+  min-height: 100vh;
+  position: relative;
 }
 a {
   text-decoration: none !important;

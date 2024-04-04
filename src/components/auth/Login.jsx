@@ -98,7 +98,7 @@ const Login = () => {
                       <CardTitle className={Styles.title}>Login</CardTitle>
                       <CardText className={Styles.title__sub}>
                         Don't have an account Yet?{" "}
-                        <Link to={"register"} className=" py-3">
+                        <Link to={"register"} className="text-primary py-3">
                           Sign Up
                         </Link>
                       </CardText>

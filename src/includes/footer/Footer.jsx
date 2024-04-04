@@ -18,8 +18,8 @@ const Footer = () => {
       <Container fluid className={style.footer__container}>
         <Row className="py-4">
           <Col sm className="text-center">
-            <p className="display-6 fw-bold m-0">Shopi</p>
-            <p className="small">All Your Needs Are Here.</p>
+            <p className="display-6 fw-bold m-0 text-primary">Shopi</p>
+            <p className="small text-secondary">All Your Needs Are Here.</p>
           </Col>
           <Col sm className="text-center">
             <p className={style.link__group__title}>Quick Links</p>

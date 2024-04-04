@@ -95,7 +95,7 @@ function Header() {
                     className={Styles.header__user_icons}
                     size={"1.8rem"}
                   />
-                  <span className={Styles.sm__hide}>Cart</span>
+                  <span>Cart</span>
                   <Badge bg="primary" pill className={Styles.header__badge}>
                     {productsID.length}
                   </Badge>

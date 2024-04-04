@@ -75,7 +75,7 @@ const Register = () => {
                       <CardTitle className={Styles.title}>Register</CardTitle>
                       <CardText className={Styles.title__sub}>
                         Have An Account?
-                        <Link to={"/auth"} className=" py-3">
+                        <Link to={"/auth"} className="text-primary py-3">
                           Login
                         </Link>
                         {/* <div className="d-flex justify-content-center gap-3 mt-2">
