@@ -19,7 +19,7 @@ import useFindProduct from "../../hooks/FindProduct";
 
 // css
 import Styles from "./productCard.module.scss";
-function ProductCard({ product }) {
+function ProductCard({ product, width = "" }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [fireId, findId] = useFindProduct();
@@ -50,7 +50,7 @@ function ProductCard({ product }) {
 
   return (
     <>
-      <Card className={Styles.product__card}>
+      <Card className={Styles.product__card} style={{ minWidth: width }}>
         <Link to={`/product/${product.id}`} className={Styles.card__link}>
           <CardImg
             src={product?.images[0]}

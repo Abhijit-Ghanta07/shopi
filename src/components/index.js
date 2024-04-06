@@ -8,6 +8,7 @@ import SingleProduct from "./singleProduct/SingleProduct";
 import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
 import MyOrder from "./orders/MyOrder";
+import SlideWrapper from "./wrapperSlider/SlideWrapper";
 import { ToastModal, Loader, Loading } from "./loader/Loader";
 
 export {
@@ -25,4 +26,5 @@ export {
   ToastModal,
   Loading,
   Home,
+  SlideWrapper,
 };

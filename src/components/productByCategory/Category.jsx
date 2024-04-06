@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Link,
   useNavigate,
@@ -17,7 +17,7 @@ import {
   FormSelect,
   Row,
 } from "react-bootstrap";
-import { ProductList } from "../index.js";
+import { ProductList, SlideWrapper } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
 import useFetch from "../../hooks/UseFetch";
 import useMaxPrice from "../../hooks/UseMaxPrice.jsx";
@@ -147,12 +147,29 @@ function Fillterscard({ data, setData }) {
 
 function CategoryBanner() {
   const catagoryList = useSelector((store) => store.category);
+  const [scrollWid, setScrollWid] = useState(0);
+  const slideRef = useRef(null);
 
+  useEffect(() => {
+    setScrollWid(slideRef.current?.scrollWidth);
+  }, [slideRef]);
   return (
     <Container className=" px-0 my-3 overflow-hidden">
       <Row>
+        <h2>
+          {" "}
+          <SlideWrapper
+            slideRef={slideRef}
+            scrollWid={scrollWid}
+            slideBy={100}
+          />
+        </h2>
         <Col>
-          <div className="d-flex overflow-auto gap-3">
+          <div
+            className="d-flex gap-3"
+            style={{ transition: ".3s ease" }}
+            ref={slideRef}
+          >
             {catagoryList &&
               catagoryList.map((cata, index) => {
                 return (

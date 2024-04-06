@@ -13,6 +13,7 @@
 .product__card {
   position: relative !important;
   width: 9rem !important;
+  max-width: 100%;
   flex-grow: 1;
   transition: 0.2s ease;
   margin-inline: 0.4rem;

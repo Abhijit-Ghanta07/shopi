@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Button,
@@ -17,13 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "../../services/redux/cart";
 import { IoArrowBack } from "react-icons/io5";
 import useFindProduct from "../../hooks/FindProduct";
-import { FaDollarSign } from "react-icons/fa6";
 import { BsCurrencyDollar } from "react-icons/bs";
-import { CiCircleChevRight } from "react-icons/ci";
-import { CiCircleChevLeft } from "react-icons/ci";
+import { ProductCard, SlideWrapper } from "../index";
 // scss
 import Styles from "./product.module.scss";
-import { addWishlist, removeWishlist } from "../../services/redux/wishList";
+
 function SingleProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -35,12 +33,12 @@ function SingleProduct() {
   // local States
   const [imgState, setImgState] = useState(0);
   // filltered items
-  let fillterdItem = useMemo(() => {
-    return productData.find((item) => {
+  const fillterdItem = useMemo(() => {
+    return productData?.find((item) => {
       return item.id == id;
     });
   }, [id]);
-  let relativeProducts = useMemo(() => {
+  const relativeProducts = useMemo(() => {
     return productData.filter((item) => {
       return (
         item.category?.id == fillterdItem.category.id &&
@@ -88,10 +86,10 @@ function SingleProduct() {
                       {fillterdItem.title}
                     </CardTitle>
                     <Badge
-                      className="my-2 shadow"
+                      className="my-2"
                       pill
-                      bg="primary"
-                      style={{ fontFamily: "jhalMuri" }}
+                      bg="secondary"
+                      style={{ fontFamily: "tabara" }}
                     >
                       {fillterdItem?.category?.name.toUpperCase()}
                     </Badge>
@@ -162,57 +160,77 @@ function SingleProduct() {
 
         <Row>
           <Col>
-            <Card className={Styles.relativeCardWrapper}>
-              <Stack direction="horizontal" className="justify-content-between">
-                <h4 className="fw-bold">Related Products</h4>
-                <div className={Styles.cata__arrow__wrapper}>
-                  <CiCircleChevLeft className={Styles.active} />
-                  <CiCircleChevRight />
-                </div>
-              </Stack>
-
-              <Stack
-                direction="horizontal"
-                className={Styles.relative__wrapper}
-              >
-                {relativeProducts.map((product, index) => {
-                  return (
-                    <Link
-                      key={product.id}
-                      className={Styles.card__link}
-                      to={`/product/${product.id}`}
-                      replace
-                    >
-                      <Card className={Styles.relativeProductCard}>
-                        <img
-                          src={product.images[0]}
-                          className={Styles.relativeProduct__img}
-                          onError={(e) => {
-                            e.target.parentElement.parentElement.classList.add(
-                              "d-none"
-                            );
-                          }}
-                        />
-                        <CardTitle className={Styles.relativeProduct__title}>
-                          {product.title}
-                        </CardTitle>
-                        <CardBody className="p-2">
-                          <Badge className="shadow m-2" pill bg="secondary">
-                            {fillterdItem?.category?.name.toUpperCase()}
-                          </Badge>
-                          <CardText className={Styles.relativeProduct__text}>
-                            Price: <FaDollarSign /> <span>{product.price}</span>
-                          </CardText>
-                        </CardBody>
-                      </Card>
-                    </Link>
-                  );
-                })}
-              </Stack>
-            </Card>
+            <RelativeProduct relativeProducts={relativeProducts} />
           </Col>
         </Row>
       </Container>
+    </>
+  );
+}
+
+function RelativeProduct({ relativeProducts }) {
+  const [scrollWid, setScrollWid] = useState(0);
+  const slideRef = useRef(null);
+
+  useEffect(() => {
+    setScrollWid(slideRef.current.scrollWidth);
+  }, [slideRef]);
+
+  return (
+    <>
+      <Card className={Styles.relativeCardWrapper}>
+        <Stack direction="horizontal" className="justify-content-between">
+          <h4 className="fw-bold">Related Products</h4>
+        </Stack>
+        {/* <div className={Styles.relative__arrow} onClick={handleSlideClick}>
+
+          <IoIosArrowForward />
+        </div> */}
+        <SlideWrapper
+          slideRef={slideRef}
+          scrollWid={scrollWid}
+          slideBy={130}
+          deley={3000}
+        />
+        <Stack
+          direction="horizontal"
+          className={Styles.relative__wrapper}
+          ref={slideRef}
+        >
+          {relativeProducts?.map((product, index) => {
+            return (
+              <ProductCard
+                product={product}
+                width={"12rem"}
+                key={product?.id}
+              />
+            );
+          })}
+
+          {/* <Link className={Styles.card__link} to={`/product/${product.id}`} replace>
+        <Card className={Styles.relativeProductCard}>
+          <img
+            src={product.images[0]}
+            className={Styles.relativeProduct__img}
+            onError={(e) => {
+              e.target.parentElement.parentElement.classList.add("d-none");
+            }}
+          />
+          <CardTitle className={Styles.relativeProduct__title}>
+            {product.title}
+          </CardTitle>
+          <CardBody className="p-2">
+            <Badge className="shadow m-2" pill bg="secondary">
+              {product?.category?.name.toUpperCase()}
+            </Badge>
+            <CardText className={Styles.relativeProduct__text}>
+              Price: <FaDollarSign /> <span>{product.price}</span>
+            </CardText>
+          </CardBody>
+        </Card>
+      </Link> */}
+        </Stack>
+      </Card>
     </>
   );
 }

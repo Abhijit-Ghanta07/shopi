@@ -32,12 +32,14 @@
 }
 
 .relative__wrapper {
-  overflow-x: auto;
   white-space: nowrap;
   padding: 1rem 0;
-  overflow-y: hidden;
   gap: 1rem !important;
+  position: relative;
+  z-index: 1;
+  transition: 0.4s ease;
 }
+
 .relativeProductCard {
   border-radius: 10px !important;
   height: 55vh !important;
@@ -46,6 +48,8 @@
 .relativeCardWrapper {
   margin-top: 1.5rem;
   padding: 1rem;
+  overflow-x: hidden;
+  position: relative;
   &__title {
     font-weight: normal !important;
     font-family: "tabara" !important;
