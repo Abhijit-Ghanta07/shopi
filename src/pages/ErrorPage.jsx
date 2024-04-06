@@ -1,12 +1,14 @@
 import React from "react";
 import { Header } from "../includes/includes";
-import { Outlet } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
+import { Error } from "../components";
 
-const ErrorPage = ({ children }) => {
+const ErrorPage = () => {
+  const err = useRouteError();
   return (
     <>
       <Header />
-      {children}
+      <Error />
     </>
   );
 };

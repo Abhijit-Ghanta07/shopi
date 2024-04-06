@@ -14,11 +14,11 @@
 
 ## Developement Server
 
-Port:3000
+> Port:3000
 
 **Script**
 
-npm Run dev
+> > > npm Run dev
 
 ## Deploy
 
@@ -28,4 +28,4 @@ npm Run dev
 
 **Script**
 
-npm run build
+> > > npm run build

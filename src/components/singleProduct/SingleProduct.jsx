@@ -32,7 +32,6 @@ function SingleProduct() {
   const { productData } = useSelector((store) => store.product);
   const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
-  const wishlist = useSelector((store) => store.wishlist);
   // local States
   const [imgState, setImgState] = useState(0);
   // filltered items

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -6,7 +6,6 @@ import {
   CardTitle,
   Col,
   Container,
-  Form,
   FormControl,
   FormGroup,
   FormLabel,
@@ -103,7 +102,6 @@ const CartWrapper = () => {
   }
 
   // else loop over the array
-
   return (
     <>
       <Container fluid="xl" className="mb-4">
