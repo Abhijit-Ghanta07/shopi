@@ -10,8 +10,6 @@ import {
 } from "react-bootstrap";
 import { FaDollarSign } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { IoMdHeart } from "react-icons/io";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, deleteItem } from "../../services/redux/cart";
@@ -27,7 +25,6 @@ function ProductCard({ product }) {
   const [fireId, findId] = useFindProduct();
   const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
-  const wishlist = useSelector((store) => store.wishlist);
 
   // handle addto cart click
   function handleAddClick() {
@@ -54,24 +51,6 @@ function ProductCard({ product }) {
   return (
     <>
       <Card className={Styles.product__card}>
-        {/* {wishlist.includes(product?.id) ? (
-          <IoMdHeart
-            className={Styles.img__icon}
-            onClick={(e) => {
-              e.stopPropagation();
-              dispatch(removeWishlist(product?.id));
-            }}
-          />
-        ) : (
-          <IoIosHeartEmpty
-            className={Styles.img__icon}
-            onClick={(e) => {
-              e.stopPropagation();
-              dispatch(addWishlist(product?.id));
-            }}
-          />
-        )} */}
-
         <Link to={`/product/${product.id}`} className={Styles.card__link}>
           <CardImg
             src={product?.images[0]}

@@ -11,14 +11,11 @@
   position: relative;
   transition: 0.5s ease;
   gap: 0.5rem;
-  @include smallScreen() {
-    overflow-x: auto;
-  }
   @include deskTop() {
     white-space: normal;
     justify-content: space-around;
     flex-wrap: wrap;
-
+    transform: translateX(0) !important;
     padding: 0.5rem;
   }
 }
@@ -75,12 +72,17 @@
   justify-content: center;
   gap: 0.6rem;
   height: 100%;
+  @include deskTop() {
+    display: none;
+  }
 
   svg {
-    font-size: 2rem;
+    font-size: 2.4rem;
+    stroke-width: 0.5px;
     cursor: pointer;
+    // color: rgba(0, 0, 0, 0.486);
   }
 }
 .active {
-  color: $dark;
+  color: #000 !important;
 }

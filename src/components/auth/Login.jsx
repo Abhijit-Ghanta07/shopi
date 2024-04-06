@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../services/firebase/firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
@@ -32,6 +32,7 @@ import Styles from "./auth.module.scss";
 const Login = () => {
   // navigate func
   const navigate = useNavigate();
+  const { state: locState } = useLocation();
   const dispatch = useDispatch();
   const [, setUserState] = useSetUser();
   // useform func
@@ -46,6 +47,7 @@ const Login = () => {
   const [hide, setHide] = useState(true);
   const [checked, setcheck] = useState(true);
   // handle form submit
+  console.log(locState);
   async function formSubmit(data) {
     try {
       dispatch(loaderOpen());

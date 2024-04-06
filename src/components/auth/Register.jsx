@@ -52,7 +52,7 @@ const Register = () => {
       );
       if (res) {
         await updateUser(res.user, data.first_name, data.last_name);
-        navigate("/");
+        navigate("/", { replace: true, state: "Register Successfull" });
       }
     } catch (error) {
       dispatch(ToastOpen("Something wrong! Try after sometimes"));
@@ -78,22 +78,6 @@ const Register = () => {
                         <Link to={"/auth"} className="text-primary py-3">
                           Login
                         </Link>
-                        {/* <div className="d-flex justify-content-center gap-3 mt-2">
-                          <Link
-                            className="icon-link btn btn-outline-primary"
-                            onClick={facebookAuth}
-                          >
-                            <FaFacebookF />
-                            FaceBook
-                          </Link>
-                          <Link
-                            className="icon-link btn btn-outline-danger"
-                            onClick={googleAuth}
-                          >
-                            <FaGoogle />
-                            Google
-                          </Link>
-                        </div> */}
                       </CardText>
                       <Form onSubmit={handleSubmit(formSubmit)}>
                         <FormGroup>

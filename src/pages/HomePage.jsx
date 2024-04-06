@@ -1,7 +1,8 @@
 import { Loader, ToastModal } from "../components/index.js";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import { Footer, Header, Banner, Category } from "../includes/includes.js";
 import { useSelector } from "react-redux";
+import { ScrollTop } from "../utils/Utill.jsx";
 // scss
 import Styles from "./page.module.scss";
 
@@ -11,6 +12,7 @@ function Home() {
 
   return (
     <>
+      <ScrollTop />
       <div className={Styles.home__wrapper}>
         <Header />
         <Banner />

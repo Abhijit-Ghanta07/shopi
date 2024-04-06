@@ -73,25 +73,7 @@ const CartProduct = ({ product, setTotalPrice }) => {
           </Col>
           <Col xs="6" sm="6" md="2">
             <Stack direction="horizontal" gap={1}>
-              {/* <Button
-                size="sm"
-                onClick={() => {
-                  setQuantity((q) => q + 1);
-                }}
-              >
-                <FaPlus />
-              </Button> */}
               <p className="fw-medium ">Quantity:{quantity}</p>
-              {/* <Button
-                size="sm"
-                onClick={() => {
-                  if (quantity > 0) {
-                    return setQuantity((q) => q - 1);
-                  }
-                }}
-              >
-                <FaMinus />
-              </Button> */}
             </Stack>
           </Col>
           <Col xs="6" sm="6" md="2">

@@ -67,7 +67,7 @@ function Header() {
             </Col>
 
             <Col>
-              <div className="d-flex gap-4 justify-content-between justify-content-md-end">
+              <div className="d-flex gap-4 justify-content-evenly justify-content-md-end">
                 {userId && (
                   <Link to={"/order"} className={Styles.link}>
                     <IoBagHandleOutline
@@ -152,7 +152,7 @@ function Header() {
                     className="text-decoration-none text-black mt-1"
                   >
                     <FaRegUserCircle fontSize="1.5rem" className="mx-1" />
-                    <span className={Styles.sm__hide}>Login</span>
+                    <span>Login</span>
                   </Link>
                 )}
               </div>
