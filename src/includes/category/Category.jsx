@@ -19,7 +19,7 @@ const Category = () => {
       <Container fluid className={Styles.con}>
         <Row className="py-3 ">
           <Col xs={8}>
-            <h4 className="fw-bold">Shop By Category</h4>
+            <h4 className="fw-bold ">Shop By Category</h4>
           </Col>
           <Col xs={4}>
             <div className={Styles.cata__arrow__wrapper}>
@@ -36,7 +36,10 @@ const Category = () => {
           <Col>
             <div className={Styles.wrapper} ref={slideRef}>
               {!catagoryList ? (
-                <p>Loading....</p>
+                <p>
+                  Sorry Something went Wrong!! <br />
+                  Please try again after some time.
+                </p>
               ) : (
                 <>
                   <Link to={"/"} className={Styles.link}>
@@ -69,13 +72,6 @@ const Category = () => {
                 </>
               )}
             </div>
-            {/* <button
-              className={Styles.next__btn}
-              ref={btnRef}
-              onClick={handleSlideClick}
-            >
-              Next
-            </button> */}
           </Col>
         </Row>
       </Container>

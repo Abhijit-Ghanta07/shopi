@@ -10,7 +10,6 @@ const SlideWrapper = ({ slideRef, scrollWid, slideBy, deley = 3000 }) => {
 
   const handleSlideClick = () => {
     if (scrollWid > screen && screen > index * slideBy) {
-      console.log("click");
       slideRef.current.style.transform = `translateX(-${index * slideBy}px)`;
       setIndex(index + 1);
     }
@@ -27,6 +26,12 @@ const SlideWrapper = ({ slideRef, scrollWid, slideBy, deley = 3000 }) => {
       };
     }
   }, [index]);
+
+  useEffect(() => {
+    return () => {
+      setIndex(1);
+    };
+  }, []);
 
   return (
     <div className={style.relative__arrow} onClick={handleSlideClick}>

@@ -182,10 +182,7 @@ function RelativeProduct({ relativeProducts }) {
         <Stack direction="horizontal" className="justify-content-between">
           <h4 className="fw-bold">Related Products</h4>
         </Stack>
-        {/* <div className={Styles.relative__arrow} onClick={handleSlideClick}>
 
-          <IoIosArrowForward />
-        </div> */}
         <SlideWrapper
           slideRef={slideRef}
           scrollWid={scrollWid}
@@ -206,29 +203,6 @@ function RelativeProduct({ relativeProducts }) {
               />
             );
           })}
-
-          {/* <Link className={Styles.card__link} to={`/product/${product.id}`} replace>
-        <Card className={Styles.relativeProductCard}>
-          <img
-            src={product.images[0]}
-            className={Styles.relativeProduct__img}
-            onError={(e) => {
-              e.target.parentElement.parentElement.classList.add("d-none");
-            }}
-          />
-          <CardTitle className={Styles.relativeProduct__title}>
-            {product.title}
-          </CardTitle>
-          <CardBody className="p-2">
-            <Badge className="shadow m-2" pill bg="secondary">
-              {product?.category?.name.toUpperCase()}
-            </Badge>
-            <CardText className={Styles.relativeProduct__text}>
-              Price: <FaDollarSign /> <span>{product.price}</span>
-            </CardText>
-          </CardBody>
-        </Card>
-      </Link> */}
         </Stack>
       </Card>
     </>

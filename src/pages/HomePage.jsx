@@ -1,5 +1,5 @@
 import { Loader, ToastModal } from "../components/index.js";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Footer, Header, Banner, Category } from "../includes/includes.js";
 import { useSelector } from "react-redux";
 import { ScrollTop } from "../utils/Utill.jsx";
@@ -19,7 +19,6 @@ function Home() {
         <Category />
         <Outlet />
         <Footer />
-        <ToastModal />
         <Loader loading={loading} />
       </div>
     </>

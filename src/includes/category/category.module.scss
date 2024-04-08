@@ -1,16 +1,17 @@
 @import "../../sass/variable.scss";
 @import "../../sass/responsive.scss";
 .con {
-  background-color: #fff;
-  overflow-x: hidden;
+  background-color: $section-bg;
+  overflow: hidden;
   position: relative;
+  padding: 1rem;
 }
 .wrapper {
   white-space: nowrap;
   display: flex;
   position: relative;
   transition: 0.5s ease;
-  gap: 0.5rem;
+  gap: 1rem;
   // @include deskTop() {
   //   white-space: normal;
   //   justify-content: space-around;
@@ -27,45 +28,34 @@
   align-items: center;
   font-family: "tabara";
   border-radius: 8%;
+  background-color: $text-light;
   transition: 0.3s ease-in;
   @include deskTop() {
     &:hover {
-      box-shadow: 0 0 1px $dark;
+      scale: 1.1;
     }
   }
 }
 
 .cata__img {
   width: 70px;
-  height: 70px;
+  height: 50px;
+  aspect-ratio: auto;
   border-radius: 10%;
   transition: 0.4s ease-in;
   object-position: center;
   @include deskTop() {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 115px;
   }
 }
 .banner__title {
   margin-top: 0.4rem;
   font-weight: 500;
   color: #000;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-family: "tabara" !important;
-}
-.next__btn {
-  position: absolute;
-  top: 40%;
-  right: 0;
-  border: 2px solid $primary;
-  outline: 0;
-  background-color: $light;
-  font-size: 1.1rem;
-  padding: 10px 18px;
-  border-radius: 7px;
-  display: none;
-}
-.cata__arrow__wrapper {
-  display: block;
-  position: relative;
+  @include deskTop() {
+    font-size: 1.1rem;
+  }
 }

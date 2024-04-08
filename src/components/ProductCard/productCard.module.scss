@@ -1,11 +1,10 @@
 @import "../../sass/responsive.scss";
 .card__img {
   max-width: 100%;
-  height: fit-content;
   border-radius: 0 !important;
   aspect-ratio: auto;
+  object-position: 0 center;
   @include deskTop() {
-    height: 200px;
     transition: 0.3s ease;
   }
 }
@@ -14,18 +13,17 @@
   position: relative !important;
   width: 9rem !important;
   max-width: 100%;
+  height: fit-content;
   flex-grow: 1;
-  transition: 0.2s ease;
   margin-inline: 0.4rem;
-  overflow: hidden;
+  white-space: normal;
+  transition: 0.2s ease;
   @include deskTop() {
     width: 13rem !important;
+    max-height: 20rem;
   }
 }
-// .product__card:hover {
-//   transform: translateY(-2px);
-//   box-shadow: 0 0 5px rgb(137, 137, 137);
-// }
+
 .img__icon {
   position: absolute;
   top: 10px;
@@ -51,12 +49,14 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+// card styles
 .product__title {
   font-weight: 500 !important;
   font-family: "tabara";
   font-size: 0.8rem !important;
 }
-.buy__btn {
+.product__btn {
   display: flex;
   width: 100%;
   button {

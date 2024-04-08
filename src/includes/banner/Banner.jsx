@@ -1,18 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  ButtonGroup,
-  Col,
-  Container,
-  Row,
-  Stack,
-} from "react-bootstrap";
-
+import { Button, Col, Container, Row, Stack } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // css
 import Styles from "./banner.module.scss";
-import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const Banner = () => {
   const catagoryList = useSelector((store) => store.category);
   const sliderRef = useRef();
@@ -54,17 +46,17 @@ const Banner = () => {
                         gap={2}
                         className="py-3 px-2 z-3 position-relative"
                       >
-                        <Button
+                        {/* <Button
                           variant="secondary"
                           className={Styles.banner__btn}
                         >
                           Buy Now{" "}
-                        </Button>
+                        </Button> */}
                         <Button
                           variant="warning"
                           className={Styles.banner__btn}
                         >
-                          View More
+                          <Link to={`/category/${slide.id}`}>View More</Link>
                         </Button>
                       </Stack>
                     </Col>

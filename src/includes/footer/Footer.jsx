@@ -18,16 +18,28 @@ const Footer = () => {
       <Container fluid className={style.footer__container}>
         <Row className="py-4">
           <Col sm className="text-center">
-            <p className="display-6 fw-bold m-0 text-primary">Shopi</p>
+            <p className="display-6 fw-bold m-0 text-primary">
+              <Link to={"/"} replace>
+                Shopi
+              </Link>
+            </p>
             <p className="small text-secondary">All Your Needs Are Here.</p>
           </Col>
           <Col sm className="text-center">
             <p className={style.link__group__title}>Quick Links</p>
             <Stack direction="vertical" gap={2} className="align-items-center">
-              <Link className={style.links}>Products</Link>
-              <Link className={style.links}>Cloths</Link>
-              <Link className={style.links}>Electronics</Link>
-              <Link className={style.links}>Shoes</Link>
+              <Link className={style.links} to={"/"}>
+                Products
+              </Link>
+              <Link className={style.links} to={"/category/1"}>
+                Cloths
+              </Link>
+              <Link className={style.links} to={"/category/2"}>
+                Electronics
+              </Link>
+              <Link className={style.links} to={"/category/4"}>
+                Shoes
+              </Link>
             </Stack>
           </Col>
           <Col sm className="p-md-4 text-center">

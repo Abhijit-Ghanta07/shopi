@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -6,6 +6,10 @@ import {
   CardTitle,
   Col,
   Container,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Row,
   Stack,
 } from "react-bootstrap";
@@ -17,13 +21,19 @@ import { getOrders } from "../../services/firebase/storeOrder";
 import { useDispatch, useSelector } from "react-redux";
 import { loaderOpen, loaderClose } from "../../services/redux/loader";
 import { Loader, ToastModal } from "../loader/Loader";
+import { ProductList } from "../index";
+import { ToastOpen } from "../../services/redux/Toast";
 
 const Order = () => {
   const dispatch = useDispatch();
   const loading = useSelector((store) => store.loader);
   const { userId } = useSelector((store) => store.auth);
+  const { productData } = useSelector((store) => store.product);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [productsDetails, setProductDetails] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   async function allOrders() {
     try {
       dispatch(loaderOpen());
@@ -35,12 +45,28 @@ const Order = () => {
       dispatch(loaderClose());
     }
   }
-
   function convertTime(seconds) {
     const date = new Date(0); // The 0 is the epoch (January 1, 1970)
     date.setUTCSeconds(seconds);
     return date.toLocaleDateString();
   }
+  const handleClick = useMemo(() => {
+    selectedOrder?.products?.forEach((item) => {
+      try {
+        let findedProducts = productData.find((product) => {
+          if (product) {
+            return product?.id == item;
+          } else {
+            return null;
+          }
+        });
+        setProductDetails((prev) => [...prev, findedProducts]);
+        setShow(true);
+      } catch (err) {
+        dispatch(ToastOpen("Sorry For the in convinient"));
+      }
+    });
+  }, [selectedOrder]);
   useEffect(() => {
     allOrders();
   }, [userId]);
@@ -67,7 +93,14 @@ const Order = () => {
                             Order Date:{convertTime(item.timestamp?.seconds)}
                           </p>
                           <p>Price:{item?.price}</p>
-                          <Button variant="primary">See Products</Button>
+                          <Button
+                            variant="primary"
+                            onClick={() => {
+                              setSelectedOrder(item);
+                            }}
+                          >
+                            See Products
+                          </Button>
                         </Card>
                       );
                     })}
@@ -77,6 +110,39 @@ const Order = () => {
           </Col>
         </Row>
       </Container>
+
+      <Modal
+        show={show}
+        onHide={() => {
+          setShow(false);
+        }}
+      >
+        <ModalHeader closeButton>
+          <p>Order Products Details</p>
+        </ModalHeader>
+        <ModalBody className="overflow-auto" style={{ height: "20rem" }}>
+          {productsDetails.length > 1 ? (
+            <ProductList
+              data={productsDetails}
+              loading={false}
+              title={"Order Products"}
+            />
+          ) : (
+            ""
+          )}
+        </ModalBody>
+
+        <ModalFooter>
+          <Button
+            variant="danger"
+            onClick={() => {
+              setShow(false);
+            }}
+          >
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
       <Loader loading={loading} />
     </>
   );

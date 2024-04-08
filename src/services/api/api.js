@@ -1,7 +1,6 @@
 import axios from "../axios/axios";
 
 async function fetchData(query = "", signal = "") {
-  console.log(query);
   const response = await axios.get(query, {
     signal: signal,
   });

@@ -22,17 +22,17 @@ import Styles from "./productCard.module.scss";
 function ProductCard({ product, width = "" }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [fireId, findId] = useFindProduct();
+  const [, findId] = useFindProduct();
   const { productsID } = useSelector((store) => store.cart);
   const { userId } = useSelector((store) => store.auth);
 
   // handle addto cart click
-  function handleAddClick() {
+  function handleAddClick(evt) {
     if (!userId) {
       return navigate("/auth");
     }
     try {
-      dispatch(addItem({ productId: this, userId: userId }));
+      dispatch(addItem({ productId: evt, userId: userId }));
       dispatch(ToastOpen("Product Added To Cart"));
     } catch (err) {
       console.log(err);
@@ -40,10 +40,10 @@ function ProductCard({ product, width = "" }) {
     }
   }
   // handle remove click
-  function handleRemoveClick() {
-    const ID = findId(this);
+  function handleRemoveClick(evt) {
+    const ID = findId(evt);
     if (ID) {
-      dispatch(deleteItem({ productId: this, fireId: ID }));
+      dispatch(deleteItem({ productId: evt, fireId: ID }));
       dispatch(ToastOpen("Product Remove From Cart"));
     }
   }
@@ -77,9 +77,9 @@ function ProductCard({ product, width = "" }) {
             {product?.price}
           </CardText>
           <Badge
-            className="my-2 shadow"
+            className="my-2"
             pill
-            bg="primary"
+            bg="dark"
             style={{
               width: "fit-content",
               fontSize: ".6rem",
@@ -89,13 +89,13 @@ function ProductCard({ product, width = "" }) {
             {product?.category?.name.toUpperCase()}
           </Badge>
 
-          <div className={Styles.buy__btn}>
+          <div className={Styles.product__btn}>
             {productsID.includes(product.id) ? (
               <Button
                 variant="danger"
                 className="w-100"
                 size="sm"
-                onClick={handleRemoveClick.bind(product.id)}
+                onClick={handleRemoveClick.bind("", product.id)}
               >
                 Remove from Cart
               </Button>
@@ -104,7 +104,7 @@ function ProductCard({ product, width = "" }) {
                 variant="secondary"
                 size="sm"
                 className="w-100"
-                onClick={handleAddClick.bind(product.id)}
+                onClick={handleAddClick.bind("", product.id)}
               >
                 Add To Cart
               </Button>

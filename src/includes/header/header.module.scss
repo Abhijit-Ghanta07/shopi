@@ -12,6 +12,18 @@
     left: -15%;
     padding: 3px 5px !important;
   }
+  &__title {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin: 0 !important;
+    text-transform: capitalize;
+  }
+  &__subtitle {
+    font-size: 0.8rem !important;
+    margin: 0 !important;
+    font-family: "tabara";
+  }
 }
 .rounded__img {
   @include rounded__img;
@@ -67,17 +79,4 @@
   }
   font-weight: 500;
   display: inline-block;
-}
-
-.title {
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.7rem;
-  margin: 0 !important;
-  font-family: "jhalMuri";
-}
-.subtitle {
-  font-size: 0.8rem !important;
-  margin: 0 !important;
-  font-family: "tabara";
 }

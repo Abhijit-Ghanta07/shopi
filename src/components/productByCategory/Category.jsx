@@ -16,25 +16,29 @@ import {
   FormLabel,
   FormSelect,
   Row,
+  Stack,
 } from "react-bootstrap";
 import { ProductList, SlideWrapper } from "../index.js";
 import FormRange from "react-bootstrap/esm/FormRange";
 import useFetch from "../../hooks/UseFetch";
 import useMaxPrice from "../../hooks/UseMaxPrice.jsx";
+import { useDispatch, useSelector } from "react-redux";
 // scss
 import style from "./category.module.scss";
-import { useSelector } from "react-redux";
+import { ToastOpen } from "../../services/redux/Toast.js";
 
 // constant data
 
 const Category = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const [filter, setFilter] = useState(true);
   const [products, setProducts] = useState([]);
   // fetch categories
   const { data, loading, err } = useFetch(`categories/${id}/products`);
   if (err) {
+    dispatch(ToastOpen("We will be back soon!!"));
     return navigate("/", { replace: true });
   }
 
@@ -104,22 +108,24 @@ function Fillterscard({ data, setData }) {
     setSearchParam({ sort: `price>${range}` });
   }, [range]);
   return (
-    <Card className="my-3 py-3">
+    <Card className={style.filter__card}>
       <CardBody className={style.card__wrapper}>
         <CardTitle className={style.hide__sm}>Fillters</CardTitle>
         <CardText className={style.filter__title}>Sort By:</CardText>
         <div className={style.hide__sm}>
-          {FILLTERS.map((filter, index) => (
-            <FormCheck
-              key={index}
-              type="radio"
-              label={filter}
-              id={filter + "default"}
-              name="formId"
-              value={filter}
-              onChange={handleChange}
-            />
-          ))}
+          <Stack gap={2} style={{ paddingBlock: "1rem" }}>
+            {FILLTERS.map((filter, index) => (
+              <FormCheck
+                key={index}
+                type="radio"
+                label={filter}
+                id={filter + "default"}
+                name="formId"
+                value={filter}
+                onChange={handleChange}
+              />
+            ))}
+          </Stack>
           <FormLabel>Price Range:{range}</FormLabel>
           <FormRange
             value={range}

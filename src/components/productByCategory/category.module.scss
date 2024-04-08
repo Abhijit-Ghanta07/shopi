@@ -6,7 +6,6 @@
     display: block !important;
     margin-right: auto;
   }
-
   display: none !important;
 }
 
@@ -14,9 +13,13 @@
   @include deskTop() {
     display: none !important;
   }
-
   display: inline-block !important;
   margin-left: auto;
+}
+.filter__card {
+  height: calc(100% - 2rem) !important;
+  padding: 1rem 0.5rem;
+  margin-top: 2rem;
 }
 
 .filter__title {

@@ -12,16 +12,8 @@
   border-radius: 5px;
   display: flex;
   transition: transform 1s ease;
-  // animation: slide 40s linear alternate;
 }
-// @keyframes slide {
-//   0% {
-//     transform: translateX(0%);
-//   }
-//   100% {
-//     transform: translateX(500%);
-//   }
-// }
+
 .slider {
   min-width: 100%;
   position: relative;
@@ -57,22 +49,23 @@
       color: $text-light;
     }
   }
-}
-.slider__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  object-fit: cover;
-  height: 100%;
-  z-index: 1;
-  mix-blend-mode: overlay;
-  @include deskTop() {
-    position: static;
-    height: 450px;
-    mix-blend-mode: difference;
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    @include deskTop() {
+      position: static;
+      height: 450px;
+      mix-blend-mode: difference;
+    }
   }
 }
+
 .banner__btn {
   font-family: "jhalMuri" !important;
 }

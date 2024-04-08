@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import {
   Badge,
-  Button,
   Col,
   Container,
   DropdownButton,
   DropdownDivider,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
   Row,
 } from "react-bootstrap";
 
@@ -28,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../../services/redux/auth";
 import { ToastOpen } from "../../services/redux/Toast";
 import { cartEmpty } from "../../services/redux/cart";
+import { LogoutModal } from "../../components/index";
 // styles
 import Styles from "./header.module.scss";
 function Header() {
@@ -42,12 +37,12 @@ function Header() {
     await signOut(auth);
     dispatch(removeuser());
     dispatch(cartEmpty());
-    dispatch(ToastOpen("Logged Out"));
   }
 
   const handleLogout = async () => {
     setShow(false);
     await logout();
+    dispatch(ToastOpen("Logged out succesfull"));
   };
 
   return (
@@ -60,10 +55,12 @@ function Header() {
         <Container fluid="xl p-0">
           <Row className="py-2 align-items-center gap-2">
             <Col className="d-flex flex-column text-md-start">
-              <Link to={"/"} replace className={Styles.title}>
-                SHOPI
+              <Link to={"/"} replace className={Styles.header__title}>
+                shopi
               </Link>
-              <p className={Styles.subtitle}>All Your Needs Are Here.</p>
+              <p className={Styles.header__subtitle}>
+                All Your Needs Are Here.
+              </p>
             </Col>
 
             <Col>
@@ -161,32 +158,7 @@ function Header() {
         </Container>
       </Container>
       {/* modal for comfirm logout method */}
-      <Modal
-        show={show}
-        onHide={() => {
-          setShow(false);
-        }}
-      >
-        <ModalHeader closeButton>
-          <ModalTitle>Confirm Logout</ModalTitle>
-        </ModalHeader>
-        <ModalBody>
-          <p className="text-danger fw-medium fs-5">Are Your Sure to Logout</p>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            variant="warning"
-            onClick={() => {
-              setShow(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleLogout}>
-            Confirm
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <LogoutModal show={show} setshow={setShow} handleLogout={handleLogout} />
     </>
   );
 }

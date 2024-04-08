@@ -9,11 +9,13 @@ import Category from "./productByCategory/Category";
 import ProductCard from "./ProductCard/ProductCard";
 import MyOrder from "./orders/MyOrder";
 import SlideWrapper from "./wrapperSlider/SlideWrapper";
+import LogoutModal from "./modal/LogoutModal";
 import { ToastModal, Loader, Loading } from "./loader/Loader";
 
 export {
   CartWrapper,
   CartEmpty,
+  LogoutModal,
   Error,
   Login,
   Register,

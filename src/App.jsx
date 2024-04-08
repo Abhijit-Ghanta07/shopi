@@ -14,6 +14,7 @@ import {
   MyOrder,
   Loading,
   Home,
+  ToastModal,
 } from "./components/index.js";
 
 // lazy components
@@ -100,6 +101,7 @@ function App() {
       <Suspense fallback={<Loading />}>
         <RouterProvider router={router} />
       </Suspense>
+      <ToastModal />
       <GetData />
     </>
   );

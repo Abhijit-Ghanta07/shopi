@@ -1,8 +1,7 @@
 @import "../../sass/variable.scss";
 @import "../../sass/responsive.scss";
 .footer__container {
-  background-color: $light;
-  margin: 1rem 0;
+  background-color: $section-bg;
 }
 
 .links {
@@ -24,4 +23,5 @@
 .link__group__title {
   font-weight: 500;
   font-family: "jhalMuri" !important;
+  color: $primary;
 }
