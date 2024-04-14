@@ -32,7 +32,6 @@ import Styles from "./auth.module.scss";
 const Login = () => {
   // navigate func
   const navigate = useNavigate();
-  const { state: locState } = useLocation();
   const dispatch = useDispatch();
   const [, setUserState] = useSetUser();
   // useform func
@@ -47,7 +46,6 @@ const Login = () => {
   const [hide, setHide] = useState(true);
   const [checked, setcheck] = useState(true);
   // handle form submit
-  console.log(locState);
   async function formSubmit(data) {
     try {
       dispatch(loaderOpen());

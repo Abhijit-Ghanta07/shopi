@@ -1,5 +1,6 @@
 ## React E-commerce site with firebase Cloud Backend
 
+Live site link [shopi](https://shopi-8mqv.onrender.com/)
 **Fully Fucntional E-commerce site with Many Features**
 
 ## Requirements
@@ -18,7 +19,11 @@
 
 **Script**
 
-> > > npm Run dev
+```
+ npm install
+
+ npm Run dev
+```
 
 ## Deploy
 
@@ -28,4 +33,6 @@
 
 **Script**
 
-> > > npm run build
+```
+ npm run build
+```

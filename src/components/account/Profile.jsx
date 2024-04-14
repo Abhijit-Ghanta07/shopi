@@ -31,7 +31,7 @@ const Profile = () => {
       const updateUser = await updateProfile(auth.currentUser, {
         photoURL: downloadUrl,
       });
-      if (updateUser) {
+      if (downloadUrl) {
         dispatch(
           addUser({
             user: auth.currentUser?.providerData[0],

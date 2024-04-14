@@ -63,7 +63,7 @@ const CartProduct = ({ product, setTotalPrice }) => {
               <Stack direction="vertical">
                 <p className="">{product?.title}</p>
                 <Badge
-                  style={{ width: "fit-content", fontFamily: "jhalMuri" }}
+                  style={{ width: "fit-content", fontFamily: "popines" }}
                   bg="primary"
                 >
                   {product?.category?.name}
@@ -77,7 +77,7 @@ const CartProduct = ({ product, setTotalPrice }) => {
             </Stack>
           </Col>
           <Col xs="6" sm="6" md="2">
-            <p className="m-0 fs-5 fw-bold">Price:${product.price}</p>
+            <p className="m-0 fs-5">Price:${product.price}</p>
             {/* <p className="m-0 text-secondary">${product?.price}.00 Each</p> */}
           </Col>
           <Col xs="10" sm="6" md="3">

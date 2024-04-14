@@ -1,10 +1,11 @@
 @font-face {
   font-family: "popines";
-  src: url("/fonts/Poppins-Medium.ttf") format("truetype");
+  src: url("/fonts/Inter-Black") format("truetype"),
+    url("/fonts/Inter-Bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "jhalMuri";
-  src: url("/fonts/JhalMuri.ttf") format("truetype");
+  src: url("/fonts/roboto.ttf") format("truetype");
 }
 @font-face {
   font-family: "tabara";
