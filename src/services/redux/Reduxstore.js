@@ -2,7 +2,7 @@
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session";
 import cartReducer from "./cart";
 import authReducer from "./auth";
 import productReducer from "./product.js";
@@ -20,7 +20,7 @@ import categoryReducer from "./category";
 // });
 const persistConfig = {
   key: "root",
-  storage,
+  storage: sessionStorage,
 };
 // combine reducers
 const rootReducer = combineReducers({
