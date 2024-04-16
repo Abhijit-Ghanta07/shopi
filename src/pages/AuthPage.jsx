@@ -9,7 +9,6 @@ import { Container } from "react-bootstrap";
 // styles
 import Styles from "./page.module.scss";
 const Auth = () => {
-  const navigate = useNavigate();
   const loading = useSelector((store) => store.loader);
   return (
     <>

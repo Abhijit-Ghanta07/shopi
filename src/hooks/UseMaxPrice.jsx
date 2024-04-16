@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 
 const useMaxPrice = (data = []) => {
   let price = 0;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, FormGroup, Row, Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastOpen } from "../../services/redux/Toast";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../services/firebase/firebase";
 import { updateProfile } from "firebase/auth";
 import { addUser } from "../../services/redux/auth";
@@ -78,6 +78,7 @@ const Profile = () => {
                 <input
                   type="file"
                   className="form-control"
+                  accept="image/*"
                   onChange={(e) => setInputval(e.target.files[0])}
                 />
               </FormGroup>

@@ -15,7 +15,6 @@ const collectionRef = collection(DB, "cart");
 
 const addCartItem = async (productId, userId, quantity = 1) => {
   // add cart item to firestore
-
   try {
     const newDoc = await addDoc(collectionRef, {
       productId,

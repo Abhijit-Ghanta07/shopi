@@ -16,7 +16,6 @@ import {
 
 import Styles from "./order.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { IoArrowBack } from "react-icons/io5";
 import { getOrders } from "../../services/firebase/storeOrder";
 import { useDispatch, useSelector } from "react-redux";
 import { loaderOpen, loaderClose } from "../../services/redux/loader";

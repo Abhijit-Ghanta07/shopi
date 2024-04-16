@@ -19,35 +19,8 @@ import useFindProduct from "../../hooks/FindProduct";
 
 // css
 import Styles from "./productCard.module.scss";
+import BuyBtn from "../ui/button/BuyBtn";
 function ProductCard({ product, width = "" }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [, findId] = useFindProduct();
-  const { productsID } = useSelector((store) => store.cart);
-  const { userId } = useSelector((store) => store.auth);
-
-  // handle addto cart click
-  function handleAddClick(evt) {
-    if (!userId) {
-      return navigate("/auth");
-    }
-    try {
-      dispatch(addItem({ productId: evt, userId: userId }));
-      dispatch(ToastOpen("Product Added To Cart"));
-    } catch (err) {
-      console.log(err);
-      dispatch(ToastOpen("Something went Wrong"));
-    }
-  }
-  // handle remove click
-  function handleRemoveClick(evt) {
-    const ID = findId(evt);
-    if (ID) {
-      dispatch(deleteItem({ productId: evt, fireId: ID }));
-      dispatch(ToastOpen("Product Remove From Cart"));
-    }
-  }
-
   return (
     <>
       <Card className={Styles.product__card} style={{ minWidth: width }}>
@@ -90,25 +63,7 @@ function ProductCard({ product, width = "" }) {
           </Badge>
 
           <div className={Styles.product__btn}>
-            {productsID.includes(product.id) ? (
-              <Button
-                variant="danger"
-                className="w-100"
-                size="sm"
-                onClick={handleRemoveClick.bind("", product.id)}
-              >
-                Remove from Cart
-              </Button>
-            ) : (
-              <Button
-                variant="secondary"
-                size="sm"
-                className="w-100"
-                onClick={handleAddClick.bind("", product.id)}
-              >
-                Add To Cart
-              </Button>
-            )}
+            <BuyBtn id={product?.id} />
           </div>
         </CardBody>
       </Card>

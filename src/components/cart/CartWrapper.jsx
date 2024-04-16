@@ -71,7 +71,7 @@ const CartWrapper = () => {
       if (res) {
         dispatch(cartReset(userId));
         dispatch(ToastOpen("Order Sucessfull"));
-        navigate("/");
+        // navigate("/");
       }
     } catch (err) {
       dispatch(ToastOpen("something went wrong"));
@@ -128,14 +128,14 @@ const CartWrapper = () => {
                   ))}
               </Stack>
             </Card>
-            {wishtList.length > 0 ? (
+            {/* {wishtList.length > 0 ? (
               <Card className="p-3 my-2">
                 <CardTitle className="fw-bold fs-4">WishList</CardTitle>
                 <WishList />
               </Card>
             ) : (
               <></>
-            )}
+            )} */}
           </Col>
           <Col md="3" className="order-1 order-md-2">
             <Card className="p-2">
@@ -174,7 +174,7 @@ const CartWrapper = () => {
           </Col>
         </Row>
       </Container>
-
+      {/* this is modal */}
       <Modal
         show={modalShow}
         onHide={() => {
