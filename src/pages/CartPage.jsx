@@ -6,9 +6,10 @@ import { Container } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 // styles
 import Styles from "./page.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const Cart = () => {
   const { productsID } = useSelector((store) => store.cart);
+  const { state } = useLocation();
   return (
     <>
       <Header />
@@ -17,7 +18,11 @@ const Cart = () => {
           <IoArrowBack />
           Go Back
         </Link>
-        {productsID.length > 0 ? <CartWrapper /> : <CartEmpty />}
+        {productsID.length > 0 ? (
+          <CartWrapper modalState={state} />
+        ) : (
+          <CartEmpty />
+        )}
       </Container>
     </>
   );

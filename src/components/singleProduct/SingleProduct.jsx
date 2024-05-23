@@ -61,6 +61,16 @@ function SingleProduct() {
       dispatch(deleteItem({ productId: this, fireId: ID }));
     }
   }
+  function handleBuyClick() {
+    if (!userId) {
+      return navigate("/auth");
+    }
+    if (productsID.includes(this)) {
+      return navigate("/cart", { state: true });
+    }
+    dispatch(addItem({ productId: this, userId: userId }));
+    return navigate("/cart", { state: true });
+  }
 
   const sizeArr = ["M", "L", "XL", "XXL"];
   return (
@@ -149,7 +159,12 @@ function SingleProduct() {
                           Add To Cart
                         </Button>
                       )}
-                      <Button variant="warning">Buy Now</Button>
+                      <Button
+                        variant="warning"
+                        onClick={handleBuyClick.bind(fillterdItem?.id)}
+                      >
+                        Buy Now
+                      </Button>
                     </div>
                   </CardBody>
                 </Col>

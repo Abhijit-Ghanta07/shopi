@@ -28,7 +28,7 @@ import { ToastModal, Loader } from "../index.js";
 // styles
 import Styles from "./cart.module.scss";
 
-const CartWrapper = () => {
+const CartWrapper = ({ modalState = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId } = useSelector((store) => store.auth);
@@ -41,7 +41,7 @@ const CartWrapper = () => {
   const [cardData, setCardData] = useState(initial);
   const [cardErr, setCardErr] = useState(false);
   const [totalPrice, setTotalPrice] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(modalState);
   // fillter items
   let fillteredItem = useMemo(() => {
     return productData.filter((product) => productsID?.includes(product.id));
