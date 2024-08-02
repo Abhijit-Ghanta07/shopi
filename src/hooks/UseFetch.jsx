@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../services/axios/axios";
+import axiosInt from "../services/axios/axios";
 
 const useFetch = (query) => {
   const [loading, setLoding] = useState(false);
@@ -15,7 +15,7 @@ const useFetch = (query) => {
     const fetchApiData = async () => {
       try {
         setLoding(true);
-        const response = await axios.get(query, {
+        const response = await axiosInt.get(query, {
           signal: abortController.signal,
         });
         if (response.status == 200) {

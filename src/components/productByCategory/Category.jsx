@@ -33,10 +33,10 @@ const Category = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data, loading, err } = useFetch(`categories/${id}/products`);
   // const [filter, setFilter] = useState(true);
   const [products, setProducts] = useState([]);
   // fetch categories
-  const { data, loading, err } = useFetch(`categories/${id}/products`);
   if (err) {
     dispatch(ToastOpen("We will be back soon!!"));
     return navigate("/", { replace: true });
@@ -82,15 +82,15 @@ function Fillterscard({ data, setData }) {
   function sortProduct(q) {
     switch (q) {
       case 0:
-        setData(data);
+        setData([...data]);
         setSearchParam({ sort: "relevance" });
         break;
       case 1:
-        setData([...data].sort((a, b) => a.price - b.price));
+        setData((prev) => prev.sort((a, b) => a.price - b.price));
         setSearchParam({ sort: "low-high" });
         break;
       case 2:
-        setData([...data].sort((a, b) => b.price - a.price));
+        setData((prev) => prev.sort((a, b) => b.price - a.price));
         setSearchParam({ sort: "high-low" });
         break;
       default:
@@ -101,11 +101,10 @@ function Fillterscard({ data, setData }) {
     setData(data);
   }, [data]);
   useEffect(() => {
-    if (data) {
-      let sortedData = data?.filter((item) => item.price > range);
-      setData(sortedData);
+    if (data && range > 0) {
+      setSearchParam({ price: `${range}` });
+      setData((prev) => [...prev.filter((item) => item.price > range)]);
     }
-    setSearchParam({ sort: `price>${range}` });
   }, [range]);
   return (
     <Card className={style.filter__card}>

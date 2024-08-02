@@ -74,15 +74,6 @@ function Header() {
                     <span className="fw-medium">Orders</span>
                   </Link>
                 )}
-                {/* <Link to={"/cart"} className="position-relative fs-6 mt-1">
-                  <FaRegHeart
-                    className={Styles.header__user_icons}
-                    size={"1.5rem"}
-                  />
-                  <Badge bg="primary" pill className={Styles.header__badge}>
-                    {wishlist.length}
-                  </Badge>
-                </Link> */}
 
                 <Link
                   to={"/cart"}
