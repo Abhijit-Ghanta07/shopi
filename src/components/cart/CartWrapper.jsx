@@ -155,7 +155,7 @@ const CartWrapper = ({ modalState = false }) => {
                   <span>Delivery Charge:</span> <span>Free</span>
                 </p>
                 <Button
-                  variant="info"
+                  variant="info text-white"
                   className="w-100"
                   onClick={handleCheckout}
                 >
@@ -240,7 +240,7 @@ const CartWrapper = ({ modalState = false }) => {
         </ModalBody>
         <ModalFooter>
           <Button
-            variant="danger"
+            variant="danger text-white"
             onClick={() => {
               setModalShow(false);
             }}

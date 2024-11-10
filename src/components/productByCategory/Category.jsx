@@ -159,16 +159,16 @@ function CategoryBanner() {
     setScrollWid(slideRef.current?.scrollWidth);
   }, [slideRef]);
   return (
-    <Container className=" px-0 my-3 overflow-hidden">
+    <Container className=" px-0 my-2 overflow-hidden">
       <Row>
-        <h2>
-          {" "}
+        <div className="div">
           <SlideWrapper
             slideRef={slideRef}
             scrollWid={scrollWid}
             slideBy={100}
           />
-        </h2>
+        </div>
+
         <Col>
           <div
             className="d-flex gap-3"
