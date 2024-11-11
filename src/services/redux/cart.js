@@ -48,16 +48,20 @@ export const cartReset = createAsyncThunk("cart/cartReset", async (userId) => {
     return err;
   }
 });
+
+const initialState = {
+  productsID: [],
+  firestoreProducts: [],
+  error: null,
+  pending: false,
+};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: {
-    productsID: [],
-    firestoreProducts: [],
-  },
+  initialState: { ...initialState },
   reducers: {
     cartEmpty: (state, action) => {
-      state.firestoreProducts = [];
-      state.productsID = [];
+      return (state = { ...initialState });
     },
   },
 
@@ -65,16 +69,19 @@ const cartSlice = createSlice({
     builder
       .addCase(mapItem.fulfilled, (state, action) => {
         state.productsID = action.payload.map((item) => item.productId);
-
+        state.error = null;
         state.firestoreProducts = action.payload.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
           fireId: item.fireId,
         }));
       })
-      .addCase(mapItem.rejected, (state, action) => {})
+      .addCase(mapItem.rejected, (state, action) => {
+        state.error = action.error;
+      })
       .addCase(addItem.fulfilled, (state, action) => {
         state.productsID = [action.payload.productId, ...state.productsID];
+        state.error = null;
         state.firestoreProducts = [
           {
             productId: action.payload.productId,
@@ -84,7 +91,11 @@ const cartSlice = createSlice({
           ...state.firestoreProducts,
         ];
       })
+      .addCase(addItem.rejected, (state, action) => {
+        return (state.error = action.error);
+      })
       .addCase(deleteItem.fulfilled, (state, action) => {
+        state.error = null;
         state.productsID = state.productsID.filter(
           (item) => item !== action.payload.productId
         );
@@ -92,8 +103,14 @@ const cartSlice = createSlice({
           (item) => item.fireId !== action.payload.fireId
         );
       })
+      .addCase(deleteItem.rejected, (state, action) => {
+        return (state.error = action.error);
+      })
       .addCase(cartReset.fulfilled, (state, action) => {
-        (state.productsID = []), (state.firestoreProducts = []);
+        state = { ...initialState };
+      })
+      .addCase(cartReset.rejected, (state, action) => {
+        return (state.error = action.error);
       });
   },
 });

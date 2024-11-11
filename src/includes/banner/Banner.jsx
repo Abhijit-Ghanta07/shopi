@@ -6,7 +6,7 @@ import Styles from "./banner.module.scss";
 
 import { useSelector } from "react-redux";
 const Banner = () => {
-  const catagoryList = useSelector((store) => store.category);
+  const { categories } = useSelector((store) => store.category);
   const sliderRef = useRef();
   const [slideState, setSlideState] = useState(0);
 
@@ -27,7 +27,7 @@ const Banner = () => {
       <Container fluid className={Styles.slider__con}>
         <Row>
           <Col ref={sliderRef} className={Styles.slider__wrapper}>
-            {catagoryList?.map((slide, index) => {
+            {categories?.map((slide, index) => {
               return (
                 <Container className={Styles.slider} key={slide?.id}>
                   <Row key={slide.id}>

@@ -7,7 +7,7 @@ import { SlideWrapper } from "../../components/index";
 // style
 import Styles from "./category.module.scss";
 const Category = () => {
-  const catagoryList = useSelector((store) => store.category);
+  const { categories } = useSelector((store) => store.category);
   const slideRef = useRef(null);
   const [scrollEle, setScrollEle] = useState(0);
 
@@ -35,7 +35,7 @@ const Category = () => {
         <Row className="p-0">
           <Col>
             <div className={Styles.wrapper} ref={slideRef}>
-              {!catagoryList ? (
+              {!categories ? (
                 <p>
                   Sorry Something went Wrong!! <br />
                   Please try again after some time.
@@ -50,12 +50,12 @@ const Category = () => {
                     />
                     <p className={Styles.banner__title}> All</p>
                   </Link>
-                  {catagoryList.map((cata) => {
+                  {categories?.map((cata) => {
                     return (
                       <Link
                         to={`category/${cata?.id}`}
                         key={cata.id}
-                        className={cata.image ? Styles.link : "d-none"}
+                        className={cata.image != "" ? Styles.link : "d-none"}
                       >
                         <img
                           src={cata?.image}

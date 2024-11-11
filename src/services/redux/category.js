@@ -12,14 +12,19 @@ export const fetchCategory = createAsyncThunk(
     }
   }
 );
-
+let initialState = { categories: [], pending: false, error: null };
 const categorySlice = createSlice({
   name: "category",
-  initialState: [],
+  initialState: { ...initialState },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchCategory.fulfilled, (state, action) => {
-      return [...action.payload];
-    });
+    builder
+      .addCase(fetchCategory.fulfilled, (state, action) => {
+        return { categories: [...action.payload], error: null, pending: false };
+      })
+      .addCase(fetchCategory.rejected, (state, action) => {
+        state.error = action.error;
+      });
   },
 });
 
