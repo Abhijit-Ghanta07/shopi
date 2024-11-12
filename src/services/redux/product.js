@@ -6,12 +6,8 @@ export const fetchProductData = createAsyncThunk(
   "product/fetchProductData",
   async () => {
     // Perform asynchronous operation to fetch product data (replace with your logic)
-    try {
-      const response = await fetchData("products");
-      return response;
-    } catch (err) {
-      console.log(err.name);
-    }
+    const response = await fetchData("products");
+    return response;
   }
 );
 

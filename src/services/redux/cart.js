@@ -21,12 +21,8 @@ export const mapItem = createAsyncThunk("cart/mapUserCart", async (userId) => {
 export const addItem = createAsyncThunk(
   "cart/addCartItem",
   async ({ productId, userId }) => {
-    try {
-      const fireId = await addCartItem(productId, userId);
-      return { productId, fireId, quantity: 1 };
-    } catch (err) {
-      return { error: err.message };
-    }
+    const fireId = await addCartItem(productId, userId);
+    return { productId, fireId, quantity: 1 };
   }
 );
 export const deleteItem = createAsyncThunk(
@@ -41,12 +37,8 @@ export const deleteItem = createAsyncThunk(
   }
 );
 export const cartReset = createAsyncThunk("cart/cartReset", async (userId) => {
-  try {
-    let res = await OrderBatchDelete(userId);
-    return res;
-  } catch (err) {
-    return err;
-  }
+  let res = await OrderBatchDelete(userId);
+  return res;
 });
 
 const initialState = {
@@ -58,10 +50,11 @@ const initialState = {
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { ...initialState },
+  initialState,
   reducers: {
     cartEmpty: (state, action) => {
-      return (state = { ...initialState });
+      state = initialState;
+      return state;
     },
   },
 
@@ -92,7 +85,7 @@ const cartSlice = createSlice({
         ];
       })
       .addCase(addItem.rejected, (state, action) => {
-        return (state.error = action.error);
+        state.error = action.error;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
         state.error = null;
@@ -104,13 +97,14 @@ const cartSlice = createSlice({
         );
       })
       .addCase(deleteItem.rejected, (state, action) => {
-        return (state.error = action.error);
+        state.error = action.error;
       })
       .addCase(cartReset.fulfilled, (state, action) => {
-        state = { ...initialState };
+        state = initialState;
+        return state;
       })
       .addCase(cartReset.rejected, (state, action) => {
-        return (state.error = action.error);
+        state.error = action.error;
       });
   },
 });
